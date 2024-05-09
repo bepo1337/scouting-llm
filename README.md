@@ -1,7 +1,7 @@
 # scouting-llm
 
 # Install 
-`install -r requirements.txt`
+`pip install -r requirements.txt`
 
 # Run
 `flask run` or `make run`
