@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 scouting/
 .idea/
+activate.sh
