@@ -101,6 +101,17 @@ def import_reports(collection: Collection, reports: [Report]):
     print(f"Insertion result: Successes: {insert_result.succ_count}, Errors: : {insert_result.err_count}")
     print(f"Total number of reports in Milvus: {collection.num_entities}")
 
+def create_embeddings_index(collection: Collection):
+    print(f"... Creating index IVF_FLAT, L2, nlist=128 on 'embeddings'")
+    index = {
+        "index_type": "IVF_FLAT",
+        # we cluster our data and only compare our query to the elements of the nearest cluster center https://milvus.io/docs/index.md#IVFFLAT
+        "metric_type": "L2",  # euclidean distance, could also use cosine here https://milvus.io/docs/metric.md
+        "params": {"nlist": 128},  # nlist -> number of clusters
+    }
+
+    collection.create_index("embeddings", index)
+
 # Setup Milvus connection
 collection = setup_milvus_connection()
 print("... Connected to Milvus, collection: {}".format(collection.name))
@@ -110,6 +121,9 @@ reports = json_to_reports()
 
 # Import reports to collection
 import_reports(collection, reports)
+
+# Create index on embeddings
+create_embeddings_index(collection)
 
 # Can now query results with milvus_cli https://milvus.io/docs/cli_overview.md
 # or query_example.py
