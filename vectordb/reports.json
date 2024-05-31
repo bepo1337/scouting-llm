@@ -1,0 +1,19 @@
+[
+  {
+    "scout_id": "1234",
+    "text": "\n      Kam als defensiver Mittelfeldspieler zum Einsatz, obwohl er normalerweise als Innenverteidiger eingesetzt wird.\nIm Spiel agierte er klar vor der Abwehr und blieb bei Angriffen immer defensiv orientiert.\nEr machte einen kämpferischen Eindruck in den Zweikämpfen.\nDiszipliniert in der defensiven Positionierung, verteidigte er konsequent nach vorne und kehrte sofort wieder auf seine Position zurück.\nHatte auch seine Momente bei offensiven Standardsituationen und wurde durch Kopfballgefahr gefährlich, legte sogar ein Tor per Kopfball vor.\nIm Passspiel zeigte er jedoch zu viele Ungenauigkeiten, die zu Ballverlusten führten.\nInsgesamt eine solide Leistung, aber mit 33 Jahren wahrscheinlich nicht mehr von Interesse für uns.\n              ",
+    "player_id": "5f99f90d13f011e59dfc42d3",
+    "player_transfermarkt_id": "238716",
+    "grade_rating": 0.3,
+    "grade_potential": 0.2
+  },
+
+    {
+    "scout_id": "23456",
+    "text": "Beschreibung eines anderen Reports ",
+    "player_id": "5f99f90d13f011e59dfc42d3",
+    "player_transfermarkt_id": "238716",
+    "grade_rating": 0.5,
+    "grade_potential": 0.7
+  }
+]
