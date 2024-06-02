@@ -7,13 +7,164 @@
     "grade_rating": 0.3,
     "grade_potential": 0.2
   },
-
-    {
-    "scout_id": "23456",
-    "text": "Beschreibung eines anderen Reports ",
-    "player_id": "5f99f90d13f011e59dfc42d3",
-    "player_transfermarkt_id": "238716",
-    "grade_rating": 0.5,
+  {
+    "scout_id": "5678",
+    "text": "\n Spielte als linker Außenverteidiger und zeigte eine beeindruckende Geschwindigkeit auf dem Flügel.\nDefensiv stark in den Zweikämpfen, jedoch manchmal anfällig für Positionsfehler.\nHatte mehrere erfolgreiche Flanken, die zu gefährlichen Situationen führten.\nSeine Ausdauer war bemerkenswert, zeigte keinerlei Ermüdungserscheinungen bis zum Ende des Spiels.\nSein Passspiel war solide, aber es fehlte ihm an Präzision bei langen Pässen.\nMit 24 Jahren hat er noch Potenzial, sich weiter zu entwickeln.\n ",
+    "player_id": "6b1234567890abcdef123456",
+    "player_transfermarkt_id": "159753",
+    "grade_rating": 0.7,
+    "grade_potential": 0.8
+  },
+  {
+    "scout_id": "4321",
+    "text": "\n Als offensiver Mittelfeldspieler setzte er viele kreative Akzente und verteilte die Bälle geschickt.\nSein Dribbling war hervorragend und ermöglichte ihm, mehrere Gegenspieler auszuspielen.\nDefensiv arbeitete er wenig mit nach hinten, was zu Lücken im Mittelfeld führte.\nEr erzielte ein Tor durch einen präzisen Distanzschuss und bereitete ein weiteres mit einem scharfen Pass vor.\nSeine Spielübersicht und sein technisches Können waren auf einem hohen Niveau.\nMit 26 Jahren befindet er sich im besten Fußballeralter.\n ",
+    "player_id": "6c7890123456abcdef123456",
+    "player_transfermarkt_id": "753951",
+    "grade_rating": 0.85,
+    "grade_potential": 0.9
+  },
+  {
+    "scout_id": "7890",
+    "text": "\n Spielte als Rechtsaußen und zeigte eine beeindruckende Schnelligkeit.\nSeine Flanken waren präzise und führten zu mehreren gefährlichen Situationen.\nEr traf einmal den Pfosten und erzielte später ein Tor aus spitzem Winkel.\nDefensiv half er immer wieder aus und zeigte eine hohe Laufbereitschaft.\nIm Eins-gegen-Eins war er oft erfolgreich und setzte sich gegen seine Gegenspieler durch.\nMit 21 Jahren hat er noch großes Entwicklungspotenzial.\n ",
+    "player_id": "7d1234567890abcdef123456",
+    "player_transfermarkt_id": "852963",
+    "grade_rating": 0.75,
+    "grade_potential": 0.85
+  },
+  {
+    "scout_id": "3456",
+    "text": "\n Kam als Torwart zum Einsatz und zeigte eine solide Leistung.\nParierte mehrere Schüsse gekonnt und bewahrte seine Mannschaft vor einem Rückstand.\nBei hohen Bällen wirkte er jedoch unsicher und machte Fehler in der Strafraumbeherrschung.\nSein Abschlag war stark, aber das Passspiel im Aufbau eher schwach.\nMit 28 Jahren hat er sich gut entwickelt, aber es bleibt Raum für Verbesserungen.\n ",
+    "player_id": "8e1234567890abcdef123456",
+    "player_transfermarkt_id": "159486",
+    "grade_rating": 0.6,
+    "grade_potential": 0.7
+  },
+  {
+    "scout_id": "6543",
+    "text": "\n Spielte als Stürmer und zeigte sich sehr torgefährlich.\nErzielte zwei Tore durch schnelles Umschalten und gute Positionierung.\nSein Kopfballspiel war stark und er gewann viele Luftduelle.\nTechnisch war er solide, zeigte jedoch Schwächen bei der Ballannahme unter Druck.\nDefensiv arbeitete er wenig mit, was zu Lücken im Pressing führte.\nMit 29 Jahren ist er auf seinem Leistungszenit.\n ",
+    "player_id": "9f1234567890abcdef123456",
+    "player_transfermarkt_id": "753468",
+    "grade_rating": 0.8,
+    "grade_potential": 0.75
+  },
+  {
+    "scout_id": "8765",
+    "text": "\n Als zentraler Verteidiger zeigte er eine starke physische Präsenz.\nWar dominant in den Luftduellen und klärte viele gefährliche Situationen.\nIm Spielaufbau war er solide, aber nicht außergewöhnlich kreativ.\nZeigte eine gute Antizipation und war oft einen Schritt schneller als sein Gegenspieler.\nSeine Schnelligkeit war durchschnittlich, was gegen schnelle Stürmer problematisch sein könnte.\nMit 30 Jahren wahrscheinlich keine langfristige Lösung.\n ",
+    "player_id": "af1234567890abcdef123456",
+    "player_transfermarkt_id": "159687",
+    "grade_rating": 0.65,
+    "grade_potential": 0.5
+  },
+  {
+    "scout_id": "0987",
+    "text": "\n Spielte als rechter Verteidiger und zeigte eine konstante Leistung über 90 Minuten.\nWar sicher in der Defensive und ließ kaum Flanken zu.\nOffensiv setzte er Akzente mit präzisen Pässen und gut getimten Vorstößen.\nSeine Ausdauer und Einsatzbereitschaft waren bemerkenswert.\nSchwächelte jedoch in der Endgeschwindigkeit, was gegen schnelle Flügelspieler problematisch sein könnte.\nMit 25 Jahren im besten Alter, um sich weiter zu verbessern.\n ",
+    "player_id": "bf1234567890abcdef123456",
+    "player_transfermarkt_id": "951357",
+    "grade_rating": 0.7,
+    "grade_potential": 0.75
+  },
+  {
+    "scout_id": "2345",
+    "text": "\n Kam als offensiver Flügelspieler zum Einsatz und beeindruckte durch seine Schnelligkeit und Technik.\nSeine Dribblings waren oft erfolgreich und führten zu gefährlichen Torchancen.\nDefensiv war er schwach und arbeitete wenig mit nach hinten.\nEr bereitete zwei Tore durch präzise Flanken vor und erzielte selbst ein Tor.\nSeine Kreativität und Spielübersicht waren hervorragend.\nMit 23 Jahren hat er noch viel Potenzial nach oben.\n ",
+    "player_id": "cf1234567890abcdef123456",
+    "player_transfermarkt_id": "258963",
+    "grade_rating": 0.85,
+    "grade_potential": 0.9
+  },
+  {
+    "scout_id": "6543",
+    "text": "\n Spielte als defensiver Mittelfeldspieler und zeigte eine sehr disziplinierte Leistung.\nWar zweikampfstark und gewann viele wichtige Bälle im Mittelfeld.\nSein Passspiel war präzise und er zeigte eine gute Übersicht.\nOffensiv setzte er wenige Akzente, blieb aber stets sicher in der Ballverteilung.\nZeigte Schwächen bei schnellen Umschaltsituationen des Gegners.\nMit 27 Jahren im besten Fußballeralter.\n ",
+    "player_id": "df1234567890abcdef123456",
+    "player_transfermarkt_id": "753159",
+    "grade_rating": 0.75,
+    "grade_potential": 0.8
+  },
+  {
+    "scout_id": "4321",
+    "text": "\n Kam als Innenverteidiger zum Einsatz und zeigte eine starke Leistung.\nWar sehr sicher in der Defensive und ließ kaum Torchancen zu.\nSein Stellungsspiel war exzellent und er gewann viele Zweikämpfe.\nIm Spielaufbau zeigte er sich solide, aber nicht kreativ.\nSeine Kopfballstärke war ein Pluspunkt, insbesondere bei Standardsituationen.\nMit 28 Jahren hat er sich gut entwickelt, aber wenig Potenzial für große Sprünge.\n ",
+    "player_id": "ef1234567890abcdef123456",
+    "player_transfermarkt_id": "159264",
+    "grade_rating": 0.7,
+    "grade_potential": 0.65
+  },
+  {
+    "scout_id": "5678",
+    "text": "\n Als linker Außenverteidiger erneut mit beeindruckender Geschwindigkeit und starkem defensivem Stellungsspiel.\nHatte Schwierigkeiten bei der Ballverarbeitung unter Druck, jedoch offensiv mit einigen gefährlichen Hereingaben.\nSeine Ausdauer ermöglicht es ihm, konstant über 90 Minuten zu performen.\nMehr Präzision bei den langen Bällen wäre wünschenswert.\nMit 24 Jahren weiterhin ein Spieler mit vielversprechendem Potenzial.\n ",
+    "player_id": "6b1234567890abcdef123456",
+    "player_transfermarkt_id": "159753",
+    "grade_rating": 0.7,
+    "grade_potential": 0.8
+  },
+  {
+    "scout_id": "4321",
+    "text": "\n Als offensiver Mittelfeldspieler war er der kreative Kopf des Teams und stets an den Angriffen beteiligt.\nSein Dribbling und seine Ballkontrolle waren exzellent, ermöglichte es ihm, Räume für seine Mitspieler zu schaffen.\nDefensiv zeigte er mehr Einsatz als im letzten Spiel, war jedoch nicht immer effektiv.\nSeine präzisen Pässe und die Fähigkeit, aus der Distanz zu schießen, führten zu mehreren gefährlichen Situationen.\nMit 26 Jahren bleibt er ein Schlüsselspieler.\n ",
+    "player_id": "6c7890123456abcdef123456",
+    "player_transfermarkt_id": "753951",
+    "grade_rating": 0.9,
+    "grade_potential": 0.85
+  },
+  {
+    "scout_id": "7890",
+    "text": "\n Spielte wieder als Rechtsaußen und bestätigte seine Schnelligkeit und Flankenqualität.\nEr erzielte ein Tor durch einen schnellen Konter und bereitete ein weiteres durch eine präzise Hereingabe vor.\nDefensiv half er aktiv mit und zeigte eine gute Zusammenarbeit mit dem rechten Verteidiger.\nSeine Technik im Eins-gegen-Eins war erneut überzeugend.\nMit 21 Jahren zeigt er kontinuierliche Fortschritte und großes Potenzial.\n ",
+    "player_id": "7d1234567890abcdef123456",
+    "player_transfermarkt_id": "852963",
+    "grade_rating": 0.8,
+    "grade_potential": 0.85
+  },
+  {
+    "scout_id": "3456",
+    "text": "\n Als Torwart zeigte er erneut eine solide Leistung, jedoch mit Schwächen bei hohen Bällen.\nParierte mehrere schwierige Schüsse und bewahrte seine Mannschaft vor einem frühen Rückstand.\nSeine Unsicherheiten bei der Strafraumbeherrschung blieben bestehen, was zu unnötigen Risiken führte.\nSein Passspiel war diesmal besser, insbesondere bei kurzen Abspielen.\nMit 28 Jahren hat er sich stabilisiert, aber sein Entwicklungspotenzial ist begrenzt.\n ",
+    "player_id": "8e1234567890abcdef123456",
+    "player_transfermarkt_id": "159486",
+    "grade_rating": 0.65,
+    "grade_potential": 0.7
+  },
+  {
+    "scout_id": "6543",
+    "text": "\n Spielte erneut als Stürmer und zeigte eine hohe Torgefahr.\nErzielte ein Tor durch einen schnellen Abschluss und war ständig eine Bedrohung für die Abwehr.\nSein Kopfballspiel blieb stark und er gewann viele Zweikämpfe im Luftduell.\nTechnisch zeigte er sich verbessert, besonders bei der Ballannahme.\nDefensiv war sein Einsatz erneut begrenzt, was das Pressing beeinträchtigte.\nMit 29 Jahren bleibt er ein wichtiger Spieler, aber ohne großes Entwicklungspotenzial.\n ",
+    "player_id": "9f1234567890abcdef123456",
+    "player_transfermarkt_id": "753468",
+    "grade_rating": 0.75,
+    "grade_potential": 0.7
+  },
+  {
+    "scout_id": "8765",
+    "text": "\n Spielte als zentraler Verteidiger und zeigte eine konstante Leistung in der Defensive.\nWar erneut dominant in den Luftduellen und ließ kaum Chancen zu.\nSein Spielaufbau war sicher, aber er übernahm keine Risiken.\nZeigte eine gute Antizipation und war oft schneller als sein Gegenspieler.\nSchnelligkeit blieb ein durchschnittlicher Aspekt seiner Fähigkeiten.\nMit 30 Jahren bleibt er eine solide Option in der Defensive, aber ohne großes Potenzial für Fortschritte.\n ",
+    "player_id": "af1234567890abcdef123456",
+    "player_transfermarkt_id": "159687",
+    "grade_rating": 0.65,
+    "grade_potential": 0.5
+  },
+  {
+    "scout_id": "0987",
+    "text": "\n Wieder als rechter Verteidiger eingesetzt, zeigte er eine beständige Leistung über die gesamte Spielzeit.\nDefensiv sehr solide, ließ kaum Flanken und gegnerische Durchbrüche zu.\nOffensiv setzte er Akzente durch präzise Flanken und gute Vorstöße.\nSeine Ausdauer und Einsatzbereitschaft waren erneut beeindruckend.\nSeine Endgeschwindigkeit bleibt eine Schwäche, die gegen schnelle Gegenspieler problematisch sein könnte.\nMit 25 Jahren hat er noch Verbesserungspotenzial.\n ",
+    "player_id": "bf1234567890abcdef123456",
+    "player_transfermarkt_id": "951357",
+    "grade_rating": 0.7,
+    "grade_potential": 0.75
+  },
+  {
+    "scout_id": "2345",
+    "text": "\n Spielte als offensiver Flügelspieler und setzte seine Schnelligkeit und Technik hervorragend ein.\nSeine Dribblings führten zu mehreren gefährlichen Situationen, auch wenn er defensiv erneut Schwächen zeigte.\nEr bereitete ein Tor durch eine präzise Hereingabe vor und traf selbst nach einem Solo.\nSeine Kreativität und Spielübersicht waren auf hohem Niveau.\nMit 23 Jahren hat er weiterhin viel Potenzial nach oben.\n ",
+    "player_id": "cf1234567890abcdef123456",
+    "player_transfermarkt_id": "258963",
+    "grade_rating": 0.85,
+    "grade_potential": 0.9
+  },
+  {
+    "scout_id": "6543",
+    "text": "\n Als defensiver Mittelfeldspieler zeigte er erneut eine disziplinierte und starke Leistung.\nGewann viele wichtige Zweikämpfe im Mittelfeld und unterband gegnerische Angriffe effektiv.\nSein Passspiel war präzise und er zeigte eine hervorragende Übersicht.\nOffensiv setzte er keine Akzente, konzentrierte sich jedoch auf die Ballverteilung.\nZeigte Schwächen bei schnellen Kontern des Gegners.\nMit 27 Jahren ist er im besten Fußballeralter und eine verlässliche Kraft im Mittelfeld.\n ",
+    "player_id": "df1234567890abcdef123456",
+    "player_transfermarkt_id": "753159",
+    "grade_rating": 0.75,
+    "grade_potential": 0.8
+  },
+  {
+    "scout_id": "4321",
+    "text": "\n Kam erneut als Innenverteidiger zum Einsatz und zeigte eine überragende Leistung.\nWar sehr sicher in der Defensive und dominierte seine Gegenspieler.\nSein Stellungsspiel und Zweikampfverhalten waren exzellent.\nIm Spielaufbau zeigte er sich verbessert und initiierte einige Angriffe.\nSeine Kopfballstärke war bei Standardsituationen erneut ein großer Pluspunkt.\nMit 28 Jahren hat er sich zu einem verlässlichen Abwehrspieler entwickelt.\n ",
+    "player_id": "ef1234567890abcdef123456",
+    "player_transfermarkt_id": "159264",
+    "grade_rating": 0.75,
     "grade_potential": 0.7
   }
 ]
