@@ -161,4 +161,5 @@ cython_debug/
 scouting/
 .idea/
 activate.sh
+milvus_cli.sh
 docker/
