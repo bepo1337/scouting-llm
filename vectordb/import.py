@@ -9,7 +9,8 @@ from pymilvus import (
     FieldSchema,
     DataType,
     Collection,
-    CollectionSchema
+    CollectionSchema,
+    model
 )
 
 parser = argparse.ArgumentParser()
@@ -25,7 +26,7 @@ import_file = args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
 
-dimensions = 8
+dimensions = 768
 
 
 @dataclass
@@ -74,13 +75,11 @@ def json_to_reports() ->[Report]:
 
     return reports
 
-def create_embedding(text: str) -> DataType.FLOAT_VECTOR:
-    # for now just random vector, have to see how to embed with model
-    rng = np.random.default_rng(seed=19530)
-    return rng.random(dimensions)
-
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
-    return [create_embedding(item.text) for item in reports]
+    embedding_function = model.DefaultEmbeddingFunction()
+    report_texts = [item.text for item in reports]
+
+    return embedding_function.encode_documents(report_texts)
 
 
 def import_reports(collection: Collection, reports: [Report]):

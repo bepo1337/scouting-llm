@@ -1,17 +1,17 @@
 import numpy as np
-from pymilvus import Collection, connections, DataType
+from pymilvus import Collection, connections, DataType, model
 
 connections.connect("default", host="localhost", port="19530")
 collection = Collection("scouting")
 collection.load()
 
 def create_embedding(text: str) -> DataType.FLOAT_VECTOR:
-    # for now just random vector
-    rng = np.random.default_rng(seed=19530)
-    return rng.random(8)
+    embedding_function = model.DefaultEmbeddingFunction()
+    return embedding_function([text])
+
 def query_vector_similarity():
     # search based on vector similarity, is a list cuz we can pass multiple at once
-    query_vectors = [create_embedding("give next messi now")]
+    query_vectors = create_embedding("give messi now")
     search_params = {
         "metric_type": "L2", #euclidean distance for vector comparisons
         "params": {"nprobe": 10},  # number of clusters to search
@@ -26,7 +26,7 @@ def query_vector_similarity():
 
 
 def query_hybrid():
-    query_vectors = [create_embedding("give next messi now")]
+    query_vectors = create_embedding("give next messi now")
     search_params = {
         "metric_type": "L2", #euclidean distance for vector comparisons
         "params": {"nprobe": 10},  # number of clusters to search
