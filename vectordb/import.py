@@ -1,16 +1,16 @@
 import argparse
 import json
+import os
 from dataclasses import dataclass
+from langchain_openai import OpenAIEmbeddings
 
-import numpy as np
 from pymilvus import (
     connections,
     utility,
     FieldSchema,
     DataType,
     Collection,
-    CollectionSchema,
-    model
+    CollectionSchema
 )
 
 parser = argparse.ArgumentParser()
@@ -26,7 +26,7 @@ import_file = args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
 
-dimensions = 768
+dimensions = 1536
 
 
 @dataclass
@@ -76,10 +76,12 @@ def json_to_reports() ->[Report]:
     return reports
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
-    embedding_function = model.DefaultEmbeddingFunction()
     report_texts = [item.text for item in reports]
+    openapi_key = os.getenv("OPENAPI_KEY")
+    embeddings_model = OpenAIEmbeddings(api_key=openapi_key)
+    embeddings_openapi = embeddings_model.embed_documents(report_texts)
 
-    return embedding_function.encode_documents(report_texts)
+    return embeddings_openapi
 
 
 def import_reports(collection: Collection, reports: [Report]):
