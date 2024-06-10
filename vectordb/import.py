@@ -1,8 +1,7 @@
 import argparse
 import json
-import os
 from dataclasses import dataclass
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import OllamaEmbeddings
 
 from pymilvus import (
     connections,
@@ -26,7 +25,9 @@ import_file = args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
 
-dimensions = 1536
+# Have to change together. Cant set dimensions per model withput PCA or other dimensionality reduction method.
+dimensions = 768
+embedding_model = "nomic-embed-text"
 
 
 @dataclass
@@ -77,11 +78,10 @@ def json_to_reports() ->[Report]:
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
     report_texts = [item.text for item in reports]
-    openapi_key = os.getenv("OPENAPI_KEY")
-    embeddings_model = OpenAIEmbeddings(api_key=openapi_key)
-    embeddings_openapi = embeddings_model.embed_documents(report_texts)
+    embeddings = OllamaEmbeddings(model=embedding_model)
+    embedded_report_texts = embeddings.embed_documents(report_texts)
 
-    return embeddings_openapi
+    return embedded_report_texts
 
 
 def import_reports(collection: Collection, reports: [Report]):
