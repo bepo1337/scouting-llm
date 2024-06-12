@@ -1,0 +1,41 @@
+Number of reports: 8370
+Number of reports without text: 2024
+Average tokens per text: 45.88
+Minimum tokens per text: 0
+Maximum tokens per text: 246
+Average token length: 5.48
+Token length variance: 9.95
+Readability index (Flesch-Kincaid): 58.11
+
+Most common words:
+good      : 5139
+player    : 4287
+team      : 3283
+ball      : 3272
+game      : 3232
+well      : 2293
+play      : 2108
+'s        : 2057
+Punctuation counts:
+,    : 33760
+.    : 27281
+(    : 1673
+)    : 1668
+>    : 715
+<    : 714
+;    : 598
+:    : 485
+-    : 188
+'    : 86
+%    : 38
+/    : 22
++    : 22
+#    : 16
+$    : 16
+&    : 16
+`    : 16
+*    : 14
+?    : 9
+[    : 2
+!    : 1
+]    : 1
