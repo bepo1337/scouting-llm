@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import embed
 
-embedding_model = embed.MistralEmbedding()
+embedding_model = embed.NomicEmbedding()
 # llm = llm.
 app = Flask(__name__)
 
