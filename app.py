@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+import embed
 
+embedding_model = embed.MistralEmbedding()
+# llm = llm.
 app = Flask(__name__)
-
 
 @app.route("/scout-prompt", methods=["GET", "POST"])
 def scout_prompt():
@@ -14,7 +16,9 @@ def scout_prompt():
 
 
 def nlp_proccessing(json_data):
+    embedded_query = embedding_model.embed_query(json_data)
     # pass json data to our NLP stack
+    print(embedded_query)
     return "Here's a list of players I advise to take a closer look: Bellingham, Jovic, Ekitike"
 
 if __name__ == "__main__":
