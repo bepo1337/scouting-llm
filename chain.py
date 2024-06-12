@@ -1,5 +1,7 @@
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
+from langchain_core.prompts import PromptTemplate
+
 import prompt_templates
 from langchain_community.vectorstores import Milvus
 from langchain_core.runnables import RunnablePassthrough
@@ -19,7 +21,9 @@ model = Ollama(model=MODEL)
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
 #Prompt
-prompt = prompt_templates.tutorial_prompt
+prompt = PromptTemplate(
+    template=prompt_templates.TUTORIAL_PROMPT, input_variables=["context", "question"]
+)
 
 connection_args = {'uri': VECTOR_STORE_URI}
 vectorstore = Milvus(
@@ -33,9 +37,11 @@ vectorstore = Milvus(
 
 retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
 
-##### Dont have to edit anything below this
+##### Dont have to edit anything below this to change models
 def format_docs(docs):
-    return "\n\n".join(doc.page_content for doc in docs)
+    returnString = "\n\n".join(f"Player ID: {doc.metadata['player_transfermarkt_id']}, Report-Content: " + doc.page_content for doc in docs)
+    print(returnString)
+    return returnString
 
 rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
