@@ -21,7 +21,7 @@ parser.add_argument("--milvus-port", default="19530", nargs="?",
                     help="Port Milvus is running on (default: 19530)")
 args, unknown = parser.parse_known_args()
 
-import_file = args.file
+import_file = "data/" + args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
 
