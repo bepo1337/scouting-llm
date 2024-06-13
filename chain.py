@@ -22,7 +22,7 @@ embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
 #Prompt
 prompt = PromptTemplate(
-    template=prompt_templates.TUTORIAL_PROMPT, input_variables=["context", "question"]
+    template=prompt_templates.STRUCTURE_AND_RANK, input_variables=["context", "question"]
 )
 
 connection_args = {'uri': VECTOR_STORE_URI}
