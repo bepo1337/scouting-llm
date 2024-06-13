@@ -13,6 +13,7 @@ EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
 COLLECTION_NAME = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
+OLLAMA_URI = "http://localhost:11434/v1"
 
 #LLM
 model = Ollama(model=MODEL)

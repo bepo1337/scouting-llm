@@ -1,25 +1,22 @@
 from flask import Flask, request, jsonify
-import embed
-from chain import invoke_chain
+# from chain import invoke_chain
+from chain_instructor import invoke_chain
 
-embedding_model = embed.NomicEmbedding()
-# llm = llm.
 app = Flask(__name__)
 
 @app.route("/scout-prompt", methods=["GET", "POST"])
 def scout_prompt():
-    if request.is_json:
-        data = request.get_json()
-        prompt_response = nlp_proccessing(data)
-        return jsonify({"received": True, "data": data, "response": prompt_response}), 200
+    if not request.is_json:
+        return "Not a valid json!", 400
 
-    return "Not a valid json!", 400
+    user_query = request.get_json()['query']
+    prompt_response = nlp_proccessing(user_query)
+    return jsonify({"query": user_query, "response": prompt_response}), 200
+
+
 
 
 def nlp_proccessing(query):
-    # embedded_query = embedding_model.embed_query(json_data)
-    # pass json data to our NLP stack
-    # print(embedded_query)
     return invoke_chain(query)
 
 if __name__ == "__main__":
