@@ -68,7 +68,7 @@ def format_docs(docs):
 def build_prompt(context: str, question: str) -> str:
         return f"""You are an assistant in football (soccer) scouting, and provides answers to questions by using fact based information.
     Use the following information to provide a concise answer to the question enclosed in <question> tags.
-    If you don't know the answer from the context, just say that you don't know
+    If you don't know the answer from the context, just say that you don't know.
     
     <context>
     {context}

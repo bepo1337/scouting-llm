@@ -164,3 +164,4 @@ activate.sh
 milvus_cli.sh
 docker/
 volumes
+*prod.json
