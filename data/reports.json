@@ -3,9 +3,11 @@
     "scout_id": "1234",
     "text": "\n      Played as a defensive midfielder, although he is usually used as a central defender.\nIn the game, he clearly operated in front of the defense and always remained defensively oriented during attacks.\nHe made a combative impression in the duels.\nDisciplined in defensive positioning, he defended consistently forward and immediately returned to his position.\nHe also had his moments in offensive set pieces and was dangerous due to his heading ability, even providing an assist with a header.\nHowever, his passing game showed too many inaccuracies, leading to turnovers.\nOverall, a solid performance, but at 33 years old, probably no longer of interest to us.\n              ",
     "player_id": "5f99f90d13f011e59dfc42d3",
-    "player_transfermarkt_id": "238716",
+    "player_transfermarkt_id": "753951",
     "grade_rating": 0.3,
-    "grade_potential": 0.2
+    "grade_potential": 0.2,
+    "main_position": "defensivemidfield",
+    "played_position": "centraldefend"
   },
   {
     "scout_id": "5678",
@@ -13,7 +15,9 @@
     "player_id": "6b1234567890abcdef123456",
     "player_transfermarkt_id": "159753",
     "grade_rating": 0.7,
-    "grade_potential": 0.8
+    "grade_potential": 0.8,
+    "main_position": "leftback",
+    "played_position": "leftback"
   },
   {
     "scout_id": "4321",
@@ -21,7 +25,9 @@
     "player_id": "6c7890123456abcdef123456",
     "player_transfermarkt_id": "753951",
     "grade_rating": 0.85,
-    "grade_potential": 0.9
+    "grade_potential": 0.9,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "7890",
@@ -29,7 +35,9 @@
     "player_id": "7d1234567890abcdef123456",
     "player_transfermarkt_id": "852963",
     "grade_rating": 0.75,
-    "grade_potential": 0.85
+    "grade_potential": 0.85,
+    "main_position": "rightwing",
+    "played_position": "rightwing"
   },
   {
     "scout_id": "3456",
@@ -37,7 +45,9 @@
     "player_id": "8e1234567890abcdef123456",
     "player_transfermarkt_id": "159486",
     "grade_rating": 0.6,
-    "grade_potential": 0.7
+    "grade_potential": 0.7,
+    "main_position": "goalkeeper",
+    "played_position": "goalkeeper"
   },
   {
     "scout_id": "6543",
@@ -45,7 +55,9 @@
     "player_id": "9f1234567890abcdef123456",
     "player_transfermarkt_id": "753468",
     "grade_rating": 0.8,
-    "grade_potential": 0.75
+    "grade_potential": 0.75,
+    "main_position": "striker",
+    "played_position": "striker"
   },
   {
     "scout_id": "8765",
@@ -53,7 +65,9 @@
     "player_id": "af1234567890abcdef123456",
     "player_transfermarkt_id": "159687",
     "grade_rating": 0.65,
-    "grade_potential": 0.5
+    "grade_potential": 0.5,
+    "main_position": "centraldefend",
+    "played_position": "centraldefend"
   },
   {
     "scout_id": "0987",
@@ -61,7 +75,9 @@
     "player_id": "bf1234567890abcdef123456",
     "player_transfermarkt_id": "951357",
     "grade_rating": 0.7,
-    "grade_potential": 0.75
+    "grade_potential": 0.75,
+    "main_position": "rightback",
+    "played_position": "rightback"
   },
   {
     "scout_id": "2345",
@@ -69,7 +85,9 @@
     "player_id": "cf1234567890abcdef123456",
     "player_transfermarkt_id": "258963",
     "grade_rating": 0.85,
-    "grade_potential": 0.9
+    "grade_potential": 0.9,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingwing"
   },
   {
     "scout_id": "6543",
@@ -77,7 +95,9 @@
     "player_id": "df1234567890abcdef123456",
     "player_transfermarkt_id": "753159",
     "grade_rating": 0.75,
-    "grade_potential": 0.8
+    "grade_potential": 0.8,
+    "main_position": "defensivemidfield",
+    "played_position": "defensivemidfield"
   },
   {
     "scout_id": "4321",
@@ -85,7 +105,9 @@
     "player_id": "ef1234567890abcdef123456",
     "player_transfermarkt_id": "159264",
     "grade_rating": 0.7,
-    "grade_potential": 0.65
+    "grade_potential": 0.65,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "5678",
@@ -93,7 +115,9 @@
     "player_id": "6b1234567890abcdef123456",
     "player_transfermarkt_id": "159753",
     "grade_rating": 0.7,
-    "grade_potential": 0.8
+    "grade_potential": 0.8,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "4321",
@@ -101,7 +125,9 @@
     "player_id": "6c7890123456abcdef123456",
     "player_transfermarkt_id": "753951",
     "grade_rating": 0.9,
-    "grade_potential": 0.85
+    "grade_potential": 0.85,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "7890",
@@ -109,7 +135,9 @@
     "player_id": "7d1234567890abcdef123456",
     "player_transfermarkt_id": "852963",
     "grade_rating": 0.8,
-    "grade_potential": 0.85
+    "grade_potential": 0.85,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "3456",
@@ -117,7 +145,9 @@
     "player_id": "8e1234567890abcdef123456",
     "player_transfermarkt_id": "159486",
     "grade_rating": 0.65,
-    "grade_potential": 0.7
+    "grade_potential": 0.7,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "6543",
@@ -125,7 +155,9 @@
     "player_id": "9f1234567890abcdef123456",
     "player_transfermarkt_id": "753468",
     "grade_rating": 0.75,
-    "grade_potential": 0.7
+    "grade_potential": 0.7,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "8765",
@@ -133,7 +165,9 @@
     "player_id": "af1234567890abcdef123456",
     "player_transfermarkt_id": "159687",
     "grade_rating": 0.65,
-    "grade_potential": 0.5
+    "grade_potential": 0.5,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "0987",
@@ -141,7 +175,9 @@
     "player_id": "bf1234567890abcdef123456",
     "player_transfermarkt_id": "951357",
     "grade_rating": 0.7,
-    "grade_potential": 0.75
+    "grade_potential": 0.75,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "2345",
@@ -149,15 +185,19 @@
     "player_id": "cf1234567890abcdef123456",
     "player_transfermarkt_id": "258963",
     "grade_rating": 0.85,
-    "grade_potential": 0.9
+    "grade_potential": 0.9,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "6543",
     "text": "\n As a defensive midfielder, he again showed a disciplined and strong performance.\nWon many important duels in midfield and effectively stopped opponent attacks.\nHis passing game was precise and he showed excellent vision.\nOffensively, he set no accents but focused on ball distribution.\nShowed weaknesses in fast counterattacks by the opponent.\nAt 27 years old, he is at the peak of his footballing age and a reliable force in midfield.\n ",
     "player_id": "df1234567890abcdef123456",
     "player_transfermarkt_id": "753159",
-    "grade_rating": 0.75,
-    "grade_potential": 0.8
+    "grade_rating": 3.2,
+    "grade_potential": 0.8,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   },
   {
     "scout_id": "4321",
@@ -165,6 +205,8 @@
     "player_id": "ef1234567890abcdef123456",
     "player_transfermarkt_id": "159264",
     "grade_rating": 0.75,
-    "grade_potential": 0.7
+    "grade_potential": 0.7,
+    "main_position": "attackingmidfield",
+    "played_position": "attackingmidfield"
   }
 ]

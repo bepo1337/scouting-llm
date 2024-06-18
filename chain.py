@@ -36,13 +36,29 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
+retriever = vectorstore.as_retriever(search_kwargs={'k': 20})
 
 ##### Dont have to edit anything below this to change models
 def format_docs(docs):
-    returnString = "\n\n".join(f"Player ID: {doc.metadata['player_transfermarkt_id']}, Report-Content: " + doc.page_content for doc in docs)
-    print(returnString)
-    return returnString
+    # Create a dictionary to hold reports for each player ID
+    player_reports = defaultdict(list)
+    
+    # Aggregate reports by player ID
+    for doc in docs:
+        player_id = doc.metadata['player_transfermarkt_id']
+        report_content = doc.page_content
+        player_reports[player_id].append(report_content)
+    
+    # Format the aggregated reports
+    formatted_reports = []
+    for player_id, reports in player_reports.items():
+        combined_reports = "\n".join(reports)
+        formatted_reports.append(f"Player ID: {player_id}, Reports: {combined_reports}")
+    
+    # Join all formatted reports into a single string
+    return_string = "\n\n".join(formatted_reports)
+    print(return_string)
+    return return_string
 
 rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}

@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from typing import List
 from openai import OpenAI
 import json
+from collections import defaultdict
 
 
 MODEL = "mistral"
@@ -33,7 +34,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
+retriever = vectorstore.as_retriever(search_kwargs={'k': 10})
 
 ##### Dont have to edit anything below this to change models
 
@@ -61,9 +62,25 @@ instructor_client = instructor.from_openai(
 
 
 def format_docs(docs):
-    joinedDocumentsAsString = "\n\n".join(f"Player ID: {doc.metadata['player_transfermarkt_id']}, Report-Content: " + doc.page_content for doc in docs)
-    print(joinedDocumentsAsString)
-    return joinedDocumentsAsString
+    # Create a dictionary to hold reports for each player ID
+    player_reports = defaultdict(list)
+    
+    # Aggregate reports by player ID
+    for doc in docs:
+        player_id = doc.metadata['player_transfermarkt_id']
+        report_content = doc.page_content
+        player_reports[player_id].append(report_content)
+    
+    # Format the aggregated reports
+    formatted_reports = []
+    for player_id, reports in player_reports.items():
+        combined_reports = "\n".join(reports)
+        formatted_reports.append(f"Player ID: {player_id}, Reports: {combined_reports}")
+    
+    # Join all formatted reports into a single string
+    return_string = "\n\n".join(formatted_reports)
+    print(return_string)
+    return return_string
 
 def build_prompt(context: str, question: str) -> str:
         return f"""You are an assistant in football (soccer) scouting, and provides answers to questions by using fact based information.
