@@ -38,6 +38,8 @@ class Report:
     player_transfermarkt_id: str
     grade_rating: float
     grade_potential: float
+    main_position: str
+    played_position: str
 
 
 def create_collection() -> Collection:
@@ -45,12 +47,14 @@ def create_collection() -> Collection:
 
     fields = [
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-        FieldSchema(name="scout_id", dtype=DataType.VARCHAR, max_length=1000),
-        FieldSchema(name="text", dtype=DataType.VARCHAR, max_length=1000),
-        FieldSchema(name="player_id", dtype=DataType.VARCHAR, max_length=1000),
-        FieldSchema(name="player_transfermarkt_id", dtype=DataType.VARCHAR, max_length=1000),
+        FieldSchema(name="text", dtype=DataType.VARCHAR, max_length=5000),
+        FieldSchema(name="player_id", dtype=DataType.VARCHAR, max_length=2000),
+        FieldSchema(name="player_transfermarkt_id", dtype=DataType.VARCHAR, max_length=2000),
+        FieldSchema(name="scout_id", dtype=DataType.VARCHAR, max_length=2000),
         FieldSchema(name="grade_rating", dtype=DataType.FLOAT),
         FieldSchema(name="grade_potential", dtype=DataType.FLOAT),
+        FieldSchema(name="main_position", dtype=DataType.VARCHAR, max_length=2000),
+        FieldSchema(name="played_position", dtype=DataType.VARCHAR, max_length=2000),
         FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dimensions)
     ]
 
@@ -88,12 +92,14 @@ def import_reports(collection: Collection, reports: [Report]):
     print(f"... Inserting reports from {import_file}")
     # Have to work with append or smth for large files cuz we iterate over whole report set a lot of times
     reports_in_batch_insert_format = [
-        [item.scout_id for item in reports],
         [item.text for item in reports],
         [item.player_id for item in reports],
         [item.player_transfermarkt_id for item in reports],
+        [item.scout_id for item in reports],
         [item.grade_rating for item in reports],
         [item.grade_potential for item in reports],
+        [item.main_position for item in reports],
+        [item.played_position for item in reports],
         create_embeddings(reports)
     ]
 
