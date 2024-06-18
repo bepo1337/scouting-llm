@@ -165,3 +165,4 @@ milvus_cli.sh
 docker/
 volumes
 *prod.json
+invalid_reports.txt

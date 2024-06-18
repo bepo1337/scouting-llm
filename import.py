@@ -1,6 +1,8 @@
 import argparse
 import json
 from dataclasses import dataclass
+from typing import Optional, List
+from tqdm import tqdm
 from langchain_community.embeddings import OllamaEmbeddings
 
 from pymilvus import (
@@ -36,8 +38,8 @@ class Report:
     text: str
     player_id: str
     player_transfermarkt_id: str
-    grade_rating: float
-    grade_potential: float
+    grade_rating: Optional[float]
+    grade_potential: Optional[float]
     main_position: str
     played_position: str
 
@@ -76,14 +78,26 @@ def setup_milvus_connection() -> Collection:
 def json_to_reports() ->[Report]:
     with open(import_file) as f:
         data = json.load(f)
-        reports = [Report(**item) for item in data]
+        reports = [Report(
+            scout_id=item.get('scout_id'),
+            text=item.get('text'),
+            player_id=item.get('player_id'),
+            player_transfermarkt_id=item.get('player_transfermarkt_id'),
+            grade_rating=item.get('grade_rating') if item.get('grade_rating') is not None else 0.0,
+            grade_potential=item.get('grade_potential') if item.get('grade_potential') is not None else 0.0,
+            main_position=item.get('main_position'),
+            played_position=item.get('played_position')
+        ) for item in data]
 
     return reports
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
     report_texts = [item.text for item in reports]
     embeddings = OllamaEmbeddings(model=embedding_model)
-    embedded_report_texts = embeddings.embed_documents(report_texts)
+
+    embedded_report_texts = []
+    for text in tqdm(report_texts, desc="Embedding reports"):
+        embedded_report_texts.append(embeddings.embed_documents([text])[0])
 
     return embedded_report_texts
 
