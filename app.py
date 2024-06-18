@@ -1,10 +1,15 @@
 from flask import Flask, request, jsonify
+from flask_cors import cross_origin
+from flask_cors import CORS
+
 # from chain import invoke_chain
 from chain_instructor import invoke_chain
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/scout-prompt", methods=["GET", "POST"])
+@cross_origin()
 def scout_prompt():
     if not request.is_json:
         return "Not a valid json!", 400
