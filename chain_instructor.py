@@ -66,18 +66,7 @@ def format_docs(docs):
     return joinedDocumentsAsString
 
 def build_prompt(context: str, question: str) -> str:
-        return f"""You are an assistant in football (soccer) scouting, and provides answers to questions by using fact based information.
-    Use the following information to provide a concise answer to the question enclosed in <question> tags.
-    If you don't know the answer from the context, just say that you don't know.
-    
-    <context>
-    {context}
-    </context>
-    
-    <question>
-    {question}
-    </question>
-    """
+        return prompt_templates.v001.format(context=context, question=question)
 
 
 instructor_client = instructor.from_openai(
@@ -93,6 +82,7 @@ instructor_client = instructor.from_openai(
 
 
 def invoke_chain(query: str) -> str:
+    # Basically custom implementation of calling all components one after another
     documents = retriever.invoke(query)
     formatted_documents = format_docs(documents)
 
