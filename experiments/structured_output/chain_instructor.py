@@ -1,7 +1,6 @@
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.prompts import PromptTemplate
-
 import prompt_templates
 from langchain_community.vectorstores import Milvus
 from langchain_core.runnables import RunnablePassthrough

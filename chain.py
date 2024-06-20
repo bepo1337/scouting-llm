@@ -1,12 +1,13 @@
-from langchain_community.llms import Ollama
+from langchain_community.llms.ollama import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.prompts import PromptTemplate
+import json
 
+import model_definitions
 import prompt_templates
 from langchain_community.vectorstores import Milvus
 from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import StrOutputParser
-
+from langchain_core.output_parsers import JsonOutputParser
 
 MODEL = "mistral"
 EMBEDDING_MODEL = "nomic-embed-text"
@@ -15,15 +16,18 @@ COLLECTION_NAME = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
 
-#LLM
-model = Ollama(model=MODEL)
-
+#LLM https://api.python.langchain.com/en/latest/llms/langchain_community.llms.ollama.Ollama.html
+model = Ollama(model=MODEL, format="json")
 #Embedding
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
 #Prompt
+#https://python.langchain.com/v0.1/docs/modules/model_io/output_parsers/types/json/
+parser = JsonOutputParser(pydantic_object=model_definitions.ListPlayerResponse)
 prompt = PromptTemplate(
-    template=prompt_templates.STRUCTURE_AND_RANK, input_variables=["context", "question"]
+    template=prompt_templates.v003,
+    input_variables=["context", "question"],
+    partial_variables={"format_instructions": parser.get_format_instructions()}
 )
 
 connection_args = {'uri': VECTOR_STORE_URI}
@@ -48,10 +52,10 @@ rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
     | prompt
     | model
-    | StrOutputParser()
 )
 
 def invoke_chain(query: str) -> str:
-    return rag_chain.invoke(query)
-
+    model_response = rag_chain.invoke(query)
+    response_as_json = json.loads(model_response)
+    return response_as_json
 
