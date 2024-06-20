@@ -50,12 +50,11 @@ def format_docs(docs):
 
 rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | model
+    | prompt        # Put retrieved context and passed through question into prompt template --> formatted prompt to llm
+    | model         # Outputs LLM response
+    | json.loads    # Parses response to json object
 )
 
 def invoke_chain(query: str) -> str:
-    model_response = rag_chain.invoke(query)
-    response_as_json = json.loads(model_response)
-    return response_as_json
+    return rag_chain.invoke(query)
 
