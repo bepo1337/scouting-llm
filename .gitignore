@@ -166,3 +166,4 @@ docker/
 volumes
 *prod.json
 invalid_reports.txt
+screenshots/
