@@ -126,17 +126,38 @@ def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
 
 def import_reports(collection: Collection, reports: [Report]):
     print(f"... Inserting reports from {import_file}")
-    # Have to work with append or smth for large files cuz we iterate over whole report set a lot of times
+    texts = []
+    player_ids = []
+    player_transfermarkt_ids = []
+    scout_ids = []
+    grade_ratings = []
+    grade_potentials = []
+    main_positions = []
+    played_positions = []
+    embeddings = create_embeddings(reports)
+
+    # Iterate over reports once and populate the lists
+    for report in reports:
+        texts.append(report.text)
+        player_ids.append(report.player_id)
+        player_transfermarkt_ids.append(report.player_transfermarkt_id)
+        scout_ids.append(report.scout_id)
+        grade_ratings.append(report.grade_rating)
+        grade_potentials.append(report.grade_potential)
+        main_positions.append(report.main_position)
+        played_positions.append(report.played_position)
+
+    # Combine lists into the desired format
     reports_in_batch_insert_format = [
-        [item.text for item in reports],
-        [item.player_id for item in reports],
-        [item.player_transfermarkt_id for item in reports],
-        [item.scout_id for item in reports],
-        [item.grade_rating for item in reports],
-        [item.grade_potential for item in reports],
-        [item.main_position for item in reports],
-        [item.played_position for item in reports],
-        create_embeddings(reports)
+        texts,
+        player_ids,
+        player_transfermarkt_ids,
+        scout_ids,
+        grade_ratings,
+        grade_potentials,
+        main_positions,
+        played_positions,
+        embeddings
     ]
 
     insert_result = collection.insert(reports_in_batch_insert_format)
