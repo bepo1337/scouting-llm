@@ -1,9 +1,11 @@
 import argparse
+import copy
 import json
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import Optional
 from tqdm import tqdm
 from langchain_community.embeddings import OllamaEmbeddings
+from langchain_text_splitters import TokenTextSplitter
 
 from pymilvus import (
     connections,
@@ -75,7 +77,7 @@ def setup_milvus_connection() -> Collection:
     return Collection(collection_name)
 
 
-def json_to_reports() ->[Report]:
+def json_to_reports() -> [Report]:
     with open(import_file) as f:
         data = json.load(f)
         reports = [Report(
@@ -90,6 +92,26 @@ def json_to_reports() ->[Report]:
         ) for item in data]
 
     return reports
+
+
+def copy_report_with_new_chunk(report: Report, chunk: str) -> Report:
+    copied_report = copy.deepcopy(report)
+    copied_report.text = chunk
+    return copied_report
+
+
+def chunk_reports(reports: [Report]) -> [Report]:
+    splitter = TokenTextSplitter(chunk_size=70, chunk_overlap=15)
+    chunked_reports = []
+    for report in reports:
+        splitted_texts = splitter.split_text(report.text)
+
+        for chunk in splitted_texts:
+            chunked_report = copy_report_with_new_chunk(report, chunk)
+            chunked_reports.append(chunked_report)
+
+    return chunked_reports
+
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
     report_texts = [item.text for item in reports]
@@ -122,6 +144,7 @@ def import_reports(collection: Collection, reports: [Report]):
     print(f"Insertion result: Successes: {insert_result.succ_count}, Errors: : {insert_result.err_count}")
     print(f"Total number of reports in Milvus: {collection.num_entities}")
 
+
 def create_embeddings_index(collection: Collection):
     print(f"... Creating index IVF_FLAT, L2, nlist=128 on 'embeddings'")
     index = {
@@ -133,6 +156,7 @@ def create_embeddings_index(collection: Collection):
 
     collection.create_index("embeddings", index)
 
+
 # Setup Milvus connection
 collection = setup_milvus_connection()
 print("... Connected to Milvus, collection: {}".format(collection.name))
@@ -140,8 +164,11 @@ print("... Connected to Milvus, collection: {}".format(collection.name))
 # Read JSON file and cast to our Report class
 reports = json_to_reports()
 
+# Chunk documents
+chunked_reports = chunk_reports(reports)
+
 # Import reports to collection
-import_reports(collection, reports)
+import_reports(collection, chunked_reports)
 
 # Create index on embeddings
 create_embeddings_index(collection)
