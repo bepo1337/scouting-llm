@@ -19,15 +19,22 @@ from pymilvus import (
 parser = argparse.ArgumentParser()
 parser.add_argument("--file", default="reports.json", nargs="?",
                     help="What file to import (default: reports.json)")
-parser.add_argument("--collection", default="scouting", nargs="?",
-                    help="Name of collection to insert (default: scouting)")
+parser.add_argument("--collection", default="test_scouting", nargs="?",
+                    help="Name of collection to insert (default: test_scouting)")
 parser.add_argument("--milvus-port", default="19530", nargs="?",
                     help="Port Milvus is running on (default: 19530)")
+parser.add_argument("--chunk-size", type=int, default=70, nargs="?",
+                    help="Size of the chunks that we embed (default: 70)")
+parser.add_argument("--chunk-overlap", type=int, default=15, nargs="?",
+                    help="Size of the chunk overlap (default: 15)")
+
 args, unknown = parser.parse_known_args()
 
 import_file = "data/" + args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
+chunk_size = args.chunk_size
+chunk_overlap = args.chunk_overlap
 
 # Have to change together. Cant set dimensions per model withput PCA or other dimensionality reduction method.
 dimensions = 768
@@ -101,7 +108,7 @@ def copy_report_with_new_chunk(report: Report, chunk: str) -> Report:
 
 
 def chunk_reports(reports: [Report]) -> [Report]:
-    splitter = TokenTextSplitter(chunk_size=70, chunk_overlap=15)
+    splitter = TokenTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     chunked_reports = []
     for report in reports:
         splitted_texts = splitter.split_text(report.text)
