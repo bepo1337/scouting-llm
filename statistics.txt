@@ -1,4 +1,5 @@
 Number of reports: 8370
+Player-Count: 4521
 Number of reports without text: 2024
 Average tokens per text: 45.88
 Minimum tokens per text: 0
@@ -6,6 +7,12 @@ Maximum tokens per text: 246
 Average token length: 5.48
 Token length variance: 9.95
 Readability index (Flesch-Kincaid): 58.11
+Max. reports per player: 14
+Avg. reports per player: 1.85
+Players with more than 1 report: 1663
+Players with more than 5 reports: 182
+Players with more than 10 reports: 16
+
 
 Most common words:
 good      : 5139
