@@ -40,7 +40,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
+retriever = vectorstore.as_retriever(search_kwargs={'k': 10})
 
 ##### Dont have to edit anything below this to change models
 def format_docs(docs):
