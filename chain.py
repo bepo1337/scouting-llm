@@ -15,6 +15,7 @@ DIMENSIONS = 768
 COLLECTION_NAME = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
+COUNT_RETRIEVED_DOCUMENTS = 20
 
 #LLM https://api.python.langchain.com/en/latest/llms/langchain_community.llms.ollama.Ollama.html
 model = Ollama(model=MODEL, format="json")
@@ -40,7 +41,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
+retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
 
 ##### Dont have to edit anything below this to change models
 def format_docs(docs):
