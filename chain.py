@@ -2,6 +2,7 @@ from langchain_community.llms.ollama import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.prompts import PromptTemplate
 import json
+from collections import defaultdict
 
 import model_definitions
 import prompt_templates
@@ -12,7 +13,7 @@ from langchain_core.output_parsers import JsonOutputParser
 MODEL = "mistral"
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
-COLLECTION_NAME = "scouting"
+COLLECTION_NAME = "test_scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
 COUNT_RETRIEVED_DOCUMENTS = 20
@@ -45,9 +46,27 @@ retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMEN
 
 ##### Dont have to edit anything below this to change models
 def format_docs(docs):
-    returnString = "\n\n".join(f"Player ID: {doc.metadata['player_transfermarkt_id']}, Report-Content: " + doc.page_content for doc in docs)
-    print(returnString)
-    return returnString
+    # Create a dictionary to hold reports for each player ID
+    player_reports = defaultdict(list)
+
+    # Aggregate reports by player ID
+    for doc in docs:
+        player_id = doc.metadata['player_transfermarkt_id']
+        report_content = doc.page_content
+        player_reports[player_id].append(report_content)
+
+    # Format the aggregated reports
+    formatted_reports = []
+    for player_id, reports in player_reports.items():
+        formatted_report = f"Player ID: {player_id}\n"
+        for i, report in enumerate(reports, 1):
+            formatted_report += f"Report {i}: {report}\n"
+        formatted_reports.append(formatted_report.strip())
+
+    # Join all formatted reports into a single string
+    return_string = "\n\n".join(formatted_reports)
+    print(return_string)
+    return return_string
 
 rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
