@@ -43,7 +43,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
+# retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
 
 ##### Dont have to edit anything below this to change models
 def print_before_formatting(docs: [Document]):
@@ -94,16 +94,31 @@ def intercept_model_answer(model_answer: str) -> str:
     print("-------\n\nModel answer:\n", model_answer)
     return model_answer
 
-rag_chain = (
+""" rag_chain = (
         {"context": retriever | format_documents, "question": RunnablePassthrough()}
         | prompt  # Put retrieved context and passed through question into prompt template --> formatted prompt to llm
         | intercept_prompt
         | model  # Outputs LLM response
         | intercept_model_answer
         | json.loads    # Parses response to json object
-)
+) """
 
-def invoke_chain(query: str) -> str:
+def invoke_chain(query: str, position: str = None) -> str:
+    if position:
+        retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS, 'filters': {'metadata.played_position': position}})
+    else:
+        retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
+
+    rag_chain = (
+        {"context": retriever | format_documents, "question": RunnablePassthrough()}
+        | prompt  # Put retrieved context and passed through question into prompt template --> formatted prompt to llm
+        | intercept_prompt
+        | model  # Outputs LLM response
+        | intercept_model_answer
+        | json.loads    # Parses response to json object
+    )
+
     print("User query: ", query)
     return rag_chain.invoke(query)
 
+invoke_chain("I need a box-to-box player", "centralmidfield")
