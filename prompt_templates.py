@@ -133,5 +133,4 @@ v005 = """You are an assistant in football (soccer) scouting.
     </question>
 
    {format_instructions}
-   Paraphrase the report_summary and dont return it in its original form.
 """
