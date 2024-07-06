@@ -1,0 +1,33 @@
+[
+  {
+    "query": "my first query",
+    "retrieved_documents": [
+      {
+        "page_content": "First page content!",
+        "metadata": {
+          "id": 1,
+          "player_id": "12",
+          "player_transfermarkt_id": "123",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "centralmidfield",
+          "played_position": "centralmidfield"
+        }
+      },
+      {
+        "page_content": "Second page content!",
+        "metadata": {
+          "id": 1,
+          "player_id": "12",
+          "player_transfermarkt_id": "123",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "centralmidfield",
+          "played_position": "centralmidfield"
+        }
+      }
+    ]
+  }
+]
