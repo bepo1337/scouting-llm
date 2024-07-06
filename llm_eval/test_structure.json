@@ -3,7 +3,7 @@
     "query": "my first query",
     "retrieved_documents": [
       {
-        "page_content": "First page content!",
+        "page_content": "Hes a very good striker",
         "metadata": {
           "id": 1,
           "player_id": "12",
@@ -16,7 +16,7 @@
         }
       },
       {
-        "page_content": "Second page content!",
+        "page_content": "Very good finishing in front of the goal",
         "metadata": {
           "id": 2,
           "player_id": "12",
