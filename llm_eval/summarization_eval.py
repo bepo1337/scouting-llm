@@ -18,6 +18,7 @@ from evaluate import load
 MODEL = "mistral"  # can be replaed by grid search later
 prompt_template = prompt_templates.v005  # can be replaced by GS later
 file_name = "test_structure.json"
+#file_name = "test_prod.json"
 parser = JsonOutputParser(pydantic_object=model_definitions.ListPlayerResponse)
 prompt_for_llm = PromptTemplate(
     template=prompt_template,
@@ -58,6 +59,7 @@ def get_average(float_list: List[float]) -> float:
     return sum(float_list) / len(float_list)
 
 def print_bert_scores(bert_scores):
+    print("\n----- BERTScore -----")
     #print(bert_scores)
     value_count = len(bert_scores["precision"])
     print("BERTScore number of values: ", value_count)
@@ -67,10 +69,31 @@ def print_bert_scores(bert_scores):
     print(f"BERTScore hashcode: {bert_scores['hashcode']}\n")
 
 
+def player_ids_in_retrieved_docs(query_and_retrieved_doc_dict: QueryAndRetrievedDocuments) -> int:
+    query_and_retrieved_docs = QueryAndRetrievedDocuments.parse_obj(query_and_retrieved_doc_dict)
+
+    player_id_map = {}
+    for doc in query_and_retrieved_docs.retrieved_documents:
+        player_id_map[doc.metadata['player_id']] = ""
+
+    print(player_id_map)
+    return len(player_id_map)
+
+
 list_of_test_inputs = load_inputs()
 
 predictions = []  # Model summaries
 references = []  # Our provided context data
+players_in_list_from_references = [] # Percentage of players the model had in its response wrt to the unique players in the context
+
+
+def get_model_answer(current_model, current_prompt) -> model_definitions.ListPlayerResponse:
+    model_answer = current_model.invoke(current_prompt)
+    model_json_answer = json.loads(model_answer)
+    player_response = model_definitions.ListPlayerResponse(**model_json_answer)
+    return player_response
+
+
 for singleInput in list_of_test_inputs:
     print("start computing new input...")
     # the following 2 lines only have to be done once in the beginning. Although doesnt matter if they run every time. But would be cleanerw
@@ -82,9 +105,7 @@ for singleInput in list_of_test_inputs:
                         "format_instructions": parser.get_format_instructions()}
     prompt_for_llm = prompt_template.format(**prompt_injection)
 
-    model_answer = model.invoke(prompt_for_llm)
-    model_json_answer = json.loads(model_answer)
-    player_response = model_definitions.ListPlayerResponse(**model_json_answer)
+    player_response = get_model_answer(model, prompt_for_llm)
 
     # Metrics
     for player in player_response.list:
@@ -97,6 +118,10 @@ for singleInput in list_of_test_inputs:
         predictions.append(model_summary)
         references.append(context_reports)
 
+    # print comparison between players in context and lenght of player_response.list
+    model_resp_player_count = len(player_response.list)
+    unique_player_ids = player_ids_in_retrieved_docs(singleInput)
+    players_in_list_from_references.append(model_resp_player_count/unique_player_ids)
 
 
 
@@ -106,3 +131,12 @@ bertscore = load("bertscore")
 # other model such as "roberta-large" is better, but larger obv (distilbert... takes 268MB vs roberta-large is 1.4GB)
 bert_scores = bertscore.compute(predictions=predictions, references=references, model_type="distilbert-base-uncased")
 print_bert_scores(bert_scores)
+
+
+def print_player_counts(player_counts: [float]):
+    print("list itself: ", player_counts)
+    print("player counts len: ", len(player_counts))
+    print(f"average percentage of players in model answer: {get_average(player_counts)}")
+
+
+print_player_counts(players_in_list_from_references)

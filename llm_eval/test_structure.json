@@ -60,5 +60,62 @@
         }
       }
     ]
+  },
+  {
+    "query": "query that yields lots of different players",
+    "retrieved_documents": [
+      {
+        "page_content": "Striker lorem ipsum",
+        "metadata": {
+          "id": 3,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1337",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      },
+      {
+        "page_content": "Midfielder with great passing and running ability",
+        "metadata": {
+          "id": 4,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1338",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      },
+      {
+        "page_content": "Defender but slow like Mertesacker",
+        "metadata": {
+          "id": 4,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1339",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      },
+      {
+        "page_content": "Can play in guardiolas tika taka",
+        "metadata": {
+          "id": 4,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1340",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      }
+    ]
   }
 ]
