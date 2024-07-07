@@ -29,5 +29,36 @@
         }
       }
     ]
+  },
+  {
+    "query": "my second very different query",
+    "retrieved_documents": [
+      {
+        "page_content": "Outstanding goalie, should defo sign",
+        "metadata": {
+          "id": 3,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1337",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      },
+      {
+        "page_content": "Great reflexes, good control of box",
+        "metadata": {
+          "id": 4,
+          "player_id": "1337",
+          "player_transfermarkt_id": "1337",
+          "scout_id": "0",
+          "grade_rating": 9.5,
+          "grade_potential": 10.0,
+          "main_position": "goalkeeper",
+          "played_position": "goalkeeper"
+        }
+      }
+    ]
   }
 ]

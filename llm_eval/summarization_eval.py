@@ -45,7 +45,7 @@ def load_inputs() -> ListOfTestInputs:
         return parsed_data
 
 
-def get_reports_from_context(query_and_retrieved_doc_dict: QueryAndRetrievedDocuments, player_id: str) -> str:
+def get_reports_from_context_for_player(query_and_retrieved_doc_dict: QueryAndRetrievedDocuments, player_id: str) -> str:
     query_and_retrieved_docs = QueryAndRetrievedDocuments.parse_obj(query_and_retrieved_doc_dict)
     return_string = "\t"
     for doc in query_and_retrieved_docs.retrieved_documents:
@@ -54,41 +54,55 @@ def get_reports_from_context(query_and_retrieved_doc_dict: QueryAndRetrievedDocu
 
     return return_string
 
+def get_average(float_list: List[float]) -> float:
+    return sum(float_list) / len(float_list)
+
+def print_bert_scores(bert_scores):
+    #print(bert_scores)
+    value_count = len(bert_scores["precision"])
+    print("BERTScore number of values: ", value_count)
+    print(f"BERTScore avg. precision: {get_average(bert_scores['precision'])}")
+    print(f"BERTScore avg. recall: {get_average(bert_scores['recall'])}\n")
+    print(f"BERTScore avg. F1 score: {get_average(bert_scores['f1'])}\n")
+    print(f"BERTScore hashcode: {bert_scores['hashcode']}\n")
+
 
 list_of_test_inputs = load_inputs()
 
+predictions = []  # Model summaries
+references = []  # Our provided context data
 for singleInput in list_of_test_inputs:
+    print("start computing new input...")
+    # the following 2 lines only have to be done once in the beginning. Although doesnt matter if they run every time. But would be cleanerw
     actual_instance_of_input = QueryAndRetrievedDocuments.parse_obj(singleInput)
     formatted_context_string = format_documents_v01(actual_instance_of_input.retrieved_documents)
 
+    # This is variable per prompt template and how we define the context (ie merging reports or not). Could also change the format instructions.
     prompt_injection = {"context": formatted_context_string, "question": actual_instance_of_input.query,
                         "format_instructions": parser.get_format_instructions()}
     prompt_for_llm = prompt_template.format(**prompt_injection)
-    print(prompt_for_llm)
 
     model_answer = model.invoke(prompt_for_llm)
-    # print(model_answer)
-
     model_json_answer = json.loads(model_answer)
-    # print(model_json_answer)
-
     player_response = model_definitions.ListPlayerResponse(**model_json_answer)
 
     # Metrics
-    bertscore_metrics = []
-    berscore = load("bertscore")
     for player in player_response.list:
         model_summary = player.report_summary
-        context_reports = get_reports_from_context(singleInput, str(player.player_id))
-        print("comparison now:")
+        context_reports = get_reports_from_context_for_player(singleInput, str(player.player_id))
+        print("---\nModel answer and context:\n")
         print("model_summary: \n\t", model_summary)
         print("initial reports: \n", context_reports)
 
-        # bertscore
-        predictions = [model_summary]
-        references = [context_reports]
-        # other model such as "roberta-large" is better, but larger obv (distilbert... takes 268MB vs roberta-large is 1.4GB)
-        print("bert score: ",
-              berscore.compute(predictions=predictions, references=references, model_type="distilbert-base-uncased"))
+        predictions.append(model_summary)
+        references.append(context_reports)
+
+
+
+
     # for every player now check the metrics
     # for list_item in model_json_answer:
+bertscore = load("bertscore")
+# other model such as "roberta-large" is better, but larger obv (distilbert... takes 268MB vs roberta-large is 1.4GB)
+bert_scores = bertscore.compute(predictions=predictions, references=references, model_type="distilbert-base-uncased")
+print_bert_scores(bert_scores)
