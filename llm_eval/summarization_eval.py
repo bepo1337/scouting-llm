@@ -1,7 +1,12 @@
 import sys
 import os
 
+import bertscore
+import rougescore
+import player_count
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 import model_definitions
 import prompt_templates
@@ -13,7 +18,7 @@ from pydantic.v1 import BaseModel
 from langchain_core.documents import Document
 from typing import List
 import json
-from evaluate import load
+
 
 MODEL = "mistral"  # can be replaed by grid search later
 prompt_template = prompt_templates.v005  # can be replaced by GS later
@@ -58,23 +63,13 @@ def get_reports_from_context_for_player(query_and_retrieved_doc_dict: QueryAndRe
 def get_average(float_list: List[float]) -> float:
     return sum(float_list) / len(float_list)
 
-def print_bert_scores(bert_scores):
-    print("\n----- BERTScore -----")
-    #print(bert_scores)
-    value_count = len(bert_scores["precision"])
-    print("BERTScore number of values: ", value_count)
-    print(f"BERTScore avg. precision: {get_average(bert_scores['precision'])}")
-    print(f"BERTScore avg. recall: {get_average(bert_scores['recall'])}\n")
-    print(f"BERTScore avg. F1 score: {get_average(bert_scores['f1'])}\n")
-    print(f"BERTScore hashcode: {bert_scores['hashcode']}\n")
-
 
 def player_ids_in_retrieved_docs(query_and_retrieved_doc_dict: QueryAndRetrievedDocuments) -> int:
     query_and_retrieved_docs = QueryAndRetrievedDocuments.parse_obj(query_and_retrieved_doc_dict)
 
     player_id_map = {}
     for doc in query_and_retrieved_docs.retrieved_documents:
-        player_id_map[doc.metadata['player_id']] = ""
+        player_id_map[doc.metadata['player_transfermarkt_id']] = ""
 
     print(player_id_map)
     return len(player_id_map)
@@ -107,7 +102,7 @@ for singleInput in list_of_test_inputs:
 
     player_response = get_model_answer(model, prompt_for_llm)
 
-    # Metrics
+    # craete 2 lists for the context and the corresponding llm-answer
     for player in player_response.list:
         model_summary = player.report_summary
         context_reports = get_reports_from_context_for_player(singleInput, str(player.player_id))
@@ -127,16 +122,7 @@ for singleInput in list_of_test_inputs:
 
     # for every player now check the metrics
     # for list_item in model_json_answer:
-bertscore = load("bertscore")
-# other model such as "roberta-large" is better, but larger obv (distilbert... takes 268MB vs roberta-large is 1.4GB)
-bert_scores = bertscore.compute(predictions=predictions, references=references, model_type="distilbert-base-uncased")
-print_bert_scores(bert_scores)
 
-
-def print_player_counts(player_counts: [float]):
-    print("list itself: ", player_counts)
-    print("player counts len: ", len(player_counts))
-    print(f"average percentage of players in model answer: {get_average(player_counts)}")
-
-
-print_player_counts(players_in_list_from_references)
+bertscore.apply_bertscore(predictions, references)
+rougescore.apply_rouge_score(predictions, references)
+player_count.print_player_counts(players_in_list_from_references)
