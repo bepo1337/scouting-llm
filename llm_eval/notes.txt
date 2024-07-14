@@ -22,6 +22,7 @@ For 3:
     - Comparing the contents with score:
         - Faithfulness (https://docs.confident-ai.com/docs/metrics-faithfulness), might be more challenging
         - BertScore
+            - (14.07.24): Add golden summary aswell? Could be just a dict in the object with player id and the golden summary?
         - BLEU
         - ROUGUE
         - Other

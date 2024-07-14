@@ -1,121 +1,123 @@
-[
-  {
-    "query": "my first query",
-    "retrieved_documents": [
-      {
-        "page_content": "Hes a very good striker",
-        "metadata": {
-          "id": 1,
-          "player_id": "12",
-          "player_transfermarkt_id": "123",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "centralmidfield",
-          "played_position": "centralmidfield"
+{
+  "data": [
+    {
+      "query": "my first query",
+      "retrieved_documents": [
+        {
+          "page_content": "Hes a very good striker",
+          "metadata": {
+            "id": 1,
+            "player_id": "12",
+            "player_transfermarkt_id": "123",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "centralmidfield",
+            "played_position": "centralmidfield"
+          }
+        },
+        {
+          "page_content": "Very good finishing in front of the goal",
+          "metadata": {
+            "id": 2,
+            "player_id": "12",
+            "player_transfermarkt_id": "123",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "centralmidfield",
+            "played_position": "centralmidfield"
+          }
         }
-      },
-      {
-        "page_content": "Very good finishing in front of the goal",
-        "metadata": {
-          "id": 2,
-          "player_id": "12",
-          "player_transfermarkt_id": "123",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "centralmidfield",
-          "played_position": "centralmidfield"
+      ]
+    },
+    {
+      "query": "my second very different query",
+      "retrieved_documents": [
+        {
+          "page_content": "Outstanding goalie, should defo sign",
+          "metadata": {
+            "id": 3,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1337",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
+        },
+        {
+          "page_content": "Great reflexes, good control of box",
+          "metadata": {
+            "id": 4,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1337",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
         }
-      }
-    ]
-  },
-  {
-    "query": "my second very different query",
-    "retrieved_documents": [
-      {
-        "page_content": "Outstanding goalie, should defo sign",
-        "metadata": {
-          "id": 3,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1337",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
+      ]
+    },
+    {
+      "query": "query that yields lots of different players",
+      "retrieved_documents": [
+        {
+          "page_content": "Striker lorem ipsum",
+          "metadata": {
+            "id": 3,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1337",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
+        },
+        {
+          "page_content": "Midfielder with great passing and running ability",
+          "metadata": {
+            "id": 4,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1338",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
+        },
+        {
+          "page_content": "Defender but slow like Mertesacker",
+          "metadata": {
+            "id": 4,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1339",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
+        },
+        {
+          "page_content": "Can play in guardiolas tika taka",
+          "metadata": {
+            "id": 4,
+            "player_id": "1337",
+            "player_transfermarkt_id": "1340",
+            "scout_id": "0",
+            "grade_rating": 9.5,
+            "grade_potential": 10.0,
+            "main_position": "goalkeeper",
+            "played_position": "goalkeeper"
+          }
         }
-      },
-      {
-        "page_content": "Great reflexes, good control of box",
-        "metadata": {
-          "id": 4,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1337",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
-        }
-      }
-    ]
-  },
-  {
-    "query": "query that yields lots of different players",
-    "retrieved_documents": [
-      {
-        "page_content": "Striker lorem ipsum",
-        "metadata": {
-          "id": 3,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1337",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
-        }
-      },
-      {
-        "page_content": "Midfielder with great passing and running ability",
-        "metadata": {
-          "id": 4,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1338",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
-        }
-      },
-      {
-        "page_content": "Defender but slow like Mertesacker",
-        "metadata": {
-          "id": 4,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1339",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
-        }
-      },
-      {
-        "page_content": "Can play in guardiolas tika taka",
-        "metadata": {
-          "id": 4,
-          "player_id": "1337",
-          "player_transfermarkt_id": "1340",
-          "scout_id": "0",
-          "grade_rating": 9.5,
-          "grade_potential": 10.0,
-          "main_position": "goalkeeper",
-          "played_position": "goalkeeper"
-        }
-      }
-    ]
-  }
-]
+      ]
+    }
+  ]
+}
