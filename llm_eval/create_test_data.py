@@ -1,3 +1,7 @@
+# Running this file and entering queries will add test data to the file specified below.
+# Type "done" when no more data is to be added
+# New data will be saved after "done" was typed
+
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Milvus
 import model_structure

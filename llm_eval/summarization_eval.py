@@ -18,14 +18,12 @@ from document_formats import format_documents_v01
 import json
 
 MODELS = ["mistral", "llama3"]
-prompt_template = prompt_templates.v005  # can be replaced by GS later
+# MODELS = ["mistral"]
+PROMPT_TEMPLATES = [prompt_templates.v005, prompt_templates.v006]
+# PROMPT_TEMPLATES = [prompt_templates.v006]
 # file_name = "test_structure.json"
 file_name = "new_data_prod.json"
 parser = JsonOutputParser(pydantic_object=model_definitions.ListPlayerResponse)
-prompt_for_llm = PromptTemplate(
-    template=prompt_template,
-    input_variables=["context", "question", "format_instructions"],
-)
 
 
 def get_reports_from_context_for_player(query_and_retrieved_doc_dict: model_structure.QueryAndRetrievedDocuments,
@@ -46,7 +44,7 @@ def player_ids_in_retrieved_docs(query_and_retrieved_doc_dict: model_structure.Q
     for doc in query_and_retrieved_docs.retrieved_documents:
         player_id_map[doc.metadata['player_transfermarkt_id']] = ""
 
-    print(player_id_map)
+    print(f"player_ids_in_retrieved_docs player_id_set: {player_id_map}")
     return len(player_id_map)
 
 
@@ -71,39 +69,53 @@ for modelElement in MODELS:
     print(f"\n------\nStarting calculating metrics for model '{modelElement}'...")
     model = Ollama(model=modelElement, format="json")
 
-    predictions = []  # Model summaries
-    references = []  # Our provided context data
-    players_in_list_from_references = []  # Percentage of players the model had in its response wrt to the unique players in the context
+    for template in PROMPT_TEMPLATES:
+        print(f"\n------\nStarting calculating metrics for model '{modelElement}' with template '{template}'")
+        prompt_template = template
+        prompt_for_llm = PromptTemplate(
+            template=prompt_template,
+            input_variables=["context", "question", "format_instructions"],
+        )
 
-    # kann man hier evtl auch die loop auslagern für code clarity?
-    for singleInput in list_of_test_inputs['data']:
-        print("start computing new input...")
-        # the following 2 lines only have to be done once in the beginning. Although doesnt matter if they run every time. But would be cleanerw
-        actual_instance_of_input = model_structure.QueryAndRetrievedDocuments.parse_obj(singleInput)
-        formatted_context_string = format_documents_v01(actual_instance_of_input.retrieved_documents)
+        predictions = []  # Model summaries
+        references = []  # Our provided context data
+        players_in_list_from_references = []  # Percentage of players the model had in its response wrt to the unique players in the context
 
-        # This is variable per prompt template and how we define the context (ie merging reports or not). Could also change the format instructions.
-        prompt_injection = {"context": formatted_context_string, "question": actual_instance_of_input.query,
-                            "format_instructions": parser.get_format_instructions()}
-        prompt_for_llm = prompt_template.format(**prompt_injection)
+        # kann man hier evtl auch die loop auslagern für code clarity?
+        for singleInput in list_of_test_inputs['data']:
+            print("start computing new input...")
+            # the following 2 lines only have to be done once in the beginning. Although doesnt matter if they run every time. But would be cleanerw
+            actual_instance_of_input = model_structure.QueryAndRetrievedDocuments.parse_obj(singleInput)
+            formatted_context_string = format_documents_v01(actual_instance_of_input.retrieved_documents)
 
-        player_response = get_model_answer(model, prompt_for_llm)
+            # This is variable per prompt template and how we define the context (ie merging reports or not). Could also change the format instructions.
+            prompt_injection = {"context": formatted_context_string, "question": actual_instance_of_input.query,
+                                "format_instructions": parser.get_format_instructions()}
+            prompt_for_llm = prompt_template.format(**prompt_injection)
 
-        # craete 2 lists for the context and the corresponding llm-answer
-        for player in player_response.list:
-            model_summary = player.report_summary
-            context_reports = get_reports_from_context_for_player(singleInput, str(player.player_id))
-            print("---\nModel answer and context:\n")
-            print("model_summary: \n\t", model_summary)
-            print("initial reports: \n", context_reports)
+            list_of_players_from_model = get_model_answer(model, prompt_for_llm)
 
-            predictions.append(model_summary)
-            references.append(context_reports)
+            # craete 2 lists for the context and the corresponding llm-answer
+            for player in list_of_players_from_model.list:
+                model_summary = player.report_summary
+                context_reports = get_reports_from_context_for_player(singleInput, str(player.player_id))
+                print(f"---\nModel answer and context for player_id: {player.player_id}:\n")
+                print("model_summary: \n\t", model_summary)
+                print("initial reports: \n", context_reports)
 
-        # print comparison between players in context and lenght of player_response.list
-        model_resp_player_count = len(player_response.list)
-        unique_player_ids = player_ids_in_retrieved_docs(singleInput)
-        players_in_list_from_references.append(model_resp_player_count / unique_player_ids)
+                predictions.append(model_summary)
+                references.append(context_reports)
 
-    apply_metrics(predictions, references, players_in_list_from_references)
+            # print comparison between players in context and lenght of player_response.list
+            model_resp_player_count = len(list_of_players_from_model.list)
+            unique_player_ids = player_ids_in_retrieved_docs(singleInput)
+
+            # TODO how to handle further?
+            if model_resp_player_count > unique_player_ids:
+                print(f"more entries in model response than in context: {list_of_players_from_model.list} for input {singleInput}")
+            players_in_list_from_references.append(model_resp_player_count / unique_player_ids)
+
+        apply_metrics(predictions, references, players_in_list_from_references)
+        print(f"Finished calculating metrics for model '{modelElement}' with template '{template}")
+
     print(f"Finished calculating metrics for model '{modelElement}'")

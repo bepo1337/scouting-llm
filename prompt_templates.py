@@ -134,3 +134,20 @@ v005 = """You are an assistant in football (soccer) scouting.
 
    {format_instructions}
 """
+
+v006 = """Act as an expert in soccer scouting and player reports.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    Every player should be included in your response. Make sure that for each unique player id from the context, there is an entry in your answer.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+"""
+
