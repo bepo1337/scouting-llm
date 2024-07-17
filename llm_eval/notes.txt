@@ -1,0 +1,45 @@
+Assumption:
+ - The context we get is already filtered for non relevant documents. So every player we get should be in the response
+
+
+1. Input is a given context that we get from the retriever
+2. For each player (correlate player id from documents and merge them) we expect the LLM to have one object in the list
+3. For each player we want to check if the report summary in the json is not hallucinated
+
+For 1:
+- Input is context like we get it from the context?
+    - or maybe we get it in a list of json where each entry has:
+        - Player ID, List of Reports
+        - Then we call our format_documents() from our actual chain. Whereas this is also a variable.
+
+For 2:
+- Metric could be to count unique player ids in context and how many of those we have in the list
+    - ie 8 unique players in context but only 6 entries in returned list from response: 6/8 = 0.75
+
+For 3:
+- For each summary we want to know how closely it resembles the given context
+- One approach is: For each entry in llm response, get the respective merged reports. Then compare the contents.
+    - Comparing the contents with score:
+        - Faithfulness (https://docs.confident-ai.com/docs/metrics-faithfulness), might be more challenging
+        - BertScore
+            - (14.07.24): Add golden summary aswell? Could be just a dict in the object with player id and the golden summary?
+        - BLEU
+        - ROUGUE
+        - Other
+            - SBert (Sentence-BERT), USE (Universal Sentence Encoder)
+- For each pair of input (reports) and output (llm json response)
+    - We average the metrics
+- Probably need to manually check at least some in the beginning if the given similarities or score makes sense
+
+
+In general
+- Need to make some aspects variable:
+    - Prompt template
+    - Prompt (is rather part of the input?)
+    - LLM
+    -
+
+
+
+Misc thoughts:
+- Maybe we can achieve better results if we just get back the player id with their summaries and after that use another llm to then bring those into json format
