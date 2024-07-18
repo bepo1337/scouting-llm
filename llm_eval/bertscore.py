@@ -17,6 +17,7 @@ def print_bert_scores(bert_scores):
 
 def apply_bertscore(predictions, references):
     bertscore = load("bertscore")
+    # TODO microsoft/deberta-xlarge-mnli is best model to use (https://github.com/Tiiiger/bert_score#readme)
     # other model such as "roberta-large" is better, but larger obv (distilbert... takes 268MB vs roberta-large is 1.4GB)
     bert_scores = bertscore.compute(predictions=predictions, references=references,
                                     model_type="distilbert-base-uncased")

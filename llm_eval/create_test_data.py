@@ -14,7 +14,7 @@ COLLECTION_NAME = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 connection_args = {'uri': VECTOR_STORE_URI}
-file_name = "new_data_prod.json"
+file_name = "dev_new_data_prod.json"
 
 vectorstore = Milvus(
     embedding_function=embeddings,
@@ -27,8 +27,9 @@ vectorstore = Milvus(
 
 retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
 
-test_data_file = model_structure.load_inputs(file_name)
-test_data = test_data_file['data']
+test_data_file = model_structure.load_or_create(file_name)
+test_data = test_data_file.data
+
 
 while True:
     # Prompt the user for input

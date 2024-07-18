@@ -82,7 +82,7 @@ for modelElement in MODELS:
         players_in_list_from_references = []  # Percentage of players the model had in its response wrt to the unique players in the context
 
         # kann man hier evtl auch die loop auslagern für code clarity?
-        for singleInput in list_of_test_inputs['data']:
+        for singleInput in list_of_test_inputs.data:
             print("start computing new input...")
             # the following 2 lines only have to be done once in the beginning. Although doesnt matter if they run every time. But would be cleanerw
             actual_instance_of_input = model_structure.QueryAndRetrievedDocuments.parse_obj(singleInput)

@@ -19,4 +19,14 @@ def load_inputs(file_name) -> ListOfTestInputs:
     with open(file_name, "r") as file:
         json_data = file.read()
         parsed_data = json.loads(json_data)
-        return parsed_data
+        list_of_inputs = ListOfTestInputs(**parsed_data)
+        return list_of_inputs
+
+def load_or_create(file_name) -> ListOfTestInputs:
+    try:
+        parsed_date = load_inputs(file_name)
+        return parsed_date
+    except FileNotFoundError:
+        print(f"{file_name} failed to load, it will overwrite on saving or create the file when typing 'done'. "
+              f"Exit with CTRl+C otherwise.")
+        return ListOfTestInputs(data=[])
