@@ -79,6 +79,6 @@ def analyze_text_statistics(json_file, output_file):
 
 if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    json_file = os.path.join(script_dir, "../../uhh_data.json")
-    output_file = "statistics.txt"  # Replace with desired output file path
+    json_file = os.path.join(script_dir, "../data/test_scouting_reports.json")
+    output_file = "test-statistics.txt"  # Replace with desired output file path
     analyze_text_statistics(json_file, output_file)

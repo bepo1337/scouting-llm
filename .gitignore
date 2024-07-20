@@ -167,3 +167,5 @@ volumes
 *prod.json
 invalid_reports.txt
 screenshots/
+test_scouting_reports.json
+scouting_reports.txt
