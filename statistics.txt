@@ -12,6 +12,11 @@ Avg. reports per player: 1.85
 Players with more than 1 report: 1663
 Players with more than 5 reports: 182
 Players with more than 10 reports: 16
+### Reports but with actual text in them (are != "")
+Players with more than 1 actual report: 1215
+Players with more than 5 actual reports: 89
+Players with more than 10 actual reports: 6
+
 
 
 Most common words:
