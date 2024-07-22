@@ -50,7 +50,9 @@ for player_id in id_list:
     documents = []
     for res in result:
         if res['text'] != "":
-            doc = Document(page_content=res['text'])
+            metadata = {"player_transfermarkt_id" : res['player_transfermarkt_id']}
+            doc = Document(page_content=res['text'], metadata=metadata)
+
             documents.append(doc)
 
     goldenSummaryAndRetrievedDocuments = GoldenSummaryAndRetrievedDocuments(golden_summary="", retrieved_documents=documents)
