@@ -3,6 +3,7 @@ from flask_cors import cross_origin
 from flask_cors import CORS
 
 from chain import invoke_chain
+from reaction import log_reaction
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,15 @@ def scout_prompt():
     user_query = request.get_json()['query']
     prompt_response = nlp_proccessing(user_query)
     return jsonify({"query": user_query, "response": prompt_response}), 200
+
+@app.route("/reaction", methods=["POST"])
+@cross_origin()
+def reaction():
+    if not request.is_json:
+        return "Not a valid json!", 400
+
+    log_reaction(request.get_json())
+    return jsonify("message", "accepted"), 202
 
 
 
