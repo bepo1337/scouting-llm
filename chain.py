@@ -69,6 +69,15 @@ def format_documents(docs: [Document]):
         report_content = doc.page_content
         player_reports[player_id].append(report_content)
 
+    # Add other probably relevant reports to the aggregated player reports
+    for player in player_reports.keys():
+        additional_player_reports = vectorstore.as_retriever(search_kwargs={'filter': f"player_transfermarkt_id == {player}"}).invoke()
+        for additional_player_report in additional_player_reports:
+            additional_player_report_text = additional_player_report.page_content
+            # Check if the report is not already in the aggregated reports
+            if additional_player_report not in player_reports[player]:
+                player_reports[player].append(additional_player_report_text)
+
     # Format the aggregated reports
     formatted_reports = []
     for player_id, reports in player_reports.items():
