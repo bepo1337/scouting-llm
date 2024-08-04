@@ -37,6 +37,7 @@ parser = JsonOutputParser(pydantic_object=model_definitions.ListPlayerResponse)
 use_azure_model = True
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
+results_filename = "results.txt"
 
 
 def get_reports_from_context_for_player(query_and_retrieved_doc_dict: model_structure.QueryAndRetrievedDocuments,
@@ -74,9 +75,9 @@ def get_model_answer(current_model, current_prompt) -> model_definitions.ListPla
 
 
 def apply_metrics(predictions, references, players_in_list_from_references):
-    bertscore.apply_bertscore(predictions, references)
-    rougescore.apply_rouge_score(predictions, references)
-    player_count.print_player_counts(players_in_list_from_references)
+    bertscore.apply_bertscore(predictions, references, results_filename)
+    rougescore.apply_rouge_score(predictions, references, results_filename)
+    player_count.print_player_counts(players_in_list_from_references, results_filename)
 
 
 def setup_model(model_name: str):
@@ -84,7 +85,7 @@ def setup_model(model_name: str):
         return AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name,
                               model_kwargs={"response_format": {"type": "json_object"}})
     else:
-        return Ollama(model=modelElement, format="json")
+        return Ollama(model=model_name, format="json")
 
 
 models = []

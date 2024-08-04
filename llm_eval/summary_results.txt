@@ -1,0 +1,46 @@
+--- GPT-4o
+BERTScore number of values: 50
+BERTScore avg. precision: 0.8745456564426423
+BERTScore avg. recall: 0.8723218393325806
+BERTScore avg. F1 score: 0.873334641456604
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+
+ROGUE rouge1: 0.5362109345457704
+ROGUE rouge2: 0.21637282325243068
+ROGUE rougeL: 0.32198482477637075
+ROGUE rougeLsum: 0.3239344549150086
+
+BLEU bleu: 0.1717997719217988
+BLEU avg. precisions: 0.25647462364783497
+BLEU brevity_penalty: 0.919071754653351
+BLEU length_ratio: 0.9221765264156913
+
+--- GPT-4
+BERTScore number of values: 50
+BERTScore avg. precision: 0.8783892285823822
+BERTScore avg. recall: 0.8731294524669647
+BERTScore avg. F1 score: 0.8756693685054779
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.5418405624770313
+ROGUE rouge2: 0.2257320033005652
+ROGUE rougeL: 0.32955804968908164
+ROGUE rougeLsum: 0.32995264274873304
+BLEU bleu: 0.17868985518052372
+BLEU avg. precisions: 0.27142408073303853
+BLEU brevity_penalty: 0.8785050009620239
+BLEU length_ratio: 0.8853211009174312
+
+--- GPT-3.5-Turbo
+BERTScore number of values: 50
+BERTScore avg. precision: 0.8771062767505646
+BERTScore avg. recall: 0.8765856170654297
+BERTScore avg. F1 score: 0.8767462992668151
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.5504339082749415
+ROGUE rouge2: 0.22755864751212074
+ROGUE rougeL: 0.32525631031697944
+ROGUE rougeLsum: 0.3285537003032022
+BLEU bleu: 0.18477482036679715
+BLEU avg. precisions: 0.26122582346600953
+BLEU brevity_penalty: 0.9555414879664499
+BLEU length_ratio: 0.9565011072445428

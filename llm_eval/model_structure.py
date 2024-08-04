@@ -13,6 +13,16 @@ class ListOfTestInputs(BaseModel):
     data: List[QueryAndRetrievedDocuments]
 
 
+class GoldenSummaryAndRetrievedDocuments(BaseModel):
+    golden_summary: str
+    retrieved_documents: List[Document]
+
+
+class ListOfGoldenSummaryAndRetrievedDocuments(BaseModel):
+    data: List[GoldenSummaryAndRetrievedDocuments]
+
+
+
 # Load the the queries and corresponding retrieved documents
 def load_inputs(file_name) -> ListOfTestInputs:
     with open(file_name, "r") as file:

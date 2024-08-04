@@ -1,9 +1,9 @@
 from typing import List
 from evaluate import load
 
-def print_rouge_score(rouge_scores):
+def print_rouge_score(rouge_scores, results_filename):
     print("\n----- ROUGE score -----")
-    with open("results.txt", "a") as file:
+    with open(results_filename, "a") as file:
         print(f"ROGUE rouge1: {rouge_scores['rouge1']}")
         file.write(f"ROGUE rouge1: {rouge_scores['rouge1']}\n")
         print(f"ROGUE rouge2: {rouge_scores['rouge2']}\n")
@@ -14,7 +14,7 @@ def print_rouge_score(rouge_scores):
         file.write(f"ROGUE rougeLsum: {rouge_scores['rougeLsum']}\n")
 
 
-def apply_rouge_score(predictions, references):
+def apply_rouge_score(predictions, references, results_filename):
     rouge = load("rouge")
     rouge_scores = rouge.compute(predictions=predictions, references=references)
-    print_rouge_score(rouge_scores)
+    print_rouge_score(rouge_scores, results_filename)
