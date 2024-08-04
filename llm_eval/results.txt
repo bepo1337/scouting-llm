@@ -1,0 +1,390 @@
+
+------
+Calculating metrics for model 'gpt-4o'
+------
+Calculating metrics for model 'gpt-4o' with template 'You are an assistant in football (soccer) scouting.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 9
+BERTScore avg. precision: 0.9923899902237786BERTScore avg. recall: 0.9796035024854872
+BERTScore avg. F1 score: 0.9859410723050436
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9760591575984807
+ROGUE rouge2: 0.964706444918777
+ROGUE rougeL: 0.9763573979651123
+ROGUE rougeLsum: 0.9764999027890595
+Player count list (should all be <=1): [0.2, 0.0, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.0, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.18
+
+------
+Calculating metrics for model 'gpt-4o' with template 'Act as an expert in soccer scouting and player reports.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    Every player should be included in your response. Make sure that for each unique player id from the context, there is an entry in your answer.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 28
+BERTScore avg. precision: 0.9903328397444316BERTScore avg. recall: 0.9735067422900882
+BERTScore avg. F1 score: 0.9818081621612821
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9603333388847569
+ROGUE rouge2: 0.9399569078858503
+ROGUE rougeL: 0.9590999600627002
+ROGUE rougeLsum: 0.9583807711014927
+Player count list (should all be <=1): [0.4, 1.0, 0.4, 1.0, 0.4, 0.2, 0.2, 0.6, 0.4, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.56
+
+------
+Calculating metrics for model 'gpt-4o' with template 'You assist me in scouting soccer players.
+    Dont make up anything that you dont see from the context.
+    Make sure you follow the format instructions i give you in a json format and include EVERY player that I provide.
+    So each unique player ID that is provided in the context absouletly has to be in your answer.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 40
+BERTScore avg. precision: 0.992101825773716BERTScore avg. recall: 0.978754548728466
+BERTScore avg. F1 score: 0.9853765219449997
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9743855953005874
+ROGUE rouge2: 0.9639256997435898
+ROGUE rougeL: 0.9746876813201693
+ROGUE rougeLsum: 0.9746943703068429
+Player count list (should all be <=1): [0.4, 1.0, 0.4, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.8
+
+------
+Calculating metrics for model 'gpt-4o' with template '
+    Given the context and the question, create a summary of each unique player ID that you have in the <context> tags.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 41
+BERTScore avg. precision: 0.980412590794447BERTScore avg. recall: 0.9638405049719462
+BERTScore avg. F1 score: 0.9719595778279189
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9198950076129861
+ROGUE rouge2: 0.868286617851363
+ROGUE rougeL: 0.9143201402162893
+ROGUE rougeLsum: 0.9125310546001119
+Player count list (should all be <=1): [0.6, 1.0, 0.4, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.82
+
+------
+Calculating metrics for model 'gpt-4o' with template '
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 13
+BERTScore avg. precision: 0.9905155759591323BERTScore avg. recall: 0.977821620611044
+BERTScore avg. F1 score: 0.9841178884873023
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9708607084156051
+ROGUE rouge2: 0.9498323027067891
+ROGUE rougeL: 0.9689169542321636
+ROGUE rougeLsum: 0.9697079982979261
+Player count list (should all be <=1): [0.4, 0.0, 0.4, 0.4, 0.4, 0.2, 0.2, 0.4, 0.2, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.26
+
+------
+Calculating metrics for model 'gpt-4'
+------
+Calculating metrics for model 'gpt-4' with template 'You are an assistant in football (soccer) scouting.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 11
+BERTScore avg. precision: 0.9927614493803545BERTScore avg. recall: 0.9804524020715193
+BERTScore avg. F1 score: 0.9865573427893899
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9760384325109517
+ROGUE rouge2: 0.9616371502085329
+ROGUE rougeL: 0.9759536362204821
+ROGUE rougeLsum: 0.9761995208632631
+Player count list (should all be <=1): [0.4, 0.0, 0.4, 0.4, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.22000000000000003
+
+------
+Calculating metrics for model 'gpt-4' with template 'Act as an expert in soccer scouting and player reports.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    Every player should be included in your response. Make sure that for each unique player id from the context, there is an entry in your answer.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 31
+BERTScore avg. precision: 0.9919887358142484BERTScore avg. recall: 0.9784068157595973
+BERTScore avg. F1 score: 0.9851435211396986
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9736449788589661
+ROGUE rouge2: 0.9609379640605391
+ROGUE rougeL: 0.9726479807061785
+ROGUE rougeLsum: 0.9728381957770016
+Player count list (should all be <=1): [0.4, 1.0, 0.4, 1.0, 0.4, 0.2, 0.2, 0.6, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.62
+
+------
+Calculating metrics for model 'gpt-4' with template 'You assist me in scouting soccer players.
+    Dont make up anything that you dont see from the context.
+    Make sure you follow the format instructions i give you in a json format and include EVERY player that I provide.
+    So each unique player ID that is provided in the context absouletly has to be in your answer.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 39
+BERTScore avg. precision: 0.9934940139452616BERTScore avg. recall: 0.9805041903104538
+BERTScore avg. F1 score: 0.9869483021589426
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9797300629793088
+ROGUE rouge2: 0.9743397870450898
+ROGUE rougeL: 0.9798429269945882
+ROGUE rougeLsum: 0.9796401940253463
+Player count list (should all be <=1): [1.0, 1.0, 0.4, 1.0, 1.0, 0.2, 0.2, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.78
+
+------
+Calculating metrics for model 'gpt-4' with template '
+    Given the context and the question, create a summary of each unique player ID that you have in the <context> tags.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 41
+BERTScore avg. precision: 0.9905995275916123BERTScore avg. recall: 0.9770501852035522
+BERTScore avg. F1 score: 0.9837672157985408
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9728799619302271
+ROGUE rouge2: 0.9587718969043784
+ROGUE rougeL: 0.9721653539061723
+ROGUE rougeLsum: 0.9723487956442443
+Player count list (should all be <=1): [0.6, 1.0, 1.0, 0.4, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.82
+
+------
+Calculating metrics for model 'gpt-4' with template '
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 12
+BERTScore avg. precision: 0.9916386554638544BERTScore avg. recall: 0.9787397483984629
+BERTScore avg. F1 score: 0.9851355652014414
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9731360741929166
+ROGUE rouge2: 0.9568415862328638
+ROGUE rougeL: 0.9735522855229444
+ROGUE rougeLsum: 0.9736724809340553
+Player count list (should all be <=1): [0.4, 0.0, 0.4, 0.4, 0.2, 0.4, 0.2, 0.2, 0.2, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.24000000000000007
+
+------
+Calculating metrics for model 'gpt-35-turbo'
+------
+Calculating metrics for model 'gpt-35-turbo' with template 'You are an assistant in football (soccer) scouting.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 10
+BERTScore avg. precision: 0.9901577651500701BERTScore avg. recall: 0.9770040690898896
+BERTScore avg. F1 score: 0.9835255980491638
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9661973503906907
+ROGUE rouge2: 0.9371445775448878
+ROGUE rougeL: 0.9642660269885905
+ROGUE rougeLsum: 0.9638884937325414
+Player count list (should all be <=1): [0.2, 0.0, 0.4, 0.2, 0.2, 0.4, 0.2, 0.4, 0.0, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.2
+
+------
+Calculating metrics for model 'gpt-35-turbo' with template 'Act as an expert in soccer scouting and player reports.
+    Use the following information to provide a concise answer to the question enclosed in <question> tags.
+    Dont make up anything that you dont see from the context.
+    Every player should be included in your response. Make sure that for each unique player id from the context, there is an entry in your answer.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 28
+BERTScore avg. precision: 0.9904450391020093BERTScore avg. recall: 0.9725905358791351
+BERTScore avg. F1 score: 0.9813889286347798
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9574570085055993
+ROGUE rouge2: 0.9415993051049951
+ROGUE rougeL: 0.9568901667509225
+ROGUE rougeLsum: 0.9570563772280121
+Player count list (should all be <=1): [0.4, 1.0, 0.4, 0.4, 0.4, 0.2, 0.2, 1.0, 0.6, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.5599999999999999
+
+------
+Calculating metrics for model 'gpt-35-turbo' with template 'You assist me in scouting soccer players.
+    Dont make up anything that you dont see from the context.
+    Make sure you follow the format instructions i give you in a json format and include EVERY player that I provide.
+    So each unique player ID that is provided in the context absouletly has to be in your answer.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 40
+BERTScore avg. precision: 0.9937933623790741BERTScore avg. recall: 0.9814524322748184
+BERTScore avg. F1 score: 0.9875762805342674
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9800637727820949
+ROGUE rouge2: 0.9742774165896873
+ROGUE rougeL: 0.9800721580203415
+ROGUE rougeLsum: 0.980330455827699
+Player count list (should all be <=1): [0.4, 1.0, 0.4, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.8
+
+------
+Calculating metrics for model 'gpt-35-turbo' with template '
+    Given the context and the question, create a summary of each unique player ID that you have in the <context> tags.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 41
+BERTScore avg. precision: 0.9894524492868563BERTScore avg. recall: 0.9755996756437348
+BERTScore avg. F1 score: 0.9824599652755551
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9671248585312088
+ROGUE rouge2: 0.9461287233659522
+ROGUE rougeL: 0.9646001207255643
+ROGUE rougeLsum: 0.9647657444440061
+Player count list (should all be <=1): [0.6, 1.0, 0.4, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0]
+Player counts len: 10
+average percentage of players in model answer: 0.82
+
+------
+Calculating metrics for model 'gpt-35-turbo' with template '
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+'BERTScore number of values: 14
+BERTScore avg. precision: 0.9915688846792493BERTScore avg. recall: 0.9794399993760246
+BERTScore avg. F1 score: 0.985457854611533
+BERTScore hashcode: distilbert-base-uncased_L5_no-idf_version=0.3.12(hug_trans=4.41.2)
+ROGUE rouge1: 0.9758064523269502
+ROGUE rouge2: 0.9585127313264248
+ROGUE rougeL: 0.9739954023007789
+ROGUE rougeLsum: 0.9743054107662805
+Player count list (should all be <=1): [0.4, 0.0, 0.4, 0.4, 0.4, 0.2, 0.2, 0.6, 0.2, 0.0]
+Player counts len: 10
+average percentage of players in model answer: 0.28

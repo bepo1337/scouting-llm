@@ -26,16 +26,15 @@ load_dotenv()
 
 MODELS_LOCAL = ["mistral", "llama3"]
 # MODELS = ["mistral"]
-# MODELS_AZURE = ["gpt-4o", "gpt-4", "gpt-35-turbo"]
-MODELS_AZURE = ["gpt-4"]
-# PROMPT_TEMPLATES = [prompt_templates.v005, prompt_templates.v006]
-PROMPT_TEMPLATES = [prompt_templates.v006]
+MODELS_AZURE = ["gpt-4o", "gpt-4", "gpt-35-turbo"]
+PROMPT_TEMPLATES = [prompt_templates.v005, prompt_templates.v006, prompt_templates.v007, prompt_templates.v008, prompt_templates.v009]
+# PROMPT_TEMPLATES = [prompt_templates.v006]
 # file_name = "test_structure.json"
-# file_name = "data/new_data_prod.json"
-file_name = "data/new_data_single_prod.json"
+file_name = "data/new_data_prod.json"
+# file_name = "data/new_data_single_prod.json"
 parser = JsonOutputParser(pydantic_object=model_definitions.ListPlayerResponse)
 # TRUE = USES AZURE CLOUD
-use_azure_model = False
+use_azure_model = True
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
 
@@ -97,11 +96,15 @@ else:
 
 # TODO get references list once and not in each model loop
 for modelElement in models:
+    with open('results.txt', 'a') as file:
+        file.write(f"\n------\nCalculating metrics for model '{modelElement}'")
     print(f"\n------\nStarting calculating metrics for model '{modelElement}'...")
     model = setup_model(modelElement)
 
 
     for template in PROMPT_TEMPLATES:
+        with open('results.txt', 'a') as file:
+            file.write(f"\n------\nCalculating metrics for model '{modelElement}' with template '{template}'")
         print(f"\n------\nStarting calculating metrics for model '{modelElement}' with template '{template}'")
         prompt_template = template
         prompt_for_llm = PromptTemplate(
@@ -116,7 +119,7 @@ for modelElement in models:
         # kann man hier evtl auch die loop auslagern für code clarity?
         for single_instance_dict in list_of_test_inputs.data:
             single_input = model_structure.QueryAndRetrievedDocuments.parse_obj(single_instance_dict)
-            print(f"start computing new input with query {single_input.query}...")
+            print(f"start computing new input with query '{single_input.query}'...")
             formatted_context_string = format_documents_v01(single_input.retrieved_documents)
 
             # This is variable per prompt template and how we define the context (ie merging reports or not). Could also change the format instructions.

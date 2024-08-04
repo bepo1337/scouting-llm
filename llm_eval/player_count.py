@@ -5,6 +5,10 @@ def get_average(float_list: List[float]) -> float:
 
 def print_player_counts(player_counts: [float]):
     print("\n----- Player counts -----")
-    print("Player count list (should all be <=1): ", player_counts)
-    print("Player counts len: ", len(player_counts))
-    print(f"average percentage of players in model answer: {get_average(player_counts)}")
+    with open("results.txt", "a") as file:
+        print("Player count list (should all be <=1): ", player_counts)
+        file.write(f"Player count list (should all be <=1): {player_counts}\n")
+        print("Player counts len: ", len(player_counts))
+        file.write(f"Player counts len: {len(player_counts)}\n")
+        print(f"average percentage of players in model answer: {get_average(player_counts)}")
+        file.write(f"average percentage of players in model answer: {get_average(player_counts)}\n")
