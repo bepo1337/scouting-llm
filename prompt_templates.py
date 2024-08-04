@@ -151,3 +151,49 @@ v006 = """Act as an expert in soccer scouting and player reports.
    {format_instructions}
 """
 
+v007 = """You assist me in scouting soccer players.
+    Dont make up anything that you dont see from the context.
+    Make sure you follow the format instructions i give you in a json format and include EVERY player that I provide.
+    So each unique player ID that is provided in the context absouletly has to be in your answer.
+    
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+"""
+
+v008 = """
+    Given the context and the question, create a summary of each unique player ID that you have in the <context> tags.
+
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+"""
+
+v009 = """
+    <context>
+    {context}
+    </context>
+
+    <question>
+    {question}
+    </question>
+
+   {format_instructions}
+"""
+
+
+
+
+
