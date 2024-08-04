@@ -7,11 +7,20 @@ import json
 class QueryAndRetrievedDocuments(BaseModel):
     query: str
     retrieved_documents: List[Document]
-    # TODO add golden summary dict: player_id --> golden summary
 
 
 class ListOfTestInputs(BaseModel):
     data: List[QueryAndRetrievedDocuments]
+
+
+class GoldenSummaryAndRetrievedDocuments(BaseModel):
+    golden_summary: str
+    retrieved_documents: List[Document]
+
+
+class ListOfGoldenSummaryAndRetrievedDocuments(BaseModel):
+    data: List[GoldenSummaryAndRetrievedDocuments]
+
 
 
 # Load the the queries and corresponding retrieved documents

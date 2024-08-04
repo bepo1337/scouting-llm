@@ -165,8 +165,8 @@ milvus_cli.sh
 docker/
 volumes
 *prod.json
+*prod.txt
 invalid_reports.txt
 screenshots/
 test_scouting_reports.json
 scouting_reports.txt
-retriever_test_reports.json

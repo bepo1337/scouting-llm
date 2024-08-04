@@ -14,7 +14,7 @@ COLLECTION_NAME = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 connection_args = {'uri': VECTOR_STORE_URI}
-file_name = "dev_new_data_prod.json"
+file_name = "data/dev_new_data_prod.json"
 
 vectorstore = Milvus(
     embedding_function=embeddings,
