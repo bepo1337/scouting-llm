@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from typing import Optional, List
 from tqdm import tqdm
 from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 
 from pymilvus import (
     connections,
@@ -15,17 +17,21 @@ from pymilvus import (
 )
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--file", default="reports.json", nargs="?",
-                    help="What file to import (default: reports.json)")
-parser.add_argument("--collection", default="scouting", nargs="?",
-                    help="Name of collection to insert (default: scouting)")
+parser.add_argument("--file", default="retriever_test_reports.json", nargs="?",
+                    help="What file to import (default: retriever_test_reports.json)")
+parser.add_argument("--collection", default="testscouting", nargs="?",
+                    help="Name of collection to insert (default: testscouting)")
 parser.add_argument("--milvus-port", default="19530", nargs="?",
                     help="Port Milvus is running on (default: 19530)")
 args, unknown = parser.parse_known_args()
 
-import_file = "data/" + args.file
+import_file = "./" + args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
+
+model_name = 'nomic-ai/nomic-embed-text-v1'
+model_kwargs = {'device': 'mps', 'trust_remote_code': True}
+encode_kwargs = {'normalize_embeddings': False} 
 
 # Have to change together. Cant set dimensions per model withput PCA or other dimensionality reduction method.
 dimensions = 768
@@ -95,7 +101,14 @@ def json_to_reports() ->[Report]:
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
     report_texts = [item.text for item in reports]
-    embeddings = OllamaEmbeddings(model=embedding_model)
+    
+    #embeddings = OllamaEmbeddings(model=embedding_model, model_kwargs = {'device': 'mps'})
+
+    embeddings = HuggingFaceEmbeddings(  
+        model_name=model_name,  
+        model_kwargs=model_kwargs,  
+        encode_kwargs=encode_kwargs,  
+    )
 
     embedded_report_texts = []
     for text in tqdm(report_texts, desc="Embedding reports"):

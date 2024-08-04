@@ -3,11 +3,19 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 import numpy as np
 from langchain_community.vectorstores import Milvus
 from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
+import json
+from rank_bm25 import BM25Okapi
 
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
-COLLECTION_NAME = "scouting"
+COLLECTION_NAME = "testscouting"
 VECTOR_STORE_URI = "http://localhost:19530"
+
+model_name = 'nomic-ai/nomic-embed-text-v1'
+model_kwargs = {'device': 'mps', 'trust_remote_code': True}
+encode_kwargs = {'normalize_embeddings': False} 
 
 # Example requests and their validation sets
 requests = {
@@ -18,8 +26,15 @@ requests = {
     "request_5": ("Goalkeeper with quick reflexes and good penalty area control", [31, 78])
 }
 
+
+#embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
+embeddings = HuggingFaceEmbeddings(  
+    model_name=model_name,  
+    model_kwargs=model_kwargs,  
+    encode_kwargs=encode_kwargs,  
+)
+
 # Connect to Milvus
-embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 connection_args = {'uri': VECTOR_STORE_URI}
 vectorstore = Milvus(
     embedding_function=embeddings,
@@ -30,7 +45,28 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 2})
+retriever = vectorstore.as_retriever(search_kwargs={'k': 30})
+
+# Load your JSON data
+with open('retriever_test_reports.json', 'r') as file:
+    data = json.load(file)
+
+# Extract texts and player IDs
+documents = [report['text'] for report in data]
+player_ids = [report['report_number'] for report in data]
+
+# Tokenize the documents for BM25
+tokenized_corpus = [doc.split(" ") for doc in documents]
+bm25 = BM25Okapi(tokenized_corpus)
+
+# Function to perform BM25 search
+def bm25_search(query):
+    tokenized_query = query.split(" ")
+    doc_scores = bm25.get_scores(tokenized_query)
+    # Get the indices of the top 30 scores
+    top_n_indices = sorted(range(len(doc_scores)), key=lambda i: doc_scores[i], reverse=True)[:30]
+    return [player_ids[i] for i in top_n_indices]
+
 
 # Function to query Milvus
 def query_milvus(request_text):
@@ -41,13 +77,13 @@ def query_milvus(request_text):
     player_ids = [result.metadata['id'] for result in results]
     return player_ids
 
-
-def calculate_metrics(request_text, validation_list):
-    # Get the response (player list) from Milvus
-    response_ids = query_milvus(request_text)
+# Calculate metrics
+def calculate_metrics(request_text, validation_list, search_function):
+    # Get the response (player list) from the search function
+    response_ids = search_function(request_text)
     
     # Obtain the set of all possible player IDs 
-    all_player_ids = range(1,301)  #comprehensive set of all player IDs in your database
+    all_player_ids = range(1, 301)  # Comprehensive set of all player IDs in your database
     
     # Create binary lists for the true and predicted values
     y_true = [1 if player_id in validation_list else 0 for player_id in all_player_ids]
@@ -60,7 +96,11 @@ def calculate_metrics(request_text, validation_list):
     
     return precision, recall, f1
 
-# Loop through requests and calculate metrics
+# Loop through requests and calculate metrics for both BM25 and Milvus
 for req_name, (req_text, req_validation) in requests.items():
-    precision, recall, f1 = calculate_metrics(req_text, req_validation)
-    print(f"{req_name} - Precision: {precision:.2f}, Recall: {recall:.2f}, F1-Score: {f1:.2f}")
+    bm25_precision, bm25_recall, bm25_f1 = calculate_metrics(req_text, req_validation, bm25_search)
+    milvus_precision, milvus_recall, milvus_f1 = calculate_metrics(req_text, req_validation, query_milvus)
+    
+    print(f"{req_name} - BM25 - Precision: {bm25_precision:.2f}, Recall: {bm25_recall:.2f}, F1-Score: {bm25_f1:.2f}")
+    print(f"{req_name} - Milvus - Precision: {milvus_precision:.2f}, Recall: {milvus_recall:.2f}, F1-Score: {milvus_f1:.2f}")
+
