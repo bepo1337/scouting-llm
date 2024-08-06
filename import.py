@@ -23,6 +23,8 @@ parser.add_argument("--collection", default="test_scouting", nargs="?",
                     help="Name of collection to insert (default: test_scouting)")
 parser.add_argument("--milvus-port", default="19530", nargs="?",
                     help="Port Milvus is running on (default: 19530)")
+parser.add_argument("--chunk", action="store_true",
+                    help="Whether we want to chunk the reports (default: False)")
 parser.add_argument("--chunk-size", type=int, default=70, nargs="?",
                     help="Size of the chunks that we embed (default: 70)")
 parser.add_argument("--chunk-overlap", type=int, default=15, nargs="?",
@@ -33,6 +35,7 @@ args, unknown = parser.parse_known_args()
 import_file = "data/" + args.file
 milvus_port = args.milvus_port
 collection_name = args.collection
+chunk = args.chunk
 chunk_size = args.chunk_size
 chunk_overlap = args.chunk_overlap
 
@@ -192,11 +195,17 @@ print("... Connected to Milvus, collection: {}".format(collection.name))
 # Read JSON file and cast to our Report class
 reports = json_to_reports()
 
-# Chunk documents
-chunked_reports = chunk_reports(reports)
+# Chunk documents & import
 
-# Import reports to collection
-import_reports(collection, chunked_reports)
+if chunk:
+    print("chunking...")
+    chunked_reports = chunk_reports(reports)
+    import_reports(collection, chunked_reports)
+else:
+    print("not using chunks")
+    import_reports(collection, reports)
+
+
 
 # Create index on embeddings
 create_embeddings_index(collection)

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import cross_origin
 from flask_cors import CORS
 
-from chain import invoke_chain
+from chain_summaries import invoke_chain
 from reaction import log_reaction
 
 app = Flask(__name__)
