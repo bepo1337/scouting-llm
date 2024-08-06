@@ -13,7 +13,7 @@ AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
 import_file = "../../data/team_prod.json"
 # import_file = "../../data/10team_prod.json"
-output_file = "players_with_summaries_prod.json"
+output_file = "../../data/players_with_summaries_prod.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
