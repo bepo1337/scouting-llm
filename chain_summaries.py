@@ -28,8 +28,6 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-# retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
-
 def format_docs_to_json(docs: [Document]) -> str:
     # for every player we want: player_id, summary
     listResponse = model_definitions.ListPlayerResponse(list=[])
