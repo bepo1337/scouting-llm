@@ -1,15 +1,11 @@
-from langchain_community.llms.ollama import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.documents import Document
-from langchain_core.prompts import PromptTemplate
 import json
 from collections import defaultdict
 
 import model_definitions
-import prompt_templates
-from langchain_community.vectorstores import Milvus
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import JsonOutputParser
+# from langchain_community.vectorstores import Milvus
+from langchain_milvus import Milvus
 
 # MODEL = "mistral"
 EMBEDDING_MODEL = "nomic-embed-text"
@@ -32,46 +28,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
-
-def print_before_formatting(docs: [Document]):
-    print("\nDocuments from retriever before formatting/processing: \n")
-    for doc in docs:
-        doc_dict = {
-            "page_content": doc.page_content,
-            "metadata": doc.metadata
-        }
-        json_representation = json.dumps(doc_dict, indent=4)
-        print(json_representation)
-        print("\n")
-
-def format_documents(docs: [Document]):
-    print_before_formatting(docs)
-
-    # Create a dictionary to hold reports for each player ID
-    player_reports = defaultdict(list)
-
-    # Aggregate reports by player ID
-    for doc in docs:
-        player_id = doc.metadata['player_transfermarkt_id']
-        report_content = doc.page_content
-        player_reports[player_id].append(report_content)
-
-    # Format the aggregated reports
-    formatted_reports = []
-    for player_id, reports in player_reports.items():
-        formatted_report = f"Player ID: {player_id}\n"
-        for i, report in enumerate(reports, 1):
-            formatted_report += f"Report {i}: {report}\n"
-        formatted_report += "###"
-        formatted_reports.append(formatted_report.strip())
-
-    # Join all formatted reports into a single string
-    return_string = "\n\n".join(formatted_reports)
-    print("------------\nAfter merging reports for each player:\n")
-    print(return_string)
-    return return_string
-
+# retriever = vectorstore.as_retriever(search_kwargs={'k': COUNT_RETRIEVED_DOCUMENTS})
 
 def format_docs_to_json(docs: [Document]) -> str:
     # for every player we want: player_id, summary
@@ -84,17 +41,21 @@ def format_docs_to_json(docs: [Document]) -> str:
         listResponse.list.append(playerRes)
 
     return json.loads(listResponse.model_dump_json())
-def rag_chain(query: str):
-    documents = retriever.invoke(query)
+
+
+def rag_chain(query: str, position: str):
+    milvus_position_key = model_definitions.get_position_key_from_value(position)
+    filterExpression = f"main_position == '{milvus_position_key}'" if milvus_position_key is not None else None
+    documents = vectorstore.similarity_search(
+        query=query,
+        k=COUNT_RETRIEVED_DOCUMENTS,
+        expr=filterExpression
+        # expr=f"main_position == '{milvus_position_key}'"
+    )
     return format_docs_to_json(documents)
 
-# rag_chain = (
-#         {"context": retriever | format_documents, "question": RunnablePassthrough()}
-#
-#         | json.loads
-# )
 
-def invoke_chain(query: str) -> str:
-    print("User query: ", query)
-    return rag_chain(query)
+def invoke_chain(query: str, position: str) -> str:
+    print(f"User query: {query}, position: {position}")
+    return rag_chain(query, position)
 

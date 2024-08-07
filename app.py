@@ -15,7 +15,8 @@ def scout_prompt():
         return "Not a valid json!", 400
 
     user_query = request.get_json()['query']
-    prompt_response = nlp_proccessing(user_query)
+    position = request.get_json()['position']
+    prompt_response = nlp_proccessing(user_query, position)
     return jsonify({"query": user_query, "response": prompt_response}), 200
 
 @app.route("/reaction", methods=["POST"])
@@ -30,8 +31,8 @@ def reaction():
 
 
 
-def nlp_proccessing(query):
-    return invoke_chain(query)
+def nlp_proccessing(query, position):
+    return invoke_chain(query, position)
 
 if __name__ == "__main__":
     app.run()
