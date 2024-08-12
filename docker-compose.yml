@@ -60,6 +60,23 @@ services:
       - "etcd"
       - "minio"
 
+  postgres:
+    image: postgres:16
+    restart: always
+    shm_size: 256mb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: reports
+    ports:
+      - "5432:5432"
+
+
 networks:
   default:
     name: milvus
+
+volumes:
+  postgres_data:

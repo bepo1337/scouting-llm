@@ -4,43 +4,48 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
-class PlayerResponse(BaseModel):
+class PlayerIDWithSummary(BaseModel):
     player_id: int = Field(description="ID of the player")
     report_summary: str = Field(name="report_summary",
                                 description="Summary of the reports that have the same player id")
 
 
+class PlayerIDWithSummaryAndFineGrainedReports(BaseModel):
+    player_id: int = Field(description="ID of the player")
+    report_summary: str = Field(name="report_summary",
+                                description="Summary of the reports that have the same player id")
+    fine_grained_reports: List[str] = Field(name="fine_grained_reports",
+                                        description="Reports that were found in the fine grained search where we only look at single reports, not at summaries of players")
+
+
 # We want to get a list of players
 class ListPlayerResponse(BaseModel):
-    list: List[PlayerResponse]
+    list: List[PlayerIDWithSummaryAndFineGrainedReports]
 
 
 class Positions(Enum):
-    GOALKEEPER = 'Goalkeeper',
-    CENTER_BACK = 'Centre back',
-    LEFT_CENTER_BACK = 'Left center back',
-    RIGHT_CENTER_BACK = 'Right center back',
-    LEFT_BACK = 'Left back',
-    LEFT_WING_BACK = 'Left wing back',
-    RIGHT_BACK = 'Right back',
-    RIGHT_WING_BACK = 'Right wing back',
-    DEFENSIVE_MIDFIELD = 'Defensive midfield',
-    DEFENSIVE_MIDFIELD_LEFT = 'Defensive midfield left',
-    DEFENSIVE_MIDFIELD_RIGHT = 'Defensive midfield right',
-    CENTRAL_MIDFIELD = 'Central midfield',
-    CENTRAL_MIDFIELD_RIGHT = 'Central midfield right',
-    CENTRAL_MIDFIELD_LEFT = 'Central midfield left',
-    RIGHT_MIDFIELD = 'Right midfield',
-    RIGHT_MIDFIELD_OFFENSIVE = 'Right midfield offensive',
-    LEFT_MIDFIELD = 'Left midfield',
-    LEFT_MIDFIELD_OFFENSIVE = 'Left midfield offensive',
-    ATTACKING_MIDFIELD = 'Attacking midfield',
-    ATTACKING_MIDFIELD_LEFT = 'Attacking midfield left',
-    ATTACKING_MIDFIELD_RIGHT = 'Attacking midfield right',
-    HANGING_TOP = 'Hanging top',
-    LEFT_WING = 'Left wing',
-    RIGHT_WING = 'Right wing',
-    CENTER_FORWARD = 'Center forward',
-    RIGHT_FORWARD = 'Right forward',
-    LEFT_FORWARD = 'Left forward',
-    SUBSTITUTE = 'Substitute'
+    goalkeeper = 'Goalkeeper',
+    centerback = 'Centre back',
+    leftcenterback = 'Left center back',
+    rightcenterback = 'Right center back',
+    leftback = 'Left back',
+    leftwingback = 'Left wing back',
+    rightback = 'Right back',
+    rightwingback = 'Right wing back',
+    defensivemidfield = 'Defensive midfield',
+    centralmidfield = 'Central midfield',
+    rightmidfield = 'Right midfield',
+    leftmidfield = 'Left midfield',
+    attackingmidfield = 'Attacking midfield',
+    hangingtop = 'Hanging top',
+    leftwing = 'Left wing',
+    rightwing = 'Right wing',
+    centerforward = 'Center forward',
+    substitute = 'Substitute'
+
+def get_position_key_from_value(value):
+    for position in Positions:
+        # otherwise its a tuple somehow? works
+        if position.value[0] == value:
+            return position.name
+    return None
