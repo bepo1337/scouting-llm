@@ -1,6 +1,50 @@
 from langchain_core.prompts import PromptTemplate
 
+PROMPT_SUMMARY_INTO_STRUCTURE = """
+Context is soccer and you are a assistant in scouting. I want you to summarize the following reports into a structured summary.
+The structure for the summary is as follows:
+- General text about the player
+- Strengths
+- Weaknesses
+- Physical capabilities
+- Offensive capabilities
+- Defensive capabilities
+- Other attributions
 
+This is an example for a summary, but yours can vary in length and content depending on the reports in the context:
+"He is widely regarded as one of the best defenders of the country. He still has a lot of potential for improvement though.
+
+Strenghts: Very good in duels and opening passes
+Weaknesses: Often times out of position, opening up a lot of space
+Physical capabilities: Medium pace but a lot of endurance for intense games
+Offensive capabilities: -
+Defensive capabilities: Brings order to his teammates and wins a lot of duels. Very good at defending in aerial duels. 
+Other attributions: Motivates his teammates and doesnt give up even when down by some goals
+"
+The reports about the player are the following:
+<reports>
+{reports}
+</reports>
+Do not make anything up that you dont see from the reports.
+"""
+
+PROMPT_SUMMARY_INTO_STRUCTURE_WITHOUT_EXAMPLE = """
+Context is soccer and you are a assistant in scouting. I want you to summarize the following reports into a structured summary.
+The structure for the summary is as follows:
+- General text about the player
+- Strengths
+- Weaknesses
+- Physical capabilities
+- Offensive capabilities
+- Defensive capabilities
+- Other attributions
+
+The reports about the player are the following:
+<reports>
+{reports}
+</reports>
+Do not make anything up that you dont see from the reports.
+"""
 
 TUTORIAL_PROMPT = """
 Human: You are an AI assistant, and provides answers to questions by using fact based and statistical information when possible.
