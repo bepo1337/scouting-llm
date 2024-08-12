@@ -4,15 +4,23 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
-class PlayerResponse(BaseModel):
+class PlayerIDWithSummary(BaseModel):
     player_id: int = Field(description="ID of the player")
     report_summary: str = Field(name="report_summary",
                                 description="Summary of the reports that have the same player id")
 
 
+class PlayerIDWithSummaryAndFineGrainedReports(BaseModel):
+    player_id: int = Field(description="ID of the player")
+    report_summary: str = Field(name="report_summary",
+                                description="Summary of the reports that have the same player id")
+    fine_grained_reports: List[str] = Field(name="fine_grained_reports",
+                                        description="Reports that were found in the fine grained search where we only look at single reports, not at summaries of players")
+
+
 # We want to get a list of players
 class ListPlayerResponse(BaseModel):
-    list: List[PlayerResponse]
+    list: List[PlayerIDWithSummaryAndFineGrainedReports]
 
 
 class Positions(Enum):

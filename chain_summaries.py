@@ -1,16 +1,17 @@
+from typing import Dict, List
+
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.documents import Document
 import json
-from collections import defaultdict
-
+from pymilvus import Collection, connections
 import model_definitions
-# from langchain_community.vectorstores import Milvus
 from langchain_milvus import Milvus
 
 # MODEL = "mistral"
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
-COLLECTION_NAME = "scouting_summary"
+COLLECTION_NAME_SUMMARY = "scouting_summary"
+COLLECTION_NAME_SINGLE_REPORTS = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
 COUNT_RETRIEVED_DOCUMENTS = 5
@@ -19,14 +20,28 @@ COUNT_RETRIEVED_DOCUMENTS = 5
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
 connection_args = {'uri': VECTOR_STORE_URI}
-vectorstore = Milvus(
+vectorstore_summaries = Milvus(
     embedding_function=embeddings,
     connection_args=connection_args,
-    collection_name=COLLECTION_NAME,
+    collection_name=COLLECTION_NAME_SUMMARY,
     vector_field="embeddings",
     primary_field="id",
     auto_id=True
 )
+
+vectorstore_reports = Milvus(
+    embedding_function=embeddings,
+    connection_args=connection_args,
+    collection_name=COLLECTION_NAME_SINGLE_REPORTS,
+    vector_field="embeddings",
+    primary_field="id",
+    auto_id=True
+)
+
+# Need this to do metadata search only
+connections.connect("default", host="localhost", port="19530")
+summary_collection = Collection(COLLECTION_NAME_SUMMARY)
+summary_collection.load()
 
 def format_docs_to_json(docs: [Document]) -> str:
     # for every player we want: player_id, summary
@@ -35,25 +50,72 @@ def format_docs_to_json(docs: [Document]) -> str:
     for doc in docs:
         playerID = doc.metadata['player_transfermarkt_id']
         summary = doc.page_content
-        playerRes = model_definitions.PlayerResponse(player_id=playerID, report_summary=summary)
+        playerRes = model_definitions.PlayerIDWithSummaryAndFineGrainedReports(player_id=playerID,
+                                                                               report_summary=summary,
+                                                                                fine_grained_reports=[])
         listResponse.list.append(playerRes)
 
     return json.loads(listResponse.model_dump_json())
 
-
-def rag_chain(query: str, position: str):
-    milvus_position_key = model_definitions.get_position_key_from_value(position)
-    filterExpression = f"main_position == '{milvus_position_key}'" if milvus_position_key is not None else None
+def get_vectorstore_results(vectorstore, query, position):
+    filterExpression = get_position_filter_expr(position)
     documents = vectorstore.similarity_search(
         query=query,
         k=COUNT_RETRIEVED_DOCUMENTS,
         expr=filterExpression
-        # expr=f"main_position == '{milvus_position_key}'"
     )
+    return documents
+
+def rag_chain(query: str, position: str):
+    documents = get_vectorstore_results(vectorstore_summaries, query, position)
     return format_docs_to_json(documents)
 
 
-def invoke_chain(query: str, position: str) -> str:
-    print(f"User query: {query}, position: {position}")
+def get_position_filter_expr(position):
+    milvus_position_key = model_definitions.get_position_key_from_value(position)
+    filterExpression = f"main_position == '{milvus_position_key}'" if milvus_position_key is not None else None
+    return filterExpression
+
+
+def invoke_summary_chain(query: str, position: str) -> str:
+    print(f"Summary chain: User query: {query}, position: {position}")
     return rag_chain(query, position)
+
+
+def player_id_to_reports(documents: [Document]) -> Dict[int, List[str]]:
+    return_object = {}
+    for doc in documents:
+        player_id = int(doc.metadata['player_transfermarkt_id'])
+        if player_id in return_object:
+            report_list = return_object[player_id]
+            report_list.append(doc.page_content)
+        else:
+            return_object[player_id] = [doc.page_content]
+    return return_object
+
+
+def get_summary_for_player_id(player_id) -> str:
+    response = summary_collection.query(expr=f"player_transfermarkt_id == '{player_id}'", output_fields=["text"])
+    return response[0]['text']
+
+def invoke_single_report_chain(query: str, position: str) -> str:
+    print(f"Fine grained chain: User query: {query}, position: {position}")
+    # Get 5 reports
+    documents = get_vectorstore_results(vectorstore_reports, query, position)
+    # Get unique ids
+    id_to_reports = player_id_to_reports(documents)
+    # Get summary for each unique player id
+    listResponse = model_definitions.ListPlayerResponse(list=[])
+    for id in id_to_reports:
+        playerResponse = model_definitions.PlayerIDWithSummaryAndFineGrainedReports(player_id=id,
+                                                                                    report_summary="",
+                                                                                    fine_grained_reports=[])
+        # get summary
+        playerResponse.report_summary = get_summary_for_player_id(id)
+        playerResponse.fine_grained_reports = id_to_reports[id]
+        listResponse.list.append(playerResponse)
+
+
+    return json.loads(listResponse.model_dump_json())
+
 
