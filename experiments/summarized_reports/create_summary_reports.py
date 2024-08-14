@@ -3,17 +3,19 @@ from typing import Optional, List
 import json
 from dataclasses import dataclass, asdict
 from tqdm import tqdm
+import validators
 
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
-
+from bs4 import BeautifulSoup
+from langdetect import detect
 
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-import_file = "../../data/team_prod.json"
-# import_file = "../../data/10team_prod.json"
-output_file = "../../data/players_with_summaries_prod.json"
+# import_file = "../../data/team_prod.json"
+import_file = "../../data/10team_prod.json"
+output_file = "../../data/players_with_summaries_prod_new.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
@@ -52,12 +54,36 @@ def json_to_reports() -> [Report]:
     return reports
 
 
+
+def valid_text(text: str) -> bool:
+    if text == "":
+        return False
+
+    # TODO maybe store reports to look if they're all invalid or usable
+    if bool(BeautifulSoup(text, "html.parser")):
+        return False
+
+    if len(text) < 10:
+        return False
+
+    if validators.url(text):
+        return False
+
+    if text.isnumeric():
+        return False
+
+    #TODO check if it sends data somewhere else or is local
+    #if len(text) > 50 and detect(text) != "en":
+     #   return False
+
+    return True
+
 reports = json_to_reports()
 player_id_to_reports = {}
 
 for report in reports:
     player_id = report.player_transfermarkt_id
-    if report.text == "":
+    if not valid_text(report.text):
         continue
     if player_id in player_id_to_reports:
         player_reports = player_id_to_reports[player_id]
