@@ -1,5 +1,5 @@
 from pymilvus import connections, Collection
-from sklearn.metrics import precision_score, recall_score, f1_score
+from sklearn.metrics import precision_score, recall_score
 import numpy as np
 from langchain_community.vectorstores import Milvus
 from langchain_community.embeddings import OllamaEmbeddings
@@ -26,8 +26,7 @@ requests = {
     "request_5": ("Goalkeeper with quick reflexes and good penalty area control", [31, 78])
 }
 
-
-#embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
+# embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 embeddings = HuggingFaceEmbeddings(  
     model_name=model_name,  
     model_kwargs=model_kwargs,  
@@ -45,7 +44,7 @@ vectorstore = Milvus(
     auto_id=True
 )
 
-retriever = vectorstore.as_retriever(search_kwargs={'k': 30})
+retriever = vectorstore.as_retriever(search_kwargs={'k': 40})
 
 # Load your JSON data
 with open('retriever_test_reports.json', 'r') as file:
@@ -63,10 +62,9 @@ bm25 = BM25Okapi(tokenized_corpus)
 def bm25_search(query):
     tokenized_query = query.split(" ")
     doc_scores = bm25.get_scores(tokenized_query)
-    # Get the indices of the top 30 scores
-    top_n_indices = sorted(range(len(doc_scores)), key=lambda i: doc_scores[i], reverse=True)[:30]
+    # Get the indices of the top 40 scores
+    top_n_indices = sorted(range(len(doc_scores)), key=lambda i: doc_scores[i], reverse=True)[:40]
     return [player_ids[i] for i in top_n_indices]
-
 
 # Function to query Milvus
 def query_milvus(request_text):
@@ -77,30 +75,68 @@ def query_milvus(request_text):
     player_ids = [result.metadata['id'] for result in results]
     return player_ids
 
-# Calculate metrics
-def calculate_metrics(request_text, validation_list, search_function):
+# Calculate precision and recall at various k
+def calculate_metrics_at_k(request_text, validation_list, search_function, ks):
     # Get the response (player list) from the search function
     response_ids = search_function(request_text)
     
-    # Obtain the set of all possible player IDs 
-    all_player_ids = range(1, 301)  # Comprehensive set of all player IDs in your database
+    metrics = {}
     
-    # Create binary lists for the true and predicted values
-    y_true = [1 if player_id in validation_list else 0 for player_id in all_player_ids]
-    y_pred = [1 if player_id in response_ids else 0 for player_id in all_player_ids]
+    for k in ks:
+        # Consider only the top-k results
+        top_k_response = response_ids[:k]
+        
+        # Calculate Precision@k and Recall@k
+        precision_at_k = len(set(top_k_response) & set(validation_list)) / k
+        recall_at_k = len(set(top_k_response) & set(validation_list)) / len(validation_list)
+        
+        metrics[k] = {
+            'precision': precision_at_k,
+            'recall': recall_at_k
+        }
     
-    # Calculate Precision, Recall, and F1-Score
-    precision = precision_score(y_true, y_pred, zero_division=1)
-    recall = recall_score(y_true, y_pred, zero_division=1)
-    f1 = f1_score(y_true, y_pred, zero_division=1)
-    
-    return precision, recall, f1
+    return metrics
+
+# Define the values of k you want to test
+ks = [1, 5, 10, 20, 30, 40]
+
+# Initialize accumulators for average precision and recall
+bm25_precision_sums = {k: 0 for k in ks}
+bm25_recall_sums = {k: 0 for k in ks}
+milvus_precision_sums = {k: 0 for k in ks}
+milvus_recall_sums = {k: 0 for k in ks}
+num_requests = len(requests)
 
 # Loop through requests and calculate metrics for both BM25 and Milvus
 for req_name, (req_text, req_validation) in requests.items():
-    bm25_precision, bm25_recall, bm25_f1 = calculate_metrics(req_text, req_validation, bm25_search)
-    milvus_precision, milvus_recall, milvus_f1 = calculate_metrics(req_text, req_validation, query_milvus)
+    bm25_metrics = calculate_metrics_at_k(req_text, req_validation, bm25_search, ks)
+    milvus_metrics = calculate_metrics_at_k(req_text, req_validation, query_milvus, ks)
     
-    print(f"{req_name} - BM25 - Precision: {bm25_precision:.2f}, Recall: {bm25_recall:.2f}, F1-Score: {bm25_f1:.2f}")
-    print(f"{req_name} - Milvus - Precision: {milvus_precision:.2f}, Recall: {milvus_recall:.2f}, F1-Score: {milvus_f1:.2f}")
+    # Accumulate the metrics for average calculation
+    for k in ks:
+        bm25_precision_sums[k] += bm25_metrics[k]['precision']
+        bm25_recall_sums[k] += bm25_metrics[k]['recall']
+        milvus_precision_sums[k] += milvus_metrics[k]['precision']
+        milvus_recall_sums[k] += milvus_metrics[k]['recall']
+    
+    # Print individual request metrics (optional)
+    print(f"{req_name} - BM25 Metrics:")
+    for k in ks:
+        print(f"  @k={k} - Precision: {bm25_metrics[k]['precision']:.2f}, Recall: {bm25_metrics[k]['recall']:.2f}")
+    
+    print(f"{req_name} - Milvus Metrics:")
+    for k in ks:
+        print(f"  @k={k} - Precision: {milvus_metrics[k]['precision']:.2f}, Recall: {milvus_metrics[k]['recall']:.2f}")
 
+# Calculate and print the average precision and recall across all requests
+print("\nAverage BM25 Metrics:")
+for k in ks:
+    avg_precision = bm25_precision_sums[k] / num_requests
+    avg_recall = bm25_recall_sums[k] / num_requests
+    print(f"  @k={k} - Average Precision: {avg_precision:.2f}, Average Recall: {avg_recall:.2f}")
+
+print("\nAverage Milvus Metrics:")
+for k in ks:
+    avg_precision = milvus_precision_sums[k] / num_requests
+    avg_recall = milvus_recall_sums[k] / num_requests
+    print(f"  @k={k} - Average Precision: {avg_precision:.2f}, Average Recall: {avg_recall:.2f}")
