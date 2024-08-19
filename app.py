@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import cross_origin, CORS
 from chain_summaries import invoke_summary_chain, invoke_single_report_chain
 from rdb_access import fetch_reports_from_rdbms, all_player_ids_from_rdbms, all_players_with_name_from_rdbms
@@ -27,7 +27,7 @@ def reaction():
         return "Not a valid json!", 400
 
     log_reaction(request.get_json())
-    return jsonify({"message": "accepted"}), 202
+    return jsonify("message", "accepted"), 202
 
 @app.route("/original-reports/<int:player_id>", methods=["GET"])
 @cross_origin()
