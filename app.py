@@ -3,7 +3,7 @@ from flask_cors import cross_origin
 from flask_cors import CORS
 
 from chain_summaries import invoke_summary_chain, invoke_single_report_chain
-from rdb_access import fetch_reports_from_rdbms
+from rdb_access import fetch_reports_from_rdbms, all_player_ids_from_rdbms, all_players_with_name_from_rdbms
 from reaction import log_reaction
 
 app = Flask(__name__)
@@ -36,6 +36,19 @@ def reaction():
 def original_reports(player_id):
     reports = fetch_reports_from_rdbms(player_id)
     return jsonify( reports), 200
+
+@app.route("/playerids", methods=["GET"])
+@cross_origin()
+def player_ids():
+    player_ids = all_player_ids_from_rdbms()
+    return jsonify(player_ids), 200
+
+
+@app.route("/players-with-name", methods=["GET"])
+@cross_origin()
+def players_with_names():
+    players_with_names = all_players_with_name_from_rdbms()
+    return jsonify(players_with_names), 200
 
 
 

@@ -15,3 +15,18 @@ def fetch_reports_from_rdbms(playerID: int):
     cursor.execute(sql, values)
     results = cursor.fetchall()
     return [row[0] for row in results]
+
+def all_player_ids_from_rdbms():
+    sql = "SELECT player_transfermarkt_id FROM report;"
+
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return [row[0] for row in results]
+
+
+def all_players_with_name_from_rdbms():
+    sql = "SELECT player_transfermarkt_id, name FROM report;"
+
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return [{"id": row[0], "name": row[1]} for row in results]
