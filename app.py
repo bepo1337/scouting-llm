@@ -50,11 +50,8 @@ def players_with_names():
 @app.route("/similar_players/<int:player_id>", methods=["GET"])
 @cross_origin()
 def similar_players(player_id):
-    try:
-        similar_players = get_similar_players(player_id)
-        return jsonify(similar_players), 200
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 404
+    similar_players = get_similar_players(player_id)
+    return jsonify(similar_players), 200
 
 def nlp_proccessing(query, position, fine_grained):
     if fine_grained:
