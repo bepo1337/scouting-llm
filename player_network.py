@@ -34,11 +34,11 @@ def get_similar_players(player_transfermarkt_id: str):
         limit=top_k + 1,  # Add +1 to include the player itself in the results so we can filter it out
         output_fields=["player_transfermarkt_id"]
     )
-
+    print("Search results by similarity Search:", search_results)
     similar_players = []
     for result in search_results[0]:
         found_player_transfermarkt_id = result.entity.get("player_transfermarkt_id")
-        if found_player_transfermarkt_id != player_transfermarkt_id:  # Exclude the original player from results
+        if found_player_transfermarkt_id != str(player_transfermarkt_id):  # Exclude the original player from results
             distance = result.distance
             similar_players.append({"player_transfermarkt_id": found_player_transfermarkt_id, "distance": distance})
 
