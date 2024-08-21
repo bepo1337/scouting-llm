@@ -113,6 +113,9 @@ def player_id_to_reports(documents: [Document]) -> Dict[int, List[str]]:
 
 def get_summary_for_player_id(player_id) -> str:
     response = summary_collection.query(expr=f"player_transfermarkt_id == '{player_id}'", output_fields=["text"])
+    if len(response) == 0:
+        return "PLAYER_NOT_IN_SUMMARY"
+
     return response[0]['text']
 
 def invoke_single_report_chain(query: str, position: str) -> str:
