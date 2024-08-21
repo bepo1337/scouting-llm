@@ -1,16 +1,26 @@
+import os
 from typing import Dict, List
 
+from dotenv import load_dotenv
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.documents import Document
 import json
 from pymilvus import Collection, connections
 import model_definitions
 from langchain_milvus import Milvus
+from langchain_openai import AzureChatOpenAI
 
-# MODEL = "mistral"
+import prompt_templates
+
+load_dotenv()
+AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
+OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
+model_name="gpt-4o"
+llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
+
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
-COLLECTION_NAME_SUMMARY = "scouting_summary"
+COLLECTION_NAME_SUMMARY = "structured_summary"
 COLLECTION_NAME_SINGLE_REPORTS = "scouting"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
@@ -66,7 +76,14 @@ def get_vectorstore_results(vectorstore, query, position):
     )
     return documents
 
+
+def expand_query(query: str) -> str:
+    prompt = prompt_templates.PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE + query
+    answer = llm.invoke(prompt).content
+    return answer
+
 def rag_chain(query: str, position: str):
+    expaneded_query = expand_query(query)
     documents = get_vectorstore_results(vectorstore_summaries, query, position)
     return format_docs_to_json(documents)
 

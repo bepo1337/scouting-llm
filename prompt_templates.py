@@ -12,21 +12,98 @@ The structure for the summary is as follows:
 - Other attributions
 
 This is an example for a summary, but yours can vary in length and content depending on the reports in the context:
-"He is widely regarded as one of the best defenders of the country. He still has a lot of potential for improvement though.
-
-Strenghts: Very good in duels and opening passes
-Weaknesses: Often times out of position, opening up a lot of space
-Physical capabilities: Medium pace but a lot of endurance for intense games
-Offensive capabilities: -
-Defensive capabilities: Brings order to his teammates and wins a lot of duels. Very good at defending in aerial duels. 
-Other attributions: Motivates his teammates and doesnt give up even when down by some goals
+###EXAMPLE###
 "
+**General text about the player:**
+He is an attacking midfielder who, despite experiencing a slight decline in his physical abilities, remains a valuable asset due to his game organization and strategic composure. His ability to scan situations and manage the game enhances various phases of play. His commitment and experience could be valuable, especially when strategically integrated within the team and salary constraints of the MLS. He is expected to perform competently for at least one or two more years in the league.
+
+**Strengths:**
+- Excellent game organization and situational scanning
+- Strategic composure and effective game management
+- Courage and willingness to track back defensively
+- Experience and commitment
+
+**Weaknesses:**
+- Physical decline affecting overall performance
+- High salary demands potentially not justifiable
+- Defensive functions may not align perfectly with his profile
+
+**Physical Capabilities:**
+- Slight decline in physical ability
+- Still reasonably dynamic for his age
+
+**Offensive Capabilities:**
+- Precise in various phases of the game
+- Ability to make a difference and contribute strategically
+
+**Defensive Capabilities:**
+- Willingness to track back and help defensively
+- Courageous in defensive situations despite physical decline
+
+**Other Attributions:**
+- Needs careful management of physical condition and interventions
+- Integration within the team, especially alongside players like XYZ needs careful consideration to avoid exposure
+"
+###END OF EXAMPLE###
+
+Do not make anything up that you dont see from the reports. You can also leave parts empty if the reports dont say anything about them. But still put in the headlines.
+
 The reports about the player are the following:
-<reports>
-{reports}
-</reports>
-Do not make anything up that you dont see from the reports.
 """
+
+PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE = """
+Context is soccer and you are a assistant in scouting. I want you to restructure the following query into a structured format.
+The structure for query is as follows:
+- General text about the player
+- Strengths
+- Weaknesses
+- Physical capabilities
+- Offensive capabilities
+- Defensive capabilities
+- Other attributions
+
+This is an example for a query and a corresponding structured format I expect you to return, but yours can vary in length and content depending on the query in the context:
+
+###EXAMPLE###
+Query: "A dynamic offensive midfielder with excellent technical skills, sharp vision, and creative playmaking abilities.
+He consistently finds and executes key passes, never gives up, and leads by example with his relentless work rate.
+Physically, he is agile, strong, and possesses great stamina, enabling him to maintain high intensity throughout the match.
+Key player in breaking down defenses and supporting the team with high energy, intelligence, and resilience."
+
+Structured format:
+"
+**General text about the player:**
+A dynamic offensive midfielder with excellent technical skills, sharp vision, and creative playmaking abilities. 
+
+**Strengths:**
+- Consistently finds and executes key passes.
+- Never gives up and leads by example with his relentless work rate.
+
+**Weaknesses:**
+- Not specified in the query
+
+**Physical Capabilities:**
+- Agile, strong, and possesses great stamina.
+- Capable of maintaining high intensity throughout the match.
+
+**Offensive Capabilities:**
+- Key player in breaking down defenses.
+
+**Defensive Capabilities:**
+- Not specified 
+
+**Other Attributions:**
+- Supports the team with high energy, intelligence, and resilience.
+"
+###END OF EXAMPLE###
+
+Do not make anything up that you dont see from the query.
+You can also leave parts empty if the query doesnt say anything about them. But still put in the headlines.
+
+The query I want you to restructure is the following:
+"""
+
+
 
 PROMPT_SUMMARY_INTO_STRUCTURE_WITHOUT_EXAMPLE = """
 Context is soccer and you are a assistant in scouting. I want you to summarize the following reports into a structured summary.
@@ -39,11 +116,11 @@ The structure for the summary is as follows:
 - Defensive capabilities
 - Other attributions
 
-The reports about the player are the following:
-<reports>
-{reports}
-</reports>
+
 Do not make anything up that you dont see from the reports.
+
+The reports about the player are the following:
+
 """
 
 TUTORIAL_PROMPT = """
