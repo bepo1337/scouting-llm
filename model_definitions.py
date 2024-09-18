@@ -37,7 +37,9 @@ class ComparePlayerRequestPayload(BaseModel):
 
 class ComparePlayerResponsePayload(BaseModel):
     player_left: int
+    player_left_name: str
     player_right: int
+    player_right_name: str
     comparison: str
 
 class Positions(Enum):

@@ -1,5 +1,9 @@
-# scouting-llm
+# LLM4Scouting
+General explanation abt the proj
 
+## Disclaimer 
+This project is a university project for the course [Web Interfaces for Language Processing Systems](https://www.inf.uni-hamburg.de/en/inst/ab/lt/teaching/ma-projects/master-project-web-interfaces.html) at the [University of Hamburg](https://www.uni-hamburg.de/).
+Explaine xperiments folder
 # Install 
 `pip install -r requirements.txt`
 
@@ -23,3 +27,9 @@ Marvin TODO
 # Build and run docker image
 `docker build --tag scouting-llm .`
 `docker run -p 5000:5000 scouting-llm`
+
+## Authors
+
+* **Benjamin Pöhlmann** - [bepo1337](https://github.com/bepo1337)
+
+* **Marvin Schmohl**    - [marvinschmohl](https://github.com/marvinschmohl)

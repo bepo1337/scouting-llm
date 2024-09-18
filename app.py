@@ -60,7 +60,11 @@ def compare_players():
     comparePlayersPayload = ComparePlayerRequestPayload(**request_raw_json)
     # give to function
     comparison = llm_compare_players(comparePlayersPayload)
-    comparison_response_payload = {"player_left": comparison.player_left, "player_right": comparison.player_right, "comparison": comparison.comparison}
+    comparison_response_payload = {"player_left": comparison.player_left,
+                                   "player_left_name": comparison.player_left_name,
+                                   "player_right": comparison.player_right,
+                                   "player_right_name": comparison.player_right_name,
+                                   "comparison": comparison.comparison}
     return jsonify(comparison_response_payload), 200
 
 

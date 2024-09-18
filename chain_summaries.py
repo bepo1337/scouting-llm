@@ -17,7 +17,7 @@ from rdb_access import fetch_reports_from_rdbms, fetch_name_from_rdbms
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-model_name="gpt-4o"
+model_name = "gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
 EMBEDDING_MODEL = "nomic-embed-text"
@@ -28,7 +28,7 @@ VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
 COUNT_RETRIEVED_DOCUMENTS = 5
 
-#Embedding
+# Embedding
 embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
 
 connection_args = {'uri': VECTOR_STORE_URI}
@@ -55,6 +55,7 @@ connections.connect("default", host="localhost", port="19530")
 summary_collection = Collection(COLLECTION_NAME_SUMMARY)
 summary_collection.load()
 
+
 def format_docs_to_json(docs: [Document]) -> str:
     # for every player we want: player_id, summary
     listResponse = model_definitions.ListPlayerResponse(list=[])
@@ -64,10 +65,11 @@ def format_docs_to_json(docs: [Document]) -> str:
         summary = doc.page_content
         playerRes = model_definitions.PlayerIDWithSummaryAndFineGrainedReports(player_id=playerID,
                                                                                report_summary=summary,
-                                                                                fine_grained_reports=[])
+                                                                               fine_grained_reports=[])
         listResponse.list.append(playerRes)
 
     return json.loads(listResponse.model_dump_json())
+
 
 def get_vectorstore_results(vectorstore, query, position):
     filterExpression = get_position_filter_expr(position)
@@ -83,6 +85,7 @@ def expand_query(query: str) -> str:
     prompt = prompt_templates.PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE + query
     answer = llm.invoke(prompt).content
     return answer
+
 
 def rag_chain(query: str, position: str):
     expaneded_query = expand_query(query)
@@ -121,6 +124,7 @@ def get_summary_for_player_id(player_id) -> str:
 
     return response[0]['text']
 
+
 def invoke_single_report_chain(query: str, position: str) -> str:
     print(f"Fine grained chain: User query: {query}, position: {position}")
     # Get 5 reports
@@ -138,8 +142,8 @@ def invoke_single_report_chain(query: str, position: str) -> str:
         playerResponse.fine_grained_reports = id_to_reports[id]
         listResponse.list.append(playerResponse)
 
-
     return json.loads(listResponse.model_dump_json())
+
 
 ### Below this for comparing players. Using the same configured LLM
 
@@ -169,6 +173,8 @@ def format_reports(reports, name) -> str:
         formatted_report += f"{name} report {i}: {report}\n"
     formatted_report += "###"
     return formatted_report
+
+
 def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayload):
     player_left_id = comparePlayersPayload.player_left
     player_right_id = comparePlayersPayload.player_right
@@ -188,7 +194,7 @@ def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayl
         player_left_reports = fetch_reports_from_rdbms(comparePlayersPayload.player_left)
         player_right_reports = fetch_reports_from_rdbms(comparePlayersPayload.player_right)
         query = query.replace("{FIRST_PLAYER_SINGLE_REPORTS}", format_reports(player_left_reports, player_left_name))
-        query = query.replace("{SECOND_PLAYER_SINGLE_REPORTS}",  format_reports(player_right_reports, player_right_name))
+        query = query.replace("{SECOND_PLAYER_SINGLE_REPORTS}", format_reports(player_right_reports, player_right_name))
 
     player_left_summary = get_summary_for_player_id(player_left_id)
     player_right_summary = get_summary_for_player_id(player_right_id)
@@ -197,12 +203,17 @@ def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayl
 
     return query
 
+
 def llm_compare_players(comparePlayersPayload: ComparePlayerRequestPayload):
     query = replace_compare_placeholders(comparePlayersPayload)
     # prompt llm
     comparison = llm.invoke(query).content
     # parse to response object
+    player_left_name = fetch_name_from_rdbms(comparePlayersPayload.player_left)
+    player_right_name = fetch_name_from_rdbms(comparePlayersPayload.player_right)
     responsePayload = ComparePlayerResponsePayload(player_left=comparePlayersPayload.player_left,
-                                            player_right=comparePlayersPayload.player_right,
-                                            comparison=comparison)
+                                                   player_left_name=player_left_name,
+                                                   player_right=comparePlayersPayload.player_right,
+                                                   player_right_name=player_right_name,
+                                                   comparison=comparison)
     return responsePayload
