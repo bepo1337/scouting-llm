@@ -314,6 +314,39 @@ v009 = """
    {format_instructions}
 """
 
+PROMPT_COMPARE_PLAYERS_NO_EXAMPLE = """
+Context is soccer and you are a assistant in scouting. I want you to compare the following two players and return
+a comprehensive comparison between the players. 
+I want you to place special emphasis on the following topics which are separated by a ';': 
+{COMPARISON_TOPICS}
+
+Do a general comparison and then do one section for each comparison topic.
+
+I will give you a summary for each player and then single reports about a player if they exist.
+These are the summary and reports for the first player:
+### START FIRST PLAYER ###
+{FIRST_PLAYER_NAME}:
+###SUMMARY###
+{FIRST_PLAYER_SUMMARY}
+###END SUMMARY###
+
+Single reports:
+{FIRST_PLAYER_SINGLE_REPORTS}
+## END FIRST PLAYER ###
+
+and now these are the summary and reports about the second player:
+### START SECOND PLAYER ###
+{SECOND_PLAYER_NAME}:
+###SUMMARY###
+{SECOND_PLAYER_SUMMARY}
+###END SUMMARY###
+
+Single reports:
+{SECOND_PLAYER_SINGLE_REPORTS}
+## END SECOND PLAYER ###
+
+Comparison:
+"""
 
 
 

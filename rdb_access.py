@@ -16,6 +16,17 @@ def fetch_reports_from_rdbms(playerID: int):
     results = cursor.fetchall()
     return [row[0] for row in results]
 
+def fetch_name_from_rdbms(playerID: int):
+    sql = "SELECT name FROM report WHERE player_transfermarkt_id = (%s);"
+    values = (playerID,)
+
+    cursor.execute(sql, values)
+    result = cursor.fetchone()
+    if result:
+        return result[0]
+    else:
+        return None
+
 def all_player_ids_from_rdbms():
     sql = "SELECT player_transfermarkt_id FROM report;"
 

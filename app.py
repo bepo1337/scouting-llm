@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import cross_origin
 from flask_cors import CORS
 
-from chain_summaries import invoke_summary_chain, invoke_single_report_chain
+from chain_summaries import invoke_summary_chain, invoke_single_report_chain, llm_compare_players
+from model_definitions import ComparePlayerRequestPayload
 from rdb_access import fetch_reports_from_rdbms, all_player_ids_from_rdbms, all_players_with_name_from_rdbms
 from reaction import log_reaction
 
@@ -49,6 +50,18 @@ def player_ids():
 def players_with_names():
     players_with_names = all_players_with_name_from_rdbms()
     return jsonify(players_with_names), 200
+
+
+@app.route("/compare-players", methods=["POST"])
+@cross_origin()
+def compare_players():
+    request_raw_json = request.get_json()
+    # parse to object
+    comparePlayersPayload = ComparePlayerRequestPayload(**request_raw_json)
+    # give to function
+    comparison = llm_compare_players(comparePlayersPayload)
+    comparison_response_payload = {"player_left": comparison.player_left, "player_right": comparison.player_right, "comparison": comparison.comparison}
+    return jsonify(comparison_response_payload), 200
 
 
 

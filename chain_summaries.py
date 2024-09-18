@@ -6,11 +6,13 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_core.documents import Document
 import json
 from pymilvus import Collection, connections
+from model_definitions import ComparePlayerRequestPayload, ComparePlayerResponsePayload
 import model_definitions
 from langchain_milvus import Milvus
 from langchain_openai import AzureChatOpenAI
 
 import prompt_templates
+from rdb_access import fetch_reports_from_rdbms, fetch_name_from_rdbms
 
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
@@ -20,8 +22,8 @@ llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model
 
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
-COLLECTION_NAME_SUMMARY = "structured_summary"
-COLLECTION_NAME_SINGLE_REPORTS = "scouting"
+COLLECTION_NAME_SUMMARY = "summary_reports"
+COLLECTION_NAME_SINGLE_REPORTS = "original_reports"
 VECTOR_STORE_URI = "http://localhost:19530"
 OLLAMA_URI = "http://localhost:11434/v1"
 COUNT_RETRIEVED_DOCUMENTS = 5
@@ -84,7 +86,8 @@ def expand_query(query: str) -> str:
 
 def rag_chain(query: str, position: str):
     expaneded_query = expand_query(query)
-    documents = get_vectorstore_results(vectorstore_summaries, query, position)
+    print(expaneded_query)
+    documents = get_vectorstore_results(vectorstore_summaries, expaneded_query, position)
     return format_docs_to_json(documents)
 
 
@@ -138,4 +141,68 @@ def invoke_single_report_chain(query: str, position: str) -> str:
 
     return json.loads(listResponse.model_dump_json())
 
+### Below this for comparing players. Using the same configured LLM
 
+def getComparisonTopicString(comparePlayersPayload: ComparePlayerRequestPayload):
+    # create list with the strings
+    topic_list = []
+    if comparePlayersPayload.offensive is True:
+        topic_list.append("offensive")
+
+    if comparePlayersPayload.defensive is True:
+        topic_list.append("defensive")
+
+    if comparePlayersPayload.strenghts is True:
+        topic_list.append("strengths")
+
+    if comparePlayersPayload.weaknesses is True:
+        topic_list.append("weaknesses")
+
+    single_string_topics = ";".join(topic_list)
+    single_string_topics += ";" + comparePlayersPayload.otherText
+    return single_string_topics
+
+
+def format_reports(reports, name) -> str:
+    formatted_report = ""
+    for i, report in enumerate(reports, 1):
+        formatted_report += f"{name} report {i}: {report}\n"
+    formatted_report += "###"
+    return formatted_report
+def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayload):
+    player_left_id = comparePlayersPayload.player_left
+    player_right_id = comparePlayersPayload.player_right
+    # prompt template
+    query = prompt_templates.PROMPT_COMPARE_PLAYERS_NO_EXAMPLE
+    comparison_topic_string = getComparisonTopicString(comparePlayersPayload)
+    query = query.replace("{COMPARISON_TOPICS}", comparison_topic_string)
+
+    player_left_name = fetch_name_from_rdbms(player_left_id)
+    player_right_name = fetch_name_from_rdbms(player_right_id)
+    query = query.replace("{FIRST_PLAYER_NAME}", player_left_name)
+    query = query.replace("{SECOND_PLAYER_NAME}", player_right_name)
+
+    # Only get single reports if othertext is filled --> can compare results
+    if comparePlayersPayload.otherText != "":
+        # fetch single reports
+        player_left_reports = fetch_reports_from_rdbms(comparePlayersPayload.player_left)
+        player_right_reports = fetch_reports_from_rdbms(comparePlayersPayload.player_right)
+        query = query.replace("{FIRST_PLAYER_SINGLE_REPORTS}", format_reports(player_left_reports, player_left_name))
+        query = query.replace("{SECOND_PLAYER_SINGLE_REPORTS}",  format_reports(player_right_reports, player_right_name))
+
+    player_left_summary = get_summary_for_player_id(player_left_id)
+    player_right_summary = get_summary_for_player_id(player_right_id)
+    query = query.replace("{FIRST_PLAYER_SUMMARY}", player_left_summary)
+    query = query.replace("{SECOND_PLAYER_SUMMARY}", player_right_summary)
+
+    return query
+
+def llm_compare_players(comparePlayersPayload: ComparePlayerRequestPayload):
+    query = replace_compare_placeholders(comparePlayersPayload)
+    # prompt llm
+    comparison = llm.invoke(query).content
+    # parse to response object
+    responsePayload = ComparePlayerResponsePayload(player_left=comparePlayersPayload.player_left,
+                                            player_right=comparePlayersPayload.player_right,
+                                            comparison=comparison)
+    return responsePayload

@@ -1,1 +1,19 @@
 First query: A versatile offensive midfielder with creativity, exceptional ball control, and tactical intelligence. Excels in tight spaces, making quick decisions and displaying composure under pressure. Physically, he has excellent balance and coordination, with good acceleration to exploit gaps in the defense. Offensively, he is dangerous in set-piece situations, frequently contributing with goals and assists. Defensively, he is disciplined in tracking back and supporting the team when out of possession. Additionally, he demonstrates leadership qualities, organizing the attack and motivating teammates on the pitch.
+
+
+2: offensive midfielder with drive towards the goal and good finishing. should be good at set pieces, have good ball control and exceptional passing. Additionally he should have tactical intelligence and make good decisions under pressure
+    --> Daniel Bolvivar passt hier ganz gut
+
+3: defender with greal aerial capabilities. should be experienced and teach a younger central defender to give him security. I expect leadership skills and good phyical presence
+
+4: goalkeeper that has good skill when playing with his feet and gives his team security. its very important that he is consistent and he can also be more experienced, doesnt need to develop any more
+
+-----
+in single reports:
+1: young winger with lots of potential
+2: midfielder that can play a variety of positions very well
+3: goalkeeper that excels in intercepting long balls
+
+
+medium gut funktioniert:
+- midfielder with exceptional long range passing (letzter entry ging nur in die richtung)
