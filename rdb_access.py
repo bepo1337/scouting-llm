@@ -1,9 +1,11 @@
 # Relational Database Access
+import os
 import psycopg2
+rdbms_host = os.getenv("RDBMS_HOST", "localhost")
 
 conn = psycopg2.connect(database = "reports",
                         user = "postgres",
-                        host= 'localhost',
+                        host= rdbms_host,
                         password = "admin",
                         port = 5432)
 

@@ -24,8 +24,8 @@ EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
 COLLECTION_NAME_SUMMARY = "summary_reports"
 COLLECTION_NAME_SINGLE_REPORTS = "original_reports"
-VECTOR_STORE_URI = "http://localhost:19530"
-OLLAMA_URI = "http://localhost:11434/v1"
+VECTOR_STORE_URI = os.getenv("VECTOR_STORE_URL", "http://localhost:19530")
+OLLAMA_URI = os.getenv("OLLAMA_URI", "http://localhost:11434/v1")
 COUNT_RETRIEVED_DOCUMENTS = 5
 
 # Embedding
@@ -51,7 +51,8 @@ vectorstore_reports = Milvus(
 )
 
 # Need this to do metadata search only
-connections.connect("default", host="localhost", port="19530")
+milvus_host_name = os.getenv("MILVUS_HOST_NAME", "localhost")
+connections.connect("default", host=milvus_host_name, port="19530")
 summary_collection = Collection(COLLECTION_NAME_SUMMARY)
 summary_collection.load()
 
