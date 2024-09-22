@@ -21,8 +21,12 @@ Explaine xperiments folder
 ### Scouting as Prompt
 Explain each field and give example prompts. Also explain that we will only find something with the query if its within the scouting reports. So ie if we have data from the MSL, its not very likely we will find something with the prompt "im looking for a defender that can play well in the third german league and has a proven record to be a leader there". Also reactions that they re stored and could be mined later, but are of no use in this app 
 ### Comparing Players
-### Visualizing Players in Graph
-Marvin TODO
+### Visualizing Players in a Network
+The feature allows you to compare soccer players based on their playstyle. You start by searching for a player in the database using a search bar. The selected player is then depicted at the center of a dynamic network graph, surrounded by other players who share similar playstyles. These similarities are determined by the vector representation of each player's report summary.
+
+In this network, the thickness of the edges between players reflects the degree of similarity in their playstyles—thicker edges indicate stronger similarity, while thinner edges indicate less similarity. You can interact with the network by double-clicking on any player to expand the view, revealing additional players with similar playstyles, thus growing the network. This allows for an in-depth exploration of connections between multiple players.
+
+If you're interested in a specific player, a single click on that player's node will open a detailed summary of their reports. You can also click on the edge between two players to directly compare them, offering insights into their playstyle similarities and differences.
 
 # Build and run docker image
 `docker build --tag scouting-llm .`
