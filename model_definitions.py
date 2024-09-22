@@ -23,6 +23,25 @@ class ListPlayerResponse(BaseModel):
     list: List[PlayerIDWithSummaryAndFineGrainedReports]
 
 
+class ComparePlayerRequestPayload(BaseModel):
+    player_left: int
+    player_right: int
+    all: bool
+    offensive: bool
+    defensive: bool
+    strenghts: bool
+    weaknesses: bool
+    other: bool
+    otherText: str
+
+
+class ComparePlayerResponsePayload(BaseModel):
+    player_left: int
+    player_left_name: str
+    player_right: int
+    player_right_name: str
+    comparison: str
+
 class Positions(Enum):
     goalkeeper = 'Goalkeeper',
     centerback = 'Centre back',

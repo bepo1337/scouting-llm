@@ -1,4 +1,9 @@
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+
 from typing import Optional, List
 import json
 from dataclasses import dataclass, asdict
@@ -10,12 +15,16 @@ from langchain_openai import AzureChatOpenAI
 from bs4 import BeautifulSoup
 from langdetect import detect
 
+import prompt_templates
+
+
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-# import_file = "../../data/team_prod.json"
-import_file = "../../data/10team_prod.json"
-output_file = "../../data/players_with_summaries_prod_new.json"
+import_file = "../../data/team_prod.json"
+# import_file = "../../data/10team_prod.json"
+# output_file = "../../data/players_with_structured_summaries_with_example_prod.json"
+output_file = "../../data/all_players_structured_report_summary_with_example_prod.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
@@ -60,7 +69,7 @@ def valid_text(text: str) -> bool:
         return False
 
     # TODO maybe store reports to look if they're all invalid or usable
-    if bool(BeautifulSoup(text, "html.parser")):
+    if bool(BeautifulSoup(text, "html.parser").find()):
         return False
 
     if len(text) < 10:
@@ -94,7 +103,7 @@ for report in reports:
 
 
 def get_summary_from_llm(reports):
-    prompt = "Summarize the following soccer reports about a player. Return only the summary and nothing else.\n\n"
+    prompt = prompt_templates.PROMPT_SUMMARY_INTO_STRUCTURE
     reportCount = 1
     for report in reports:
         prompt += f"Report {reportCount}: {report.text}\n\n"
@@ -121,10 +130,10 @@ for id, reports in player_id_to_reports.items():
 
     # only do summary if we have more than 1 report for this player.
     summary = ""
-    if len(reports) > 1:
-        summary = get_summary_from_llm(reports)
-    else:
-        summary = reports[0].text
+    # if len(reports) > 1:
+    summary = get_summary_from_llm(reports)
+    # else:
+    #     summary = reports[0].text
 
     summarized_report = Report(player_id=player_id_scoutastic,
                                text=summary,
@@ -136,7 +145,6 @@ for id, reports in player_id_to_reports.items():
                                played_position=played_position)
 
     processed_players.append(summarized_report)
-
 
 def reports_to_json(reports: List[Report]):
     reports_dict = [report.to_dict() for report in reports]

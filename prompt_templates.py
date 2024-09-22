@@ -12,21 +12,98 @@ The structure for the summary is as follows:
 - Other attributions
 
 This is an example for a summary, but yours can vary in length and content depending on the reports in the context:
-"He is widely regarded as one of the best defenders of the country. He still has a lot of potential for improvement though.
-
-Strenghts: Very good in duels and opening passes
-Weaknesses: Often times out of position, opening up a lot of space
-Physical capabilities: Medium pace but a lot of endurance for intense games
-Offensive capabilities: -
-Defensive capabilities: Brings order to his teammates and wins a lot of duels. Very good at defending in aerial duels. 
-Other attributions: Motivates his teammates and doesnt give up even when down by some goals
+###EXAMPLE###
 "
+**General text about the player:**
+He is an attacking midfielder who, despite experiencing a slight decline in his physical abilities, remains a valuable asset due to his game organization and strategic composure. His ability to scan situations and manage the game enhances various phases of play. His commitment and experience could be valuable, especially when strategically integrated within the team and salary constraints of the MLS. He is expected to perform competently for at least one or two more years in the league.
+
+**Strengths:**
+- Excellent game organization and situational scanning
+- Strategic composure and effective game management
+- Courage and willingness to track back defensively
+- Experience and commitment
+
+**Weaknesses:**
+- Physical decline affecting overall performance
+- High salary demands potentially not justifiable
+- Defensive functions may not align perfectly with his profile
+
+**Physical Capabilities:**
+- Slight decline in physical ability
+- Still reasonably dynamic for his age
+
+**Offensive Capabilities:**
+- Precise in various phases of the game
+- Ability to make a difference and contribute strategically
+
+**Defensive Capabilities:**
+- Willingness to track back and help defensively
+- Courageous in defensive situations despite physical decline
+
+**Other Attributions:**
+- Needs careful management of physical condition and interventions
+- Integration within the team, especially alongside players like XYZ needs careful consideration to avoid exposure
+"
+###END OF EXAMPLE###
+
+Do not make anything up that you dont see from the reports. You can also leave parts empty if the reports dont say anything about them. But still put in the headlines.
+
 The reports about the player are the following:
-<reports>
-{reports}
-</reports>
-Do not make anything up that you dont see from the reports.
 """
+
+PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE = """
+Context is soccer and you are a assistant in scouting. I want you to restructure the following query into a structured format.
+The structure for query is as follows:
+- General text about the player
+- Strengths
+- Weaknesses
+- Physical capabilities
+- Offensive capabilities
+- Defensive capabilities
+- Other attributions
+
+This is an example for a query and a corresponding structured format I expect you to return, but yours can vary in length and content depending on the query in the context:
+
+###EXAMPLE###
+Query: "A dynamic offensive midfielder with excellent technical skills, sharp vision, and creative playmaking abilities.
+He consistently finds and executes key passes, never gives up, and leads by example with his relentless work rate.
+Physically, he is agile, strong, and possesses great stamina, enabling him to maintain high intensity throughout the match.
+Key player in breaking down defenses and supporting the team with high energy, intelligence, and resilience."
+
+Structured format:
+"
+**General text about the player:**
+A dynamic offensive midfielder with excellent technical skills, sharp vision, and creative playmaking abilities. 
+
+**Strengths:**
+- Consistently finds and executes key passes.
+- Never gives up and leads by example with his relentless work rate.
+
+**Weaknesses:**
+- Not specified in the query
+
+**Physical Capabilities:**
+- Agile, strong, and possesses great stamina.
+- Capable of maintaining high intensity throughout the match.
+
+**Offensive Capabilities:**
+- Key player in breaking down defenses.
+
+**Defensive Capabilities:**
+- Not specified 
+
+**Other Attributions:**
+- Supports the team with high energy, intelligence, and resilience.
+"
+###END OF EXAMPLE###
+
+Do not make anything up that you dont see from the query.
+You can also leave parts empty if the query doesnt say anything about them. But still put in the headlines.
+
+The query I want you to restructure is the following:
+"""
+
+
 
 PROMPT_SUMMARY_INTO_STRUCTURE_WITHOUT_EXAMPLE = """
 Context is soccer and you are a assistant in scouting. I want you to summarize the following reports into a structured summary.
@@ -39,11 +116,11 @@ The structure for the summary is as follows:
 - Defensive capabilities
 - Other attributions
 
-The reports about the player are the following:
-<reports>
-{reports}
-</reports>
+
 Do not make anything up that you dont see from the reports.
+
+The reports about the player are the following:
+
 """
 
 TUTORIAL_PROMPT = """
@@ -237,6 +314,53 @@ v009 = """
    {format_instructions}
 """
 
+PROMPT_COMPARE_PLAYERS_NO_EXAMPLE = """
+Context is soccer and you are a assistant in scouting. I want you to compare the following two players and return
+a comprehensive comparison between the players. Do not write bullet points, I need whole sentences.
+I want you to place special emphasis on the following topics which are separated by a ';': 
+{COMPARISON_TOPICS}
+
+Do a general comparison and then do one section for each comparison topic.
+Use exactly these headlines in the same format in your response and just leave them out if they're not applicable:
+{"general": "text about general comparison", "offensive": "text about offensive", "conclusion": "text about conclusion"}
+
+Only include topics that are in the top of this prompt and always general and conclusion.
+
+An example for your response is, with the only topic added is "offensive":
+###EXAMPLE###
+{"general": "Lukaku is an Argentine goalkeeper known for his historical excellence and reliability while Ekitike is a young striker with lots of potential.",
+"offensive": "Lukaku strikes almost every game is is variable where he can play.
+Ekitike on the other hand needs his teammates to work a lot for him, but if he has the right combination, he will shine and strike a lot.",
+"conclusion": "Lukaku is a more mature striker while Ekitike still has room for improvement." 
+}
+###END OF EXAMPLE###
+
+I will give you a summary for each player and then single reports about a player if they exist.
+These are the summary and reports for the first player:
+### START FIRST PLAYER ###
+{FIRST_PLAYER_NAME}:
+###SUMMARY###
+{FIRST_PLAYER_SUMMARY}
+###END SUMMARY###
+
+Single reports:
+{FIRST_PLAYER_SINGLE_REPORTS}
+## END FIRST PLAYER ###
+
+and now these are the summary and reports about the second player:
+### START SECOND PLAYER ###
+{SECOND_PLAYER_NAME}:
+###SUMMARY###
+{SECOND_PLAYER_SUMMARY}
+###END SUMMARY###
+
+Single reports:
+{SECOND_PLAYER_SINGLE_REPORTS}
+## END SECOND PLAYER ###
+
+Remember to only return the JSON without any beginning or ending "###".
+Comparison: 
+"""
 
 
 
