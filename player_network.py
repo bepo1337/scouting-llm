@@ -3,7 +3,7 @@ from pymilvus import connections, Collection
 # Configuration for Milvus
 MILVUS_HOST = "localhost"
 MILVUS_PORT = "19530"
-COLLECTION_NAME = "test_scouting"
+COLLECTION_NAME = "summary_reports"
 
 # Establish connection to Milvus
 connections.connect("default", host=MILVUS_HOST, port=MILVUS_PORT)

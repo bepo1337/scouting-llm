@@ -38,7 +38,7 @@ def all_player_ids_from_rdbms():
 
 
 def all_players_with_name_from_rdbms():
-    sql = "SELECT player_transfermarkt_id, name FROM report;"
+    sql = "SELECT DISTINCT player_transfermarkt_id, name FROM report;"
 
     cursor.execute(sql)
     results = cursor.fetchall()
