@@ -25,11 +25,11 @@ DIMENSIONS = 768
 COLLECTION_NAME_SUMMARY = "summary_reports"
 COLLECTION_NAME_SINGLE_REPORTS = "original_reports"
 VECTOR_STORE_URI = os.getenv("VECTOR_STORE_URL", "http://localhost:19530")
-OLLAMA_URI = os.getenv("OLLAMA_URI", "http://localhost:11434/v1")
+OLLAMA_URI = os.getenv("OLLAMA_URI", "http://localhost:11434")
 COUNT_RETRIEVED_DOCUMENTS = 5
 
 # Embedding
-embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL)
+embeddings = OllamaEmbeddings(model=EMBEDDING_MODEL, base_url=OLLAMA_URI)
 
 connection_args = {'uri': VECTOR_STORE_URI}
 vectorstore_summaries = Milvus(

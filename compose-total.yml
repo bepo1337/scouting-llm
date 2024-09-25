@@ -65,7 +65,7 @@ services:
     restart: always
     shm_size: 256mb
     volumes:
-      - postgres_data_backend:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
@@ -73,37 +73,12 @@ services:
     ports:
       - "5432:5432"
 
-  ollama-service:
-    image: ollama/ollama:0.1.48
-    restart: always
-    volumes:
-      - ollama:/root/.ollama
-      - ./entrypoint.sh:/entrypoint.sh
-    ports:
-      - "11435:11434"
-    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
-
-  scouting-llm-backend:
-    image: scouting-llm-backend
-    restart: always
-    ports:
-      - "5000:5000"
-    environment:
-      VECTOR_STORE_URL: http://standalone:19530
-      OLLAMA_URI: http://ollama-service:11434
-      MILVUS_HOST_NAME: standalone
-      RDBMS_HOST: postgres
-      OLLAMA_SERVER_EXECUTION: true
-    depends_on:
-      - postgres
-      - standalone
-      - ollama-service
-
 
 networks:
   default:
     name: milvus
 
 volumes:
-  postgres_data_backend:
-  ollama:
+  postgres_data:
+
+
