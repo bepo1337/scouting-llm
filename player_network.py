@@ -1,7 +1,9 @@
+import os
+
 from pymilvus import connections, Collection
 
 # Configuration for Milvus
-MILVUS_HOST = "localhost"
+MILVUS_HOST = os.getenv("MILVUS_HOST_NAME", "localhost")
 MILVUS_PORT = "19530"
 COLLECTION_NAME = "summary_reports"
 
