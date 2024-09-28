@@ -28,9 +28,16 @@ In this network, the thickness of the edges between players reflects the degree 
 
 If you're interested in a specific player, a single click on that player's node will open a detailed summary of their reports. You can also click on the edge between two players to directly compare them, offering insights into their playstyle similarities and differences.
 
-# Build and run docker image
-`docker build --tag scouting-llm .`
-`docker run -p 5000:5000 scouting-llm`
+# Build and run docker image locally
+
+## Build and run just the backend
+`docker build --tag scouting-llm-backend:1.0.0 .` \
+`docker run -p 5000:5000 scouting-llm-backend:1.0.0`
+
+# Build and run the full stack on a single host
+Build [frontend](https://github.com/bepo1337/scouting-llm-frontend) and backend with version 1.0.0 each. \
+Then run:
+`docker compose -f compose-stack.yml up`
 
 ## Authors
 

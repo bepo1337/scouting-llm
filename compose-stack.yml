@@ -94,7 +94,7 @@ services:
       - milvus
 
   scouting-llm-backend:
-    image: scouting-llm-backend:0.0.2
+    image: scouting-llm-backend:1.0.0
     restart: always
     ports:
       - "5000:5000"
