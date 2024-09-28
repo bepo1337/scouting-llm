@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import cross_origin, CORS
-from chain_summaries import invoke_summary_chain, invoke_single_report_chain, llm_compare_players
+from chain_summaries import invoke_summary_chain, invoke_single_report_chain, llm_compare_players, get_summary_for_player_id
 from model_definitions import ComparePlayerRequestPayload
 from rdb_access import fetch_reports_from_rdbms, all_player_ids_from_rdbms, all_players_with_name_from_rdbms
 from reaction import log_reaction
@@ -68,6 +68,12 @@ def compare_players():
                                    "player_right_name": comparison.player_right_name,
                                    "comparison": comparison.comparison}
     return jsonify(comparison_response_payload), 200
+
+@app.route("/summary/<int:player_id>", methods=["GET"])
+@cross_origin()
+def summary(player_id):
+    summary = get_summary_for_player_id(player_id)
+    return jsonify(summary), 200
 
 def nlp_proccessing(query, position, fine_grained):
     if fine_grained:
