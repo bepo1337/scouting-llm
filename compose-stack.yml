@@ -17,6 +17,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - milvus
 
   minio:
     container_name: milvus-minio-new
@@ -35,6 +37,8 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+    networks:
+      - milvus
 
   standalone:
     container_name: milvus-standalone-new
@@ -59,26 +63,74 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+    networks:
+      - milvus
 
   postgres:
     image: postgres:16
     restart: always
     shm_size: 256mb
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_backend:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: reports
     ports:
       - "5432:5432"
+    networks:
+      - milvus
+
+  ollama-service:
+    image: ollama/ollama:0.1.48
+    restart: always
+    volumes:
+      - ollama:/root/.ollama
+      - ./entrypoint.sh:/entrypoint.sh
+    ports:
+      - "11435:11434"
+    entrypoint: ["/usr/bin/bash", "/entrypoint.sh"]
+    networks:
+      - milvus
+
+  scouting-llm-backend:
+    image: scouting-llm-backend:0.0.2
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      VECTOR_STORE_URL: http://standalone:19530
+      OLLAMA_URI: http://ollama-service:11434
+      MILVUS_HOST_NAME: standalone
+      RDBMS_HOST: postgres
+      OLLAMA_SERVER_EXECUTION: true
+    depends_on:
+      - postgres
+      - standalone
+      - ollama-service
+    networks:
+      - milvus
+      - backend
+
+  scouting-llm-frontend:
+    image: scouting-llm-frontend:1.0.0
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      VITE_PORT: 4000
+#      VITE_BACKEND_URL: http://scouting-llm-backend:5000
+      VITE_BACKEND_URL: http://localhost:5000
+    depends_on:
+      - scouting-llm-backend
+    networks:
+      - backend
 
 
 networks:
-  default:
-    name: milvus
+  milvus:
+  backend:
 
 volumes:
-  postgres_data:
-
-
+  postgres_data_backend:
+  ollama:
