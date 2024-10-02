@@ -7,22 +7,22 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 from typing import Optional, List
 import json
 from dataclasses import dataclass, asdict
-from tqdm import tqdm
 import validators
 
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from bs4 import BeautifulSoup
-from langdetect import detect
 
 import prompt_templates
 
+# TODO make with parameters
+# TODO STRG F with "prod" before running it to make sure i dont delete old data
 
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-import_file = "../../data/team_prod.json"
-output_file = "../../data/all_players_structured_report_summary_with_example_prod.json"
+import_file = "data/team_prod.json"
+output_file = "data/all_players_structured_report_summary_with_example_prod.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
