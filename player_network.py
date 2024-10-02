@@ -27,6 +27,8 @@ def get_similar_players(player_transfermarkt_id: str):
     # Define how many similar players to return
     top_k = 10
 
+    max_distance = 45  # Maximum distance to consider a player as similar
+
     # Search for similar players in Milvus
     search_params = {"metric_type": "L2", "params": {"nprobe": 10}}  # Adjust nprobe based on your setup
     search_results = collection.search(
@@ -42,7 +44,8 @@ def get_similar_players(player_transfermarkt_id: str):
         found_player_transfermarkt_id = result.entity.get("player_transfermarkt_id")
         if found_player_transfermarkt_id != str(player_transfermarkt_id):  # Exclude the original player from results
             distance = result.distance
-            similar_players.append({"player_transfermarkt_id": found_player_transfermarkt_id, "distance": distance})
+            if distance <= max_distance:  # Check if the distance is below the maximum threshold
+                similar_players.append({"player_transfermarkt_id": found_player_transfermarkt_id, "distance": distance})
 
     print(similar_players)
 

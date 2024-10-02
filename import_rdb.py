@@ -6,6 +6,7 @@ import requests
 from psycopg2 import sql
 import sys
 import urllib.request
+from tqdm import tqdm
 
 
 sql_create_table = """CREATE TABLE IF NOT EXISTS report(
@@ -22,9 +23,11 @@ conn = psycopg2.connect(database = "reports",
                         password = "admin",
                         port = 5432)
 conn.autocommit = True
+print("Database connected successfully")
 
 cur = conn.cursor()
 cur.execute(sql_create_table)
+print("Table created successfully")
 
 # check if table entries exist
 #   if exists --> exit script
@@ -41,6 +44,7 @@ with open(json_file_path, 'r') as file:
     data = json.load(file)
 # entry, add a report in the rdbms with
     # each report: tm_player_id, text
+print("Data loaded successfully")
 
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'
@@ -57,7 +61,7 @@ def get_name_from_tm(player_transfermarkt_id) -> int:
         return ""
     return name
 
-for entry in data:
+for entry in tqdm(data, desc="Inserting data"):
     text = entry.get('text')
     player_tm_id = int(entry.get('player_transfermarkt_id'))
     name = get_name_from_tm(player_tm_id)
