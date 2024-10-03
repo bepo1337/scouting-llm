@@ -18,7 +18,8 @@ class Reactions(BaseModel):
     list: List[Reaction]
 
 
-def     create_log_file_if_not_exist():
+def create_log_file_if_not_exist():
+    """Creates the log file if it doesnt yet exist"""
     if os.path.isfile(logFile):
         print(f"The file '{logFile}' exists.")
     else:
@@ -30,6 +31,7 @@ def     create_log_file_if_not_exist():
 
 
 def append_to_log(request_json):
+    """Parses the JSON and appends the reaction to the log file"""
     with(open(logFile, 'r')) as file:
         reactions_json = json.load(file)
 
@@ -42,5 +44,6 @@ def append_to_log(request_json):
 
 
 def log_reaction(request_json):
+    """Logs the reaction to the log file"""
     create_log_file_if_not_exist()
     append_to_log(request_json)

@@ -57,6 +57,7 @@ class Report:
 
 
 def create_collection() -> Collection:
+    """Creates the collection with the name that was passed as a parameter when starting the script"""
     print(f"... Creating collection {collection_name}")
 
     fields = [
@@ -78,6 +79,7 @@ def create_collection() -> Collection:
 
 
 def setup_milvus_connection() -> Collection:
+    """Creates the connection to Milvus with the given collectoin name and milvus port. Will create the collection if it doesnt yet exist"""
     connections.connect("default", host="localhost", port=milvus_port)
     collection_exists = utility.has_collection(collection_name)
     if not collection_exists:
@@ -88,6 +90,7 @@ def setup_milvus_connection() -> Collection:
 
 
 def json_to_reports() -> [Report]:
+    """Parses the JSON data from the import file and returns a list of reports"""
     with open(import_file) as f:
         data = json.load(f)
         reports = [Report(
@@ -105,12 +108,14 @@ def json_to_reports() -> [Report]:
 
 
 def copy_report_with_new_chunk(report: Report, chunk: str) -> Report:
+    """Returns a deep copied report where the text is changed to the given chunk"""
     copied_report = copy.deepcopy(report)
     copied_report.text = chunk
     return copied_report
 
 
 def chunk_reports(reports: [Report]) -> [Report]:
+    """Chunks the reports to a list of reports with given chunk size and overlap from the parameters given to the script"""
     splitter = TokenTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     chunked_reports = []
     for report in reports:
@@ -124,6 +129,7 @@ def chunk_reports(reports: [Report]) -> [Report]:
 
 
 def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
+    """Embeds the reports into float vectors"""
     report_texts = [item.text for item in reports]
     embeddings = OllamaEmbeddings(model=embedding_model)
 
@@ -135,6 +141,8 @@ def create_embeddings(reports: [Report]) -> [DataType.FLOAT_VECTOR]:
 
 
 def import_reports(collection: Collection, reports: [Report]):
+    """Inserts the reports into Milvus"""
+
     print(f"... Inserting reports from {import_file}")
     texts = []
     player_ids = []
@@ -177,6 +185,8 @@ def import_reports(collection: Collection, reports: [Report]):
 
 
 def create_embeddings_index(collection: Collection):
+    """Creates an embedding index"""
+
     print(f"... Creating index IVF_FLAT, L2, nlist=128 on 'embeddings'")
     index = {
         "index_type": "IVF_FLAT",

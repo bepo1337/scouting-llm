@@ -314,7 +314,7 @@ v009 = """
    {format_instructions}
 """
 
-PROMPT_COMPARE_PLAYERS_NO_EXAMPLE = """
+PROMPT_COMPARE_PLAYERS_WITH_EXAMPLE = """
 Context is soccer and you are a assistant in scouting. I want you to compare the following two players and return
 a comprehensive comparison between the players. Do not write bullet points, I need whole sentences.
 I want you to place special emphasis on the following topics which are separated by a ';': 

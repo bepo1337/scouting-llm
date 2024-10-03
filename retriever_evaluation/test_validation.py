@@ -1,6 +1,4 @@
-from chain import invoke_chain
-from flask import jsonify
-import json
+from experiments.chain import invoke_chain
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 # Test requests and their respective validation lists of player_transfermarkt_ids

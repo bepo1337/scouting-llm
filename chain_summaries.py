@@ -58,6 +58,7 @@ summary_collection.load()
 
 
 def format_docs_to_json(docs: [Document]) -> str:
+    """Formats the documents from milvus to a processable JSON string"""
     # for every player we want: player_id, summary
     listResponse = model_definitions.ListPlayerResponse(list=[])
 
@@ -73,6 +74,7 @@ def format_docs_to_json(docs: [Document]) -> str:
 
 
 def get_vectorstore_results(vectorstore, query, position):
+    """Fetches players from Milvus based on the query and (if applicable) the position with a similarity search"""
     filterExpression = get_position_filter_expr(position)
     documents = vectorstore.similarity_search(
         query=query,
@@ -83,12 +85,14 @@ def get_vectorstore_results(vectorstore, query, position):
 
 
 def expand_query(query: str) -> str:
+    """Expands the user query to fit the structure of the summary"""
     prompt = prompt_templates.PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE + query
     answer = llm.invoke(prompt).content
     return answer
 
 
 def rag_chain(query: str, position: str):
+    """Invokes the RAG chain and returns a JSON list of players"""
     expaneded_query = expand_query(query)
     print(expaneded_query)
     documents = get_vectorstore_results(vectorstore_summaries, expaneded_query, position)
@@ -96,17 +100,20 @@ def rag_chain(query: str, position: str):
 
 
 def get_position_filter_expr(position):
+    """If the position exists, it will return a Milvus filter expression, otherwise it'll be None"""
     milvus_position_key = model_definitions.get_position_key_from_value(position)
     filterExpression = f"main_position == '{milvus_position_key}'" if milvus_position_key is not None else None
     return filterExpression
 
 
 def invoke_summary_chain(query: str, position: str) -> str:
+    """Invokes the chain if fine grained search is off"""
     print(f"Summary chain: User query: {query}, position: {position}")
     return rag_chain(query, position)
 
 
 def player_id_to_reports(documents: [Document]) -> Dict[int, List[str]]:
+    """Converts the documents into a dict that has player id as a key and the corresponding reports as a value in a string list"""
     return_object = {}
     for doc in documents:
         player_id = int(doc.metadata['player_transfermarkt_id'])
@@ -119,6 +126,7 @@ def player_id_to_reports(documents: [Document]) -> Dict[int, List[str]]:
 
 
 def get_summary_for_player_id(player_id) -> str:
+    """Returns the summary of a player for a given id"""
     response = summary_collection.query(expr=f"player_transfermarkt_id == '{player_id}'", output_fields=["text"])
     if len(response) == 0:
         return "PLAYER_NOT_IN_SUMMARY"
@@ -127,6 +135,7 @@ def get_summary_for_player_id(player_id) -> str:
 
 
 def invoke_single_report_chain(query: str, position: str) -> str:
+    """Invokes fine grained search where the query is not expanded and we search in the original reports"""
     print(f"Fine grained chain: User query: {query}, position: {position}")
     # Get 5 reports
     documents = get_vectorstore_results(vectorstore_reports, query, position)
@@ -149,6 +158,7 @@ def invoke_single_report_chain(query: str, position: str) -> str:
 ### Below this for comparing players. Using the same configured LLM
 
 def getComparisonTopicString(comparePlayersPayload: ComparePlayerRequestPayload):
+    """Validates and parses the request from the frontend into a list of comparison topic strings"""
     # create list with the strings
     topic_list = []
     if comparePlayersPayload.offensive is True:
@@ -169,6 +179,7 @@ def getComparisonTopicString(comparePlayersPayload: ComparePlayerRequestPayload)
 
 
 def format_reports(reports, name) -> str:
+    """Formats the reports of a player with a given name to a numerated list"""
     formatted_report = ""
     for i, report in enumerate(reports, 1):
         formatted_report += f"{name} report {i}: {report}\n"
@@ -177,10 +188,12 @@ def format_reports(reports, name) -> str:
 
 
 def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayload):
+    """We replace placeholders from the prompt template with the player data and comparison topics"""
+
     player_left_id = comparePlayersPayload.player_left
     player_right_id = comparePlayersPayload.player_right
     # prompt template
-    query = prompt_templates.PROMPT_COMPARE_PLAYERS_NO_EXAMPLE
+    query = prompt_templates.PROMPT_COMPARE_PLAYERS_WITH_EXAMPLE
     comparison_topic_string = getComparisonTopicString(comparePlayersPayload)
     query = query.replace("{COMPARISON_TOPICS}", comparison_topic_string)
 
@@ -206,6 +219,7 @@ def replace_compare_placeholders(comparePlayersPayload: ComparePlayerRequestPayl
 
 
 def llm_compare_players(comparePlayersPayload: ComparePlayerRequestPayload):
+    """Sends the comparison prompt to the LLM and parses it back to a JSON that we send to the frontend"""
     query = replace_compare_placeholders(comparePlayersPayload)
     # prompt llm
     comparison = llm.invoke(query).content

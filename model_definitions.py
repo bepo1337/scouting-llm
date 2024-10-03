@@ -63,8 +63,8 @@ class Positions(Enum):
     substitute = 'Substitute'
 
 def get_position_key_from_value(value):
+    """Maps the position value to a string name"""
     for position in Positions:
-        # otherwise its a tuple somehow? works
         if position.value[0] == value:
             return position.name
     return None

@@ -24,20 +24,23 @@ In order to be imported, the original scouting reports need have the format of t
 # Initialize data by loading reports into vector and relational database
 `docker compose up -d` to start PostgreSQL (localhost:5432) and Milvus (localhost:19530) \
 Alternatively run the whole stack already and then restart it again later after the data has been imported: \
-`docker compose -f compose-stack.yml up` \
+`docker compose -f compose-stack.yml up` 
+
 Once Milvus and Postgres are up, you can run the following commands to insert your original reports: \
-`python3 import.py --file=<PATH_TO_YOUR_ORIGINAL_REPORTS> --collection=original_reports` which will create a collection with the name "original_reports". \
+`python3 import.py --file=<PATH_TO_YOUR_ORIGINAL_REPORTS> --collection=original_reports` \
+which will create a collection with the name "original_reports". 
 
-Once the reports have been imported, we can summarize them by running the following command: \
-`python3 create_summary_reports.py --import=<PATH_TO_YOUR_ORIGINAL_REPORTS> --output=<PATH_TO_SUMMARY_REPORTS>` \
+Once the original reports have been imported, we can summarize them by running the following command: \
+`python3 create_summary_reports.py --importfile=<PATH_TO_YOUR_ORIGINAL_REPORTS> --outputfile=<PATH_TO_SUMMARY_REPORTS>` 
 
-After the reports have been summarized successfully, you can run the following command to import them into Milvus:
-`python3 import.py --file=<PATH_TO_YOUR_SUMMARIZED_REPORTS> --collection=summary_reports` which will create a collection with the name "summary_reports".
+After the reports have been summarized successfully, you can run the following command to import them into Milvus: \
+`python3 import.py --file=<PATH_TO_SUMMARY_REPORTS> --collection=summary_reports` which will create a collection with the name "summary_reports".
 
 Finally we can import the data into our relational database aswell by running: \
-`python3 import_rdb.py`
-You will find examples for how the data is supposed to be structured as JSON in the `/data` folder.
-# Run
+`python3 import_rdb.py` \
+You will find examples for how the data is supposed to be structured as JSON in the `data/reports.json` file.
+
+# Run locally
 `flask run` or `make run`
 
 # Features
@@ -55,11 +58,21 @@ Synonymous concepts will be found with the same prompt but if a player with a ce
 Example prompts:
 While `striker that can rock the EFL League Two` might not yield good results as "EFL League Two" might not be described in any report, a more detailed query such as `good query` might, as it gives more information to be embedded and match players from the database. \
 
-There are reaction buttons under each player. The results are logged and have no fixed meaning. They could be interpreted as answers to questions such as "sign player?" but also as "good summary?". \
-Explain each field and give example prompts. Also explain that we will only find something with the query if its within the scouting reports. So ie if we have data from the MSL, its not very likely we will find something with the prompt "im looking for a defender that can play well in the third german league and has a proven record to be a leader there". Also reactions that they re stored and could be mined later, but are of no use in this app
+There are reaction buttons under each player. The results are logged and have no fixed meaning. They could be interpreted as answers to questions such as "sign player?" but also as "good summary?". 
 
-Reactions
 ### Comparing Players
+This features creates custom comparisons of two players. A comparison will always include a general and a conclusion comparison. 
+A LLM will receive the summaries of the players and the original reports and is instructed with a prompt to create a comparison. \
+The comparison can be customized by either turning on the provided switches, which are more general: 
+- Offensive Capabilities
+- Defensive Capabilities
+- Strenghts
+- Weaknesses
+
+Or there is also the possibility to create custom comparison topics. They can be input in the prompt area and have to be separated by a semicolon ";". This enables comparison for detailed attributes that might not be generally applicable such as "leadership skills" or "passing in the last third".
+
+
+If a comparison topic is not applicable to the players, it will be left out in the response.
 ### Visualizing Players in a Network
 The feature allows you to compare soccer players based on their playstyle. You start by searching for a player in the database using a search bar. The selected player is then depicted at the center of a dynamic network graph, surrounded by other players who share similar playstyles. These similarities are determined by the vector representation of each player's report summary.
 
@@ -70,11 +83,13 @@ If you're interested in a specific player, a single click on that player's node 
 # Build and run docker image locally
 
 ## Build and run just the backend
+Build: \
 `docker build --tag scouting-llm-backend:1.0.0 .` \
+Run: \
 `docker run -p 5000:5000 scouting-llm-backend:1.0.0`
 
 # Build and run the full stack on a single host
-Build [frontend](https://github.com/bepo1337/scouting-llm-frontend) and backend with version 1.0.0 each. \
+Build [frontend](https://github.com/bepo1337/scouting-llm-frontend) and backend with version 1.0.0 each (or use other versions and change the `compose-stack.yml`). \
 Then run:
 `docker compose -f compose-stack.yml up`
 

@@ -1,3 +1,4 @@
+import argparse
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -15,14 +16,26 @@ from bs4 import BeautifulSoup
 
 import prompt_templates
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--importfile", default="reports_test.json", nargs="?",
+                    help="What file name to import from /data directory (default: reports_test.json)")
+parser.add_argument("--outputfile", default="summaries_test.json", nargs="?",
+                    help="What file name to output to /data directory (default: summaries_test.json)")
+
+
+args, unknown = parser.parse_known_args()
+
+import_file = "data/" + args.importfile
+output_file = "data/" + args.outputfile
+
 # TODO make with parameters
 # TODO STRG F with "prod" before running it to make sure i dont delete old data
 
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-import_file = "data/team_prod.json"
-output_file = "data/all_players_structured_report_summary_with_example_prod.json"
+# import_file = "data/team_prod.json"
+# output_file = "data/all_players_structured_report_summary_with_example_prod.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
@@ -45,6 +58,7 @@ class Report:
 
 
 def json_to_reports() -> [Report]:
+    """Loads the JSON file and returns a list of reports"""
     with open(import_file) as f:
         data = json.load(f)
         reports = [Report(
@@ -63,6 +77,7 @@ def json_to_reports() -> [Report]:
 
 
 def valid_text(text: str) -> bool:
+    """Validates the report text and returns false if the text is empty, text is html, text is less than 10 characters, is an URL or if it is numeric"""
     if text == "":
         return False
 
@@ -88,6 +103,8 @@ def valid_text(text: str) -> bool:
 reports = json_to_reports()
 player_id_to_reports = {}
 
+# Go through all reports and sort them by player ID
+# player_id_to_reports will then be a map of player ids to a list of reports
 for report in reports:
     player_id = report.player_transfermarkt_id
     if not valid_text(report.text):
@@ -101,6 +118,7 @@ for report in reports:
 
 
 def get_summary_from_llm(reports):
+    """Invokes the LLM to get a summary for the reports"""
     prompt = prompt_templates.PROMPT_SUMMARY_INTO_STRUCTURE
     reportCount = 1
     for report in reports:
@@ -111,6 +129,7 @@ def get_summary_from_llm(reports):
     return answer
 
 
+# Now we go through the previously created map and create a summary based on those reports
 processed_players = []
 for id, reports in player_id_to_reports.items():
     scout_id = 0
@@ -126,12 +145,8 @@ for id, reports in player_id_to_reports.items():
     grade_potential = sum(grade_potentials)/len(grade_potentials)
     grade_rating = sum(grade_ratings)/len(grade_ratings)
 
-    # only do summary if we have more than 1 report for this player.
     summary = ""
-    # if len(reports) > 1:
     summary = get_summary_from_llm(reports)
-    # else:
-    #     summary = reports[0].text
 
     summarized_report = Report(player_id=player_id_scoutastic,
                                text=summary,
@@ -145,6 +160,7 @@ for id, reports in player_id_to_reports.items():
     processed_players.append(summarized_report)
 
 def reports_to_json(reports: List[Report]):
+    """Parses the reports to a JSON list"""
     reports_dict = [report.to_dict() for report in reports]
     return json.dumps(reports_dict, default=str)
 
