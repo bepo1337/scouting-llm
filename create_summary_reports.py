@@ -28,14 +28,9 @@ args, unknown = parser.parse_known_args()
 import_file = "data/" + args.importfile
 output_file = "data/" + args.outputfile
 
-# TODO make with parameters
-# TODO STRG F with "prod" before running it to make sure i dont delete old data
-
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
-# import_file = "data/team_prod.json"
-# output_file = "data/all_players_structured_report_summary_with_example_prod.json"
 model_name="gpt-4o"
 llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
