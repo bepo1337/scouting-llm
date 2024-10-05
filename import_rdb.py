@@ -46,8 +46,7 @@ if results[0] > 0:
     sys.exit()
 
 
-json_file_path = "data/" + import_file
-with open(json_file_path, 'r') as file:
+with open(import_file, 'r') as file:
     data = json.load(file)
 
 

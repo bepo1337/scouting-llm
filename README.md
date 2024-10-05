@@ -22,6 +22,8 @@ To install this application, you need Python 3.10+ installed and a virtual envir
 ## Convert data into a suitable format
 In order to be imported, the original scouting reports need have the format of the reports in a JSON list under `data/reports.json`. \
 This file can also be used to go through the whole import and summarizing process.
+
+All import file names will be prefixed with `data/` so only specify the path relative to the `data` directory.
 # Initialize data by loading reports into vector and relational database
 `docker compose up -d` to start PostgreSQL (localhost:5432) and Milvus (localhost:19530) \
 Alternatively run the whole stack already and then restart it again later after the data has been imported: \
