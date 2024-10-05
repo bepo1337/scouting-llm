@@ -1,4 +1,5 @@
 # Import reports into Postgres to show them in the frontend after we summarized the reports
+import argparse
 import json
 
 import psycopg2
@@ -7,6 +8,13 @@ from psycopg2 import sql
 import sys
 import urllib.request
 from tqdm import tqdm
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--file", default="reports_test.json", nargs="?",
+                    help="What file name to import from /data directory (default: reports_test.json)")
+
+args, unknown = parser.parse_known_args()
+import_file = "data/" + args.file
 
 
 sql_create_table = """CREATE TABLE IF NOT EXISTS report(
@@ -38,12 +46,11 @@ if results[0] > 0:
     sys.exit()
 
 
-# run creation script TODO change here for other import path
-json_file_path = "data/team_prod.json"
+json_file_path = "data/" + import_file
 with open(json_file_path, 'r') as file:
     data = json.load(file)
-# entry, add a report in the rdbms with
-    # each report: tm_player_id, text
+
+
 print("Data loaded successfully")
 
 headers = {

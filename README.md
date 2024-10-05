@@ -20,7 +20,8 @@ To install this application, you need Python 3.10+ installed and a virtual envir
 
 # Preparing and inserting data
 ## Convert data into a suitable format
-In order to be imported, the original scouting reports need have the format of the reports in a JSON list under `data/reports.json`.
+In order to be imported, the original scouting reports need have the format of the reports in a JSON list under `data/reports.json`. \
+This file can also be used to go through the whole import and summarizing process.
 # Initialize data by loading reports into vector and relational database
 `docker compose up -d` to start PostgreSQL (localhost:5432) and Milvus (localhost:19530) \
 Alternatively run the whole stack already and then restart it again later after the data has been imported: \
@@ -37,7 +38,7 @@ After the reports have been summarized successfully, you can run the following c
 `python3 import.py --file=<PATH_TO_SUMMARY_REPORTS> --collection=summary_reports` which will create a collection with the name "summary_reports".
 
 Finally we can import the data into our relational database aswell by running: \
-`python3 import_rdb.py` \
+`python3 import_rdb.py --file=<PATH_TO_YOUR_ORIGINAL_REPORTS>` \
 You will find examples for how the data is supposed to be structured as JSON in the `data/reports.json` file.
 
 # Run locally
