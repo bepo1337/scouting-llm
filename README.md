@@ -26,7 +26,7 @@ This file can also be used to go through the whole import and summarizing proces
 Each scouting report object should follow this structure:
 
 
-```json
+```jsonc
 {
   "scout_id": "1234",                       // Unique identifier for the scout
   "text": "Text of the scouting report",    // Detailed qualitative data about the player    
