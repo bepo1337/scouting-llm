@@ -20,8 +20,21 @@ To install this application, you need Python 3.10+ installed and a virtual envir
 
 # Preparing and inserting data
 ## Convert data into a suitable format
-In order to be imported, the original scouting reports need have the format of the reports in a JSON list under `data/reports.json`. \
+The input data for this application should be in JSON format, with each scouting report represented as an individual object within a JSON array. In order to be imported, the original scouting reports need have the format of the reports in a JSON list under `data/reports.json`. \
 This file can also be used to go through the whole import and summarizing process.
+
+Each scouting report object should follow this structure:
+
+{
+  "scout_id": "1234",                       // Unique identifier for the scout
+  "text": "Text of the scouting report",    // Detailed qualitative data about the player    
+  "player_id": "5f99f90d13f011e59dfc42d3",  // Unique identifier for the player in the system
+  "player_transfermarkt_id": "238716",      // Player's identifier from Transfermarkt or other reference platforms
+  "grade_rating": 0.3,                      // Current performance rating (e.g., 0.0 to 1.0 scale)
+  "grade_potential": 0.2,                   // Potential for future performance (e.g., 0.0 to 1.0 scale)
+  "main_position": "centerforward",         // Player's primary position
+  "played_position": "centerforward"        // Position played in the reported match
+}
 
 All import file names will be prefixed with `data/` so only specify the path relative to the `data` directory.
 # Initialize data by loading reports into vector and relational database
