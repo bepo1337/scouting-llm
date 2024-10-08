@@ -25,6 +25,8 @@ This file can also be used to go through the whole import and summarizing proces
 
 Each scouting report object should follow this structure:
 
+
+```json
 {
   "scout_id": "1234",                       // Unique identifier for the scout
   "text": "Text of the scouting report",    // Detailed qualitative data about the player    
@@ -35,7 +37,7 @@ Each scouting report object should follow this structure:
   "main_position": "centerforward",         // Player's primary position
   "played_position": "centerforward"        // Position played in the reported match
 }
-
+```
 All import file names will be prefixed with `data/` so only specify the path relative to the `data` directory.
 # Initialize data by loading reports into vector and relational database
 `docker compose up -d` to start PostgreSQL (localhost:5432) and Milvus (localhost:19530) \
