@@ -12,8 +12,8 @@ connections.connect("default", host=MILVUS_HOST, port=MILVUS_PORT)
 collection = Collection(COLLECTION_NAME)
 collection.load()
 
+# Retrieve the embedding for a player given their player_transfermarkt_id
 def get_player_embedding(player_transfermarkt_id: str):
-    # Retrieve the embedding for a player given their player_transfermarkt_id
     query = f"player_transfermarkt_id == '{player_transfermarkt_id}'"
     search_results = collection.query(query, output_fields=["embeddings"])
     if search_results:
@@ -21,6 +21,7 @@ def get_player_embedding(player_transfermarkt_id: str):
     else:
         raise ValueError(f"No embeddings found for player Transfermarkt ID {player_transfermarkt_id}")
 
+# Retrieve similar players from Milvus based on the player_transfermarkt_id
 def get_similar_players(player_transfermarkt_id: str):
     query_embedding = get_player_embedding(player_transfermarkt_id)
 
@@ -30,12 +31,12 @@ def get_similar_players(player_transfermarkt_id: str):
     max_distance = 45  # Maximum distance to consider a player as similar
 
     # Search for similar players in Milvus
-    search_params = {"metric_type": "L2", "params": {"nprobe": 10}}  # Adjust nprobe based on your setup
+    search_params = {"metric_type": "L2", "params": {"nprobe": 10}} 
     search_results = collection.search(
         data=[query_embedding],
         anns_field="embeddings",
         param=search_params,
-        limit=top_k + 1,  # Add +1 to include the player itself in the results so we can filter it out
+        limit=top_k + 1,  # Add +1 because the player itself is included in the results so we can filter it out
         output_fields=["player_transfermarkt_id"]
     )
     print("Search results by similarity Search:", search_results)

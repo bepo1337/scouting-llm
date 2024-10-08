@@ -9,14 +9,16 @@ import sys
 import urllib.request
 from tqdm import tqdm
 
+# Argument parser to accept a file name from the command line
 parser = argparse.ArgumentParser()
 parser.add_argument("--file", default="reports_test.json", nargs="?",
                     help="What file name to import from /data directory (default: reports_test.json)")
 
+# Parse the command line arguments, with a default file if not provided
 args, unknown = parser.parse_known_args()
 import_file = "data/" + args.file
 
-
+# SQL command to create a table if it does not exist already
 sql_create_table = """CREATE TABLE IF NOT EXISTS report(
             id SERIAL PRIMARY KEY,
             name TEXT NOT NULL,
@@ -24,7 +26,7 @@ sql_create_table = """CREATE TABLE IF NOT EXISTS report(
             report TEXT NOT NULL)
             """
 
-# setup connection
+# Setup connection to the PostgreSQL database
 conn = psycopg2.connect(database = "reports",
                         user = "postgres",
                         host= 'localhost',
@@ -33,28 +35,28 @@ conn = psycopg2.connect(database = "reports",
 conn.autocommit = True
 print("Database connected successfully")
 
+# Create a cursor object to execute SQL commands
 cur = conn.cursor()
 cur.execute(sql_create_table)
 print("Table created successfully")
 
-# check if table entries exist
-#   if exists --> exit script
+# Check if there are existing entries in the 'report' table
 cur.execute('SELECT COUNT(*) FROM report;')
 results = cur.fetchone()
 if results[0] > 0:
     print("entries already exists, exiting")
-    sys.exit()
+    sys.exit() # Exit if there are already entries in the table
 
-
+# Load the JSON data from the file specified by the user
 with open(import_file, 'r') as file:
     data = json.load(file)
-
-
 print("Data loaded successfully")
 
 headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'
 }
+
+# Fetch the player's name from Transfermarkt API using the player's ID
 def get_name_from_tm(player_transfermarkt_id) -> int:
     path = "https://www.transfermarkt.de/api/get/appShortinfo/player?ids=" + str(player_transfermarkt_id)
     contents = requests.get(path, headers=headers)
@@ -67,6 +69,7 @@ def get_name_from_tm(player_transfermarkt_id) -> int:
         return ""
     return name
 
+# Loop over the JSON data, inserting each entry into the database
 for entry in tqdm(data, desc="Inserting data"):
     text = entry.get('text')
     player_tm_id = int(entry.get('player_transfermarkt_id'))
@@ -77,6 +80,7 @@ for entry in tqdm(data, desc="Inserting data"):
 
     cur.execute(sql, values)
 
+# Close the database cursor and connection
 cur.close()
 conn.close()
 
