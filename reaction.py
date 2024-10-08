@@ -4,8 +4,10 @@ from typing import List
 
 from pydantic import BaseModel
 
+# Path to the log file where reactions will be saved
 logFile = "data/reaction_log_prod.json"
 
+# Structure of the Reaction entry
 class Reaction(BaseModel):
     query: str
     playerID: int
@@ -13,13 +15,12 @@ class Reaction(BaseModel):
     summary: str
 
 
-# We want to get a list of players
+# Class to hold a list of Reaction objects
 class Reactions(BaseModel):
     list: List[Reaction]
 
-
+# Function to create the log file if it doesn't exist
 def create_log_file_if_not_exist():
-    """Creates the log file if it doesnt yet exist"""
     if os.path.isfile(logFile):
         print(f"The file '{logFile}' exists.")
     else:
@@ -29,9 +30,8 @@ def create_log_file_if_not_exist():
         print(f"The file '{logFile}' was created.")
 
 
-
+# Function to parse a JSON and append a reaction to the log file
 def append_to_log(request_json):
-    """Parses the JSON and appends the reaction to the log file"""
     with(open(logFile, 'r')) as file:
         reactions_json = json.load(file)
 
@@ -42,8 +42,7 @@ def append_to_log(request_json):
     with open(logFile, "w") as file:
         file.write(reactions.model_dump_json())
 
-
+# Log the reaction to the log file if the log file exists. Otherwise, create the log file and log the reaction.
 def log_reaction(request_json):
-    """Logs the reaction to the log file"""
     create_log_file_if_not_exist()
     append_to_log(request_json)
