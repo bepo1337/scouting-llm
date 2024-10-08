@@ -38,6 +38,8 @@ Each scouting report object should follow this structure:
   "played_position": "centerforward"        // Position played in the reported match
 }
 ```
+Only `text`, `player_transfermarkt_id` and `main_position` are required. The others can be left with placeholders. 
+
 All import file names will be prefixed with `data/` so only specify the path relative to the `data` directory.
 # Initialize data by loading reports into vector and relational database
 `docker compose up -d` to start PostgreSQL (localhost:5432) and Milvus (localhost:19530) \
