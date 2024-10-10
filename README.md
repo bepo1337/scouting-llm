@@ -65,8 +65,10 @@ Finally we can import the data into our relational database as well by running: 
 `python3 import_rdb.py --file=<PATH_TO_YOUR_ORIGINAL_REPORTS>` \
 You will find examples for how the data is supposed to be structured as JSON in the `data/reports.json` file.
 
-# Run locally ⚡
-`flask run` or `make run`
+# Run only backend locally ⚡
+`docker compose up -d` to start the backend dependencies (Milvus & Postgres). Ollama needs to be installed locally when not running the whole stack from the Docker Compoes file.
+
+`flask run` or `make run` to start the backend
 
 # Features
 ### Scouting as Prompt ✨
