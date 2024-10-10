@@ -10,15 +10,28 @@ from model_definitions import ComparePlayerRequestPayload, ComparePlayerResponse
 import model_definitions
 from langchain_milvus import Milvus
 from langchain_openai import AzureChatOpenAI
-
+from langchain_ollama.llms import OllamaLLM
 import prompt_templates
 from rdb_access import fetch_reports_from_rdbms, fetch_name_from_rdbms
 
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
+DOCKER_ENV = os.getenv('DOCKER_ENV')
 model_name = "gpt-4o"
-llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
+
+def open_source_llm_used() -> bool:
+    """Determines if an OS LLM should be used based on the environment variables"""
+    return AZURE_OPENAI_API_KEY is None
+
+if open_source_llm_used():
+    ollama_base_url = "http://localhost:11434"
+    if DOCKER_ENV is not None:
+        ollama_base_url = "http://ollama-service:11434"
+
+    llm = OllamaLLM(model="llama3:latest", base_url=ollama_base_url)
+else:
+    llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
 
 EMBEDDING_MODEL = "nomic-embed-text"
 DIMENSIONS = 768
@@ -83,11 +96,17 @@ def get_vectorstore_results(vectorstore, query, position):
     )
     return documents
 
+def invoke_llm(query):
+    if open_source_llm_used():
+        return llm.invoke(query)
+    else:
+        return llm.invoke(query).content
+
 
 def expand_query(query: str) -> str:
     """Expands the user query to fit the structure of the summary"""
     prompt = prompt_templates.PROMPT_QUERY_INTO_STRUCTURED_QUERY_WITH_EXAMPLE + query
-    answer = llm.invoke(prompt).content
+    answer = invoke_llm(prompt)
     return answer
 
 
@@ -222,7 +241,7 @@ def llm_compare_players(comparePlayersPayload: ComparePlayerRequestPayload):
     """Sends the comparison prompt to the LLM and parses it back to a JSON that we send to the frontend"""
     query = replace_compare_placeholders(comparePlayersPayload)
     # prompt llm
-    comparison = llm.invoke(query).content
+    comparison = invoke_llm(query)
     # parse to response object
     player_left_name = fetch_name_from_rdbms(comparePlayersPayload.player_left)
     player_right_name = fetch_name_from_rdbms(comparePlayersPayload.player_right)

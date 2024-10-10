@@ -82,7 +82,7 @@ services:
       - milvus
 
   ollama-service:
-    image: ollama/ollama:0.1.48
+    image: ollama/ollama:0.3.12
     restart: always
     volumes:
       - ollama:/root/.ollama
@@ -104,6 +104,7 @@ services:
       MILVUS_HOST_NAME: standalone
       RDBMS_HOST: postgres
       OLLAMA_SERVER_EXECUTION: true
+      DOCKER_ENV: true
     depends_on:
       - postgres
       - standalone

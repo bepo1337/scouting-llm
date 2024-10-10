@@ -9,6 +9,7 @@ from typing import Optional, List
 import json
 from dataclasses import dataclass, asdict
 import validators
+from langchain_ollama.llms import OllamaLLM
 
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
@@ -31,8 +32,28 @@ output_file = "data/" + args.outputfile
 load_dotenv()
 AZURE_OPENAI_API_KEY = os.getenv('AZURE_OPENAI_API_KEY')
 OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
+DOCKER_ENV = os.getenv('DOCKER_ENV')
 model_name="gpt-4o"
-llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
+
+def open_source_llm_used() -> bool:
+    """Determines if an OS LLM should be used based on the environment variables"""
+    return AZURE_OPENAI_API_KEY is None
+
+
+if open_source_llm_used():
+    ollama_base_url = "http://localhost:11434"
+    if DOCKER_ENV is not None:
+        ollama_base_url = "http://ollama-service:11434"
+
+    llm = OllamaLLM(model="llama3:latest", base_url=ollama_base_url)
+else:
+    llm = AzureChatOpenAI(openai_api_key=AZURE_OPENAI_API_KEY, deployment_name=model_name)
+
+def invoke_llm(query):
+    if open_source_llm_used():
+        return llm.invoke(query)
+    else:
+        return llm.invoke(query).content
 
 @dataclass
 class Report:
@@ -120,7 +141,7 @@ def get_summary_from_llm(reports):
         prompt += f"Report {reportCount}: {report.text}\n\n"
         reportCount += 1
 
-    answer = llm.invoke(prompt).content
+    answer = invoke_llm(prompt)
     return answer
 
 

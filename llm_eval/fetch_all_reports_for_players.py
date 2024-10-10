@@ -6,7 +6,7 @@ from pymilvus import (
     connections,
     Collection,
 )
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 from typing import List
 from langchain_core.documents import Document
 import json
