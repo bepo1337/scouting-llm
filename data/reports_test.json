@@ -1,0 +1,582 @@
+[
+    {
+        "scout_id": "1234",
+        "text": "Played as a defensive midfielder, although he is usually used as a central defender. In the game, he clearly operated in front of the defense and always remained defensively oriented during attacks. He made a combative impression in the duels.\nDisciplined in defensive positioning, he defended consistently forward and immediately returned to his position. He also had his moments in offensive set pieces and was dangerous due to his heading ability, even providing an assist with a header. However, his passing game showed too many inaccuracies, leading to turnovers. Overall, a solid performance, but at 33 years old, probably no longer of interest to us.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "1234",
+        "text": "Played as a defensive midfielder, showing strength in positioning but lacking speed to track back quickly during transitions. He made an impact in aerial duels but lost possession under pressure. A reliable option in a defensive setup, but his passing needs improvement.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "1234",
+        "text": "Operated well in front of the defense, anticipating opponent moves effectively. However, struggled when tasked with advancing the ball forward. His leadership was visible, organizing the backline effectively.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "1234",
+        "text": "Although primarily defensive, he contributed with a key pass that started a counterattack. His physicality was key in breaking up opposition play, though his mobility was a concern when facing fast opponents.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "1234",
+        "text": "Strong in duels but lacked offensive presence. His positioning helped neutralize many attacks, but he couldn’t contribute meaningfully in possession. At 33, his physical peak is behind him.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "1234",
+        "text": "Showed great anticipation in cutting passing lanes, but his reaction time has slowed. Defensively reliable, but his inability to move the ball forward efficiently caused a lack of fluidity in the team.",
+        "player_id": "5f99f90d13f011e59dfc42d3",
+        "player_transfermarkt_id": "238716",
+        "grade_rating": 0.3,
+        "grade_potential": 0.2,
+        "main_position": "defensivemidfield",
+        "played_position": "defensivemidfield"
+    },
+    {
+        "scout_id": "5678",
+        "text": "Played as a left back and showed impressive speed on the flank. Defensively strong in duels, but sometimes prone to positional errors. Had several successful crosses that led to dangerous situations. His stamina was remarkable, showing no signs of fatigue until the end of the game. His passing game was solid, but he lacked precision in long passes. At 24 years old, he still has potential to develop further.",
+        "player_id": "6b1234567890abcdef123456",
+        "player_transfermarkt_id": "159753",
+        "grade_rating": 0.7,
+        "grade_potential": 0.8,
+        "main_position": "leftback",
+        "played_position": "leftback"
+    },
+    {
+        "scout_id": "5678",
+        "text": "Once again solid defensively, although his tendency to lose focus during key moments was visible. In the attacking third, his crosses were dangerous, though his long passes lacked precision.",
+        "player_id": "6b1234567890abcdef123456",
+        "player_transfermarkt_id": "159753",
+        "grade_rating": 0.7,
+        "grade_potential": 0.8,
+        "main_position": "leftback",
+        "played_position": "leftback"
+    },
+    {
+        "scout_id": "5678",
+        "text": "Demonstrated improved ball control under pressure but still made occasional mistakes. Contributed with two key passes and covered a lot of ground defensively.",
+        "player_id": "6b1234567890abcdef123456",
+        "player_transfermarkt_id": "159753",
+        "grade_rating": 0.7,
+        "grade_potential": 0.8,
+        "main_position": "leftback",
+        "played_position": "leftback"
+    },
+    {
+        "scout_id": "5678",
+        "text": "His speed helped prevent several dangerous counterattacks, but he was often caught out of position when transitioning back. His offensive contribution remains inconsistent.",
+        "player_id": "6b1234567890abcdef123456",
+        "player_transfermarkt_id": "159753",
+        "grade_rating": 0.7,
+        "grade_potential": 0.8,
+        "main_position": "leftback",
+        "played_position": "leftback"
+    },
+    {
+        "scout_id": "5678",
+        "text": "Defensively very stable and kept up with his opponents. Offensively quiet, but a few runs into the attacking third were promising. Fitness remains one of his strongest assets.",
+        "player_id": "6b1234567890abcdef123456",
+        "player_transfermarkt_id": "159753",
+        "grade_rating": 0.7,
+        "grade_potential": 0.8,
+        "main_position": "leftback",
+        "played_position": "leftback"
+    },
+    {
+        "scout_id": "7890",
+        "text": "Played as a right winger, consistently dangerous in wide areas. His directness caused problems for the defense, and he managed to get an assist from a well-timed cross.",
+        "player_id": "7d1234567890abcdef123456",
+        "player_transfermarkt_id": "852963",
+        "grade_rating": 0.75,
+        "grade_potential": 0.85,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "7890",
+        "text": "His pace was again a problem for defenders. Scored a goal after a solo run but faded out of the game defensively. High potential, but his stamina needs improvement.",
+        "player_id": "7d1234567890abcdef123456",
+        "player_transfermarkt_id": "852963",
+        "grade_rating": 0.75,
+        "grade_potential": 0.85,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "7890",
+        "text": "His speed caused problems once again, contributing with an assist. His defensive work was commendable but occasionally left gaps behind him.",
+        "player_id": "7d1234567890abcdef123456",
+        "player_transfermarkt_id": "852963",
+        "grade_rating": 0.75,
+        "grade_potential": 0.85,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "7890",
+        "text": "Was an ever-present threat on the right wing, contributing with several key passes. Defensively, he covered his full-back well, showing maturity in his positioning.",
+        "player_id": "7d1234567890abcdef123456",
+        "player_transfermarkt_id": "852963",
+        "grade_rating": 0.75,
+        "grade_potential": 0.85,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "7890",
+        "text": "Impressive performance with a well-taken goal and numerous dangerous crosses. However, his decision-making in the final third remains inconsistent.",
+        "player_id": "7d1234567890abcdef123456",
+        "player_transfermarkt_id": "852963",
+        "grade_rating": 0.75,
+        "grade_potential": 0.85,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "3456",
+        "text": "Played as a goalkeeper, making several good saves but struggled to command his area on set pieces. His reflexes were sharp, but his decision-making was questionable.",
+        "player_id": "8e1234567890abcdef123456",
+        "player_transfermarkt_id": "159486",
+        "grade_rating": 0.6,
+        "grade_potential": 0.7,
+        "main_position": "goalkeeper",
+        "played_position": "goalkeeper"
+    },
+    {
+        "scout_id": "3456",
+        "text": "Again, his shot-stopping ability was the highlight of his performance. However, his inability to handle high crosses cost the team a goal. Needs to work on his communication with the defense.",
+        "player_id": "8e1234567890abcdef123456",
+        "player_transfermarkt_id": "159486",
+        "grade_rating": 0.6,
+        "grade_potential": 0.7,
+        "main_position": "goalkeeper",
+        "played_position": "goalkeeper"
+    },
+    {
+        "scout_id": "3456",
+        "text": "Made some incredible saves but was caught out of position twice. His distribution was poor, often putting his team under pressure.",
+        "player_id": "8e1234567890abcdef123456",
+        "player_transfermarkt_id": "159486",
+        "grade_rating": 0.6,
+        "grade_potential": 0.7,
+        "main_position": "goalkeeper",
+        "played_position": "goalkeeper"
+    },
+    {
+        "scout_id": "3456",
+        "text": "Solid in goal, making crucial saves at key moments. Still struggles with high balls, but his reflexes are excellent. Needs to work on his penalty area control.",
+        "player_id": "8e1234567890abcdef123456",
+        "player_transfermarkt_id": "159486",
+        "grade_rating": 0.6,
+        "grade_potential": 0.7,
+        "main_position": "goalkeeper",
+        "played_position": "goalkeeper"
+    },
+    {
+        "scout_id": "3456",
+        "text": "Strong performance overall, but his insecurity on high balls persists. His positioning for set pieces was better this time, though his long passes were often inaccurate.",
+        "player_id": "8e1234567890abcdef123456",
+        "player_transfermarkt_id": "159486",
+        "grade_rating": 0.6,
+        "grade_potential": 0.7,
+        "main_position": "goalkeeper",
+        "played_position": "goalkeeper"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Played as an attacking midfielder and controlled the tempo of the game. His creativity was evident, contributing with multiple key passes. He took a few long-range shots but failed to find the back of the net.",
+        "player_id": "df1234567890abcdef123456",
+        "player_transfermarkt_id": "753159",
+        "grade_rating": 0.75,
+        "grade_potential": 0.8,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "6543",
+        "text": "His dribbling caused chaos in the opposition's defense, creating space for his teammates. His defensive contribution improved, although there is still room for more work.",
+        "player_id": "df1234567890abcdef123456",
+        "player_transfermarkt_id": "753159",
+        "grade_rating": 0.75,
+        "grade_potential": 0.8,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Another impressive performance as an attacking midfielder, creating chances with his quick thinking. Scored a goal with a precise free kick. His lack of defensive involvement remains an issue.",
+        "player_id": "df1234567890abcdef123456",
+        "player_transfermarkt_id": "753159",
+        "grade_rating": 0.75,
+        "grade_potential": 0.8,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Showed creativity and game awareness, delivering two assists. His ability to see gaps in the defense is one of his standout traits, but defensively he remains a liability.",
+        "player_id": "df1234567890abcdef123456",
+        "player_transfermarkt_id": "753159",
+        "grade_rating": 0.75,
+        "grade_potential": 0.8,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Scored another goal and contributed heavily to attacking movements. His passing accuracy and dribbling skills were on display, but he didn’t track back to help defensively.",
+        "player_id": "df1234567890abcdef123456",
+        "player_transfermarkt_id": "753159",
+        "grade_rating": 0.75,
+        "grade_potential": 0.8,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a central defender and showed a strong performance. Was very secure defensively and allowed few scoring chances. His positioning was excellent and he won many duels. In the build-up play, he was solid but not creative. His heading ability was a plus, especially in set pieces. At 28 years old, he has developed well but has little potential for big leaps.",
+        "player_id": "ef1234567890abcdef123456",
+        "player_transfermarkt_id": "159264",
+        "grade_rating": 0.7,
+        "grade_potential": 0.65,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a central defender again and showed an outstanding performance. Was very secure defensively and dominated his opponents. His positioning and duel behavior were excellent. In build-up play, he showed improvement and initiated some attacks. His heading ability was again a major plus in set pieces. At 28 years old, he has developed into a reliable defender.",
+        "player_id": "ef1234567890abcdef123456",
+        "player_transfermarkt_id": "159264",
+        "grade_rating": 0.75,
+        "grade_potential": 0.7,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "2345",
+        "text": "Played as an attacking winger and used his speed and technique excellently. His dribbling led to several dangerous situations, although he again showed weaknesses defensively. He set up a goal with a precise cross and scored one himself after a solo run. His creativity and game vision were at a high level. At 23 years old, he still has a lot of potential to rise.",
+        "player_id": "cf1234567890abcdef123456",
+        "player_transfermarkt_id": "258963",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "leftwing",
+        "played_position": "leftwing"
+    },
+    {
+        "scout_id": "2345",
+        "text": "Played as an attacking winger and impressed with his speed and technique. His dribbling was often successful and led to dangerous scoring chances. Defensively, he was weak and contributed little going back. He set up two goals with precise crosses and scored one himself. His creativity and game vision were excellent. At 23 years old, he still has a lot of potential to rise.",
+        "player_id": "cf1234567890abcdef123456",
+        "player_transfermarkt_id": "258963",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "leftwing",
+        "played_position": "leftwing"
+    },
+    {
+        "scout_id": "0987",
+        "text": "Played as a right back and showed a consistent performance over 90 minutes. Was secure defensively and allowed few crosses. Offensively, he set accents with precise passes and well-timed forward runs. His stamina and commitment were remarkable. However, he lacked top speed, which could be problematic against fast wingers. At 25 years old, he is at a good age to improve further.",
+        "player_id": "bf1234567890abcdef123456",
+        "player_transfermarkt_id": "951357",
+        "grade_rating": 0.7,
+        "grade_potential": 0.75,
+        "main_position": "rightcenterback",
+        "played_position": "rightcenterback"
+    },
+    {
+        "scout_id": "0987",
+        "text": "Played as a right back again and showed a consistent performance throughout the game. Defensively very solid, allowed few crosses and breakthroughs. Offensively, he set accents with precise crosses and good forward runs. His stamina and commitment were again impressive. His top speed remains a weakness, which could be problematic against fast opponents. At 25 years old, he still has potential for improvement.",
+        "player_id": "bf1234567890abcdef123456",
+        "player_transfermarkt_id": "951357",
+        "grade_rating": 0.7,
+        "grade_potential": 0.75,
+        "main_position": "rightcenterback",
+        "played_position": "rightcenterback"
+    },
+    {
+        "scout_id": "8765",
+        "text": "Played as a central defender and showed consistent performance in defense. Was again dominant in aerial duels and allowed few chances. His build-up play was secure, but he took no risks. Showed good anticipation and was often faster than his opponent. Speed remained an average aspect of his abilities. At 30 years old, he remains a solid option in defense, but without great potential for progress.",
+        "player_id": "af1234567890abcdef123456",
+        "player_transfermarkt_id": "159688",
+        "grade_rating": 0.65,
+        "grade_potential": 0.5,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "8765",
+        "text": "As a central defender, he showed a strong physical presence. Was dominant in aerial duels and cleared many dangerous situations. In the build-up play, he was solid but not exceptionally creative. Showed good anticipation and was often a step ahead of his opponent. His speed was average, which could be problematic against fast forwards. At 30 years old, probably not a long-term solution.",
+        "player_id": "af1234567890abcdef123456",
+        "player_transfermarkt_id": "159688",
+        "grade_rating": 0.65,
+        "grade_potential": 0.5,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Played as a striker and was very dangerous in front of goal. Scored two goals through quick transitions and good positioning. His heading game was strong and he won many aerial duels. Technically, he was solid, but showed weaknesses in ball control under pressure. Defensively, he contributed little, which led to gaps in pressing. At 29 years old, he is at his peak performance.",
+        "player_id": "9f1234567890abcdef123456",
+        "player_transfermarkt_id": "753468",
+        "grade_rating": 0.8,
+        "grade_potential": 0.75,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "6543",
+        "text": "Played as a striker again and showed high goal threat. Scored a goal with a quick finish and was constantly a threat to the defense. His heading game remained strong and he won many aerial duels. Technically, he showed improvement, especially in ball control. Defensively, his effort was again limited, which affected the pressing. At 29 years old, he remains an important player, but without great development potential.",
+        "player_id": "9f1234567890abcdef123456",
+        "player_transfermarkt_id": "753468",
+        "grade_rating": 0.75,
+        "grade_potential": 0.7,
+        "main_position": "centerforward",
+        "played_position": "centerforward"
+    },
+    {
+        "scout_id": "4321",
+        "text": "As an attacking midfielder, he was the creative head of the team and always involved in attacks. His dribbling and ball control were excellent, allowing him to create space for his teammates.\nDefensively, he showed more effort than in the last game, but was not always effective.\nHis precise passes and ability to shoot from distance led to several dangerous situations.\nAt 26 years old, he remains a key player.\n ",
+        "player_id": "6c7890123456abcdef123456",
+        "player_transfermarkt_id": "753951",
+        "grade_rating": 0.9,
+        "grade_potential": 0.85,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "As an attacking midfielder, he set many creative accents and distributed the balls skillfully. His dribbling was excellent and allowed him to outplay several opponents. Defensively, he contributed little going back, which led to gaps in midfield. He scored a goal with a precise long-range shot and set up another with a sharp pass.\nHis game vision and technical skills were at a high level. At 26 years old, he is at the peak of his footballing age.",
+        "player_id": "6c7890123456abcdef123456",
+        "player_transfermarkt_id": "753951",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "attackingmidfield",
+        "played_position": "attackingmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a central midfielder, showing good vision and distributing the ball effectively. His passing accuracy was high, but he struggled under intense pressure.",
+        "player_id": "6c7890123456abcdef123454",
+        "player_transfermarkt_id": "162345",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centralmidfield",
+        "played_position": "centralmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Controlled the midfield, contributing both defensively and offensively. His passing helped unlock the opposition defense, though his lack of speed was exposed at times.",
+        "player_id": "6c7890123456abcdef123454",
+        "player_transfermarkt_id": "162345",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centralmidfield",
+        "played_position": "centralmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Impressed with his range of passing, but his defensive contribution was minimal. Got caught out in transitions, leaving gaps in midfield.",
+        "player_id": "6c7890123456abcdef123454",
+        "player_transfermarkt_id": "162345",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centralmidfield",
+        "played_position": "centralmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Showed excellent ball control and vision. Created a goal with a long pass but was easily outpaced when trying to recover defensively.",
+        "player_id": "6c7890123456abcdef123454",
+        "player_transfermarkt_id": "162345",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centralmidfield",
+        "played_position": "centralmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "His passing was excellent throughout, but his lack of physicality was a concern. Got dominated in duels but contributed to the team’s attacking play.",
+        "player_id": "6c7890123456abcdef123454",
+        "player_transfermarkt_id": "162345",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centralmidfield",
+        "played_position": "centralmidfield"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a striker, scoring a goal with a well-placed header. His positioning was good, but his movement off the ball could have been better.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "173457",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Scored two goals and was a constant threat in the box. His heading was exceptional, but he struggled with hold-up play.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "173457",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "4321",
+        "text": "His physicality helped him dominate defenders, scoring a goal and assisting another. However, he struggled when isolated upfront.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "173457",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played well as a target man, winning aerial duels and linking up with midfielders. Scored from a corner but was quiet for long periods.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "173457",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Scored a goal from a quick counterattack. His heading ability was again a major asset, but his passing and first touch let him down at times.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "173457",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "striker",
+        "played_position": "striker"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a central defender, showing great anticipation and winning most of his duels. His distribution was safe but unremarkable.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "184567",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Defensively solid, especially in one-on-one situations. However, his passing game in build-up play was poor, often leading to turnovers.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "184567",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played an excellent defensive game, covering well and preventing several scoring chances. His lack of speed was a concern on counters.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "184567",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Showed great leadership in organizing the defense. Strong in the air but still struggled with faster opponents.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "184567",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "His defensive positioning was excellent, but his passing game remained a weak point. Allowed little space for his opponents, though he was outpaced on occasion.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "184567",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "centerback",
+        "played_position": "centerback"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Played as a winger, constantly stretching the defense with his pace. Contributed with an assist but was often too selfish with the ball.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "195678",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Showed great speed and trickery, but his decision-making in the final third was poor. Still managed to deliver two key passes.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "195678",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Showed flashes of brilliance with a goal and an assist, but his inconsistency in decision-making continues to limit his potential.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "195678",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Was an ever-present danger on the wing, scoring a goal after a solo run. Defensively, he contributed little, leaving his full-back exposed.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "195678",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    },
+    {
+        "scout_id": "4321",
+        "text": "Created several chances with his pace and dribbling. However, his finishing let him down, missing two clear opportunities.",
+        "player_id": "6c7890123456abcdef123412",
+        "player_transfermarkt_id": "195678",
+        "grade_rating": 0.85,
+        "grade_potential": 0.9,
+        "main_position": "rightwing",
+        "played_position": "rightwing"
+    }
+]
