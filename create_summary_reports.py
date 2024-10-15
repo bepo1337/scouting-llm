@@ -148,7 +148,7 @@ def get_summary_from_llm(reports):
 # Now we go through the previously created map and create a summary based on those reports
 processed_players = []
 for id, reports in player_id_to_reports.items():
-    scout_id = 0
+    scout_id = "0"
     main_position = reports[0].main_position
     player_id_scoutastic = reports[0].player_id # we dont use this, this is a scoutastic ID
     played_position = reports[0].played_position
